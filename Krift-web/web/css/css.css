@@ -244,9 +244,10 @@ input.searchbar:focus {
 .navblock{
     margin: 0 auto;
     min-width: 700px;
-    width: 700px;
+    /* width: 700px; */
     margin-top: 15px;
     background-color: white;
+    border-radius: 2px;
     display: table;
     box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.05);
 }
@@ -256,7 +257,7 @@ input.searchbar:focus {
     padding: 10px;
     font-weight: bold;
     display: inline-block;
-    width: 660px;
+    width: 580px;
     max-width: 1030px;
     margin-bottom: 3px;
 }
@@ -303,6 +304,7 @@ input.searchbar:focus {
     margin: 5px 10px 15px 5px;
     position: relative;
     transition: 0.5s ease;
+    /* width: 30; */
 }
 
 .resultados li:hover .desc{
@@ -312,9 +314,7 @@ input.searchbar:focus {
 ul.resultados {
     list-style: none;
     padding: 10px;
-    min-width: 1039px;
     font-weight: bold;
-    max-width: 1030px;
 }
 
 .resultados #rcp{
@@ -646,4 +646,42 @@ select#selectTendencia {
 
 option {
     font-weight: bold;
+}
+
+.perfil .nomerank {
+    color: #ee4c58;
+    display: inline-table;
+    padding: 20px;
+    padding-top: 25px;
+}
+
+.perfil {
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.78);
+    background: rgba(255, 255, 255, 0.61);
+    position: relative;
+    display: flex;
+    border-radius: 2px;
+}
+
+.imgperfil {
+    border-radius: 3px;
+    border: 1px solid gainsboro;
+    box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    height: 128px;
+}
+
+.perfil .estastitica {
+    color: #ee4c58;
+    padding: 6px;
+    position: absolute;
+    bottom: 45px;
+    background-color: rgba(243, 243, 243, 0.66);
+    left: 180;
+    font-weight: bold;
+    /* width: 480; */
+    border-radius: 2px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.10);
+    font-size: 12px;
+    /* display: none; */
 }
