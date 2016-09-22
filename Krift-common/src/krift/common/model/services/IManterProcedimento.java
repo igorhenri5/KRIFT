@@ -3,17 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.dao;
+package krift.common.model.services;
 
 import krift.common.model.domain.Procedimento;
-import util.db.persistence.GenericDAO;
 
 /**
  *
- * @author Igor
+ * @author Administrador
  */
-
-public interface IProcedimentoDAO extends GenericDAO<Procedimento>{
+public interface IManterProcedimento extends GenericManter<Procedimento>{
     
 }
-
