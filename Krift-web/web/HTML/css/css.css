@@ -67,15 +67,6 @@
     font-weight: normal;
     src: url('proximanova-bold-webfont.ttf');
 }
-
-html{
-    min-width: 100%;
-}
-
-body{
-    overflow: auto;
-}
-
 .header {
     position: fixed;
     top: 0px;
@@ -90,18 +81,6 @@ body{
     /* box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.05); */
 }
 
-.iconRanking{
-    background-image: url(../trphy.png);
-}
-
-.iconHome{
-    background-image: url(../home.png);
-}
-
-.iconMessage{
-    background-image: url(../msg.png);
-    margin-top: 3px;
-}
 
 * {
     margin: 0px;
@@ -114,10 +93,6 @@ body{
     margin-top: 15px;
 }
 
-.right div{
-    display:inline-block;
-}
-
 .content {
     background-color: rgb(243,243,243);
     background: #ecebea;
@@ -127,7 +102,6 @@ body{
     box-sizing: border-box;
     min-height: 100%;
     display: table;
-    text-align: center;
 }
 
 aside.sidebar {
@@ -149,7 +123,6 @@ aside.sidebar {
     position: relative;
     top: -25px;
     left: 190;
-    display: block !important;
 }
 
 .left {
@@ -180,7 +153,6 @@ aside.sidebar {
     color: white;
     font-size: 24px;
     box-shadow: 3px 3px 5px -1px rgba(0,0,0,0.2);
-    cursor: pointer;
 }
 
 #options {
@@ -278,7 +250,6 @@ input.searchbar:focus {
 
 .wrapper {
     display: inline-flex;
-    text-align: left;
 }
 
 .navblock{
@@ -292,15 +263,12 @@ input.searchbar:focus {
     box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.05);
 }
 
-.sidenav .navicon {
-    top: 25px;
-}
-
 .passos{
     list-style: none;
     padding: 10px;
     font-weight: bold;
     display: inline-block;
+    width: 96%;
     max-width: 1030px;
     margin-bottom: 3px;
 }
@@ -341,6 +309,7 @@ input.searchbar:focus {
     transition: all 0.4s ease-out;
 }
 
+
 .resultados li {
     display: inline-block;
     margin: 5px 5px 5px 5px;
@@ -349,6 +318,8 @@ input.searchbar:focus {
     max-width: 240px;
     min-width: 240px;
 }
+
+
 
 .resultados li:hover .desc{
     top:0px;
@@ -374,7 +345,7 @@ input.searchbar:focus {
     opacity: 0;
 }
 
-.desc .tendencia {
+.desc .TENDÊNCIA {
     color: #f0e0b7;
     position: absolute;
     bottom: 10px;
@@ -393,7 +364,6 @@ ul.resultados {
     font-weight: bold;
     max-width: 1035px;
 }
-
 
 .resultados #rcp{
     font-size: 16px;
@@ -483,17 +453,7 @@ img.navicon {
     z-index: 2;
 }
 
-h5.onivoro {
-    padding: 4px 10px;
-    font-size: 10px;
-    margin-right: 5px;
-    border: 1px solid #42b1d7;
-    border-radius: 10em;
-    color: #42b1d7;
-    display: inline-block;
-}
-
-h5.carnivoro{
+h5.TENDÊNCIAO {
     padding: 4px 10px;
     font-size: 10px;
     margin-right: 5px;
@@ -501,36 +461,6 @@ h5.carnivoro{
     border-radius: 10em;
     color: #ee4c58;
     display: inline-block;
-}
-
-h5.vegano{
-    padding: 4px 10px;
-    font-size: 10px;
-    margin-right: 5px;
-    border: 1px solid #d5d548;
-    border-radius: 10em;
-    color: #d5d548;
-    display: inline-block;
-}
-
-h5.vegetariano{
-    padding: 4px 10px;
-    font-size: 10px;
-    margin-right: 5px;
-    border: 1px solid #8ee04c;
-    border-radius: 10em;
-    color: #8ee04c;
-    display: inline-block;
-}
-
-h5.none{
-    padding: 4px 10px;
-    font-size: 10px;
-    margin-right: 5px;
-    border: 1px solid #000000;
-    border-radius: 10em;
-    color: #000000;
-    display: inline-block;    
 }
 
 .receitaImg {
@@ -555,15 +485,6 @@ h5.none{
     /* box-shadow: 0 1px 2px rgba(0,0,0,.1); */
 }
 
-.receitaDesc h4{
-    margin: 10px 0px 5px 0px;
-}
-
-.receitaDesc span{
-    font-weight: bold;
-    font-size: 12px;
-}
-
 .receitaAutor {
     display: inline-block;
     float: right;
@@ -577,14 +498,6 @@ h5.none{
     font-size: 10px;
     font-style: italic;
     margin: 7px 10px;
-}
-
-.idt a{
-    display: block;
-    font-size: 14px;
-    font-style: normal;
-    color: black;
-    text-decoration: none;
 }
 
 .receitaAutor img {
@@ -623,20 +536,6 @@ h5.none{
 .IRT h2 {
     color: #ee4c58;
     background: #ffffff;
-}
-
-.IRT .small {
-    min-height: 150px;
-    width: 215px;
-    background: white;
-    margin: 0px;
-    margin-bottom: 15px;
-    box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.05);
-
-}
-
-.IRT{
-    padding-top: 15px;
 }
 
 .comentar {
@@ -682,7 +581,7 @@ h1 { font-size: 1.5em; margin: 10px; }
     font-size: 1.25em;
     font-family: "Arial";
     display: inline-block;
-    content: "\2605";    
+    content: "\2605";
 }
 
 .rating > .half:before { 
@@ -716,23 +615,6 @@ h1 { font-size: 1.5em; margin: 10px; }
     color: #f04f55;
     outline: 0px;
     font-weight: bold;
-}
-
-.formBotao{
-    position: absolute;
-    z-index: 100;
-    top: 0px;
-    width: 100%;
-    height: 100%;
-    border: 1px solid gainsboro;
-    padding: 10px;
-    box-shadow: 0 1px 2px rgba(0,0,0,.1);
-    background-color: #503435;
-    background-color: #f04f55;
-    color: #ffffff;
-    outline: 0px;
-    font-weight: bold;
-    cursor: pointer;    
 }
 
 .passos h4{
@@ -805,7 +687,7 @@ h1 { font-size: 1.5em; margin: 10px; }
     box-shadow: 0 1px 2px rgba(0,0,0,.1);
 }
 
-#selectTendencia {
+select#selectTendencia {
     width: 580px;
     outline: 0px;
     resize: none;
@@ -826,13 +708,6 @@ option {
     color: #ee4c58;
     display: table;
     padding: 25 20 9 20;
-    font-weight: bold;
-}
-
-.nomerank h2{
-    font-weight: bold;
-    font-size: 30px;
-    color: #595858;
 }
 
 .perfil {
@@ -898,45 +773,3 @@ table.ranking {
     box-sizing: border-box;
 }
 
-.whitetitle {
-    box-shadow: none !important;
-    color: #ee4c58 !important;
-    background: #ffffff !important;
-}
-
-.sobrePerfil{
-    padding: 20px;
-    font-weight: bold;    
-}
-
-
-.sobrePerfil h4{  
-    color: red;margin-bottom: 5px;
-}
-
-.sobrePerfil span{
-    font-size:14px;    
-}
-
-.ulx3 {
-    width: 780px;
-}
-
-.ul4{
-    width: 1035px;
-}
-
-.perfilBG {
-    background: url(https://il7.picdn.net/shutterstock/videos/5453105/thumb/9.jpg);
-    background-size: contain;
-    border-radius: 2px;
-}
-
-.sobreKrift {
-    margin: 10px;
-    padding: 10px;
-    font-size: 15;
-    line-height: 24px;
-    font-weight: bold;
-    max-width: 1030px;
-}
