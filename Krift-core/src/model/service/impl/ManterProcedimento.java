@@ -7,12 +7,12 @@ package model.service.impl;
 
 import model.dao.IProcedimentoDAO;
 import model.dao.impl.ProcedimentoDAO;
-import model.domain.Procedimento;
-import model.service.IManterProcedimento;
+import krift.common.model.domain.Procedimento;
+import krift.common.model.services.IManterProcedimento;
 import util.db.exception.NegocioException;
 import util.db.exception.PersistenciaException;
 import java.util.List;
-import model.service.IManterProcedimento;
+import krift.common.model.services.IManterProcedimento;
 
 /**
  *

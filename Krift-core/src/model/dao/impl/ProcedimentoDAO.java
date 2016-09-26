@@ -1,7 +1,7 @@
 package model.dao.impl;
 
 import model.dao.IProcedimentoDAO;
-import model.domain.Procedimento;
+import krift.common.model.domain.Procedimento;
 import util.db.JDBCConnectionManager;
 import util.db.exception.PersistenciaException;
 import java.sql.Connection;
