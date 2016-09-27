@@ -24,7 +24,8 @@ public class UsuarioDAO implements IUsuarioDAO{
     public boolean inserir(Usuario usuario) throws PersistenciaException {
         Long id = null;
         boolean sucesso = false;
-
+        
+        
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
             String sql = "INSERT INTO \"USUARIO\"(" +
@@ -213,8 +214,9 @@ public class UsuarioDAO implements IUsuarioDAO{
                         "  NATURAL JOIN \"IMAGEM_USUARIO\"" +
                         "WHERE \"NOM_LOGIN\" = ? AND \"SENHA\" = ?;";
             PreparedStatement statement = connection.prepareStatement(sql);
+            
              statement.setString(1, name);
-             statement.setString(1, senha);
+             statement.setString(2, senha);
             
             ResultSet resultSet = statement.executeQuery();
             

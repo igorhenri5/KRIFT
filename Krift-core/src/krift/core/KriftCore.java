@@ -17,12 +17,11 @@ import krift.core.skeleton.Skeleton;
 public class KriftCore {
 
     public static void main(String args[]) throws IOException {
-
-        ServerSocket server = null;
+        ServerSocket server = new ServerSocket(2223);
         try {
-
             while (true) {
                 Socket socket = server.accept();
+                System.out.println("STUFF");
                 Skeleton skeleton = new Skeleton(socket);
                 Thread t = new Thread(skeleton);
                 t.start();
@@ -31,6 +30,7 @@ public class KriftCore {
             if (server != null) {
                 server.close();
             }
+            e.printStackTrace();
         }
     }
 }

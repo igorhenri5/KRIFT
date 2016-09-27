@@ -130,5 +130,21 @@ public class stubManterReceita implements IManterReceita{
             return null;
         }
     }
+
+    @Override
+    public Receita visualizar(long id) throws PersistenciaException, NegocioException {
+        try {
+            socket = new Socket(host, port);
+            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
+            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
+            out.writeObject(Request.VISITAR_RECEITA);
+            out.writeObject(id);
+            out.flush();
+            Receita resposta = (Receita) in.readObject();
+            return resposta;
+        } catch (IOException | ClassNotFoundException ex) {
+            return null;
+        }
+    }
     
 }

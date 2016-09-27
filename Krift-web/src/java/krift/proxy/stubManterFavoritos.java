@@ -5,7 +5,11 @@
  */
 package krift.proxy;
 
+import java.util.ArrayList;
+import krift.common.model.domain.Receita;
 import krift.common.model.services.IManterFavoritos;
+import util.db.exception.NegocioException;
+import util.db.exception.PersistenciaException;
 
 /**
  *
@@ -14,12 +18,17 @@ import krift.common.model.services.IManterFavoritos;
 public class stubManterFavoritos implements IManterFavoritos{
 
     @Override
-    public boolean favoritar() {
+    public boolean favoritar(String nom_login, long nro_seq_receita) throws PersistenciaException, NegocioException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean desfavoritar() {
+    public ArrayList<Receita> listarFavoritos(String nom_login, long nro_seq_receita) throws PersistenciaException, NegocioException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean desfavoritar(String nom_login, long nro_seq_receita) throws PersistenciaException, NegocioException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

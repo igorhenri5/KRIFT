@@ -40,7 +40,6 @@ public class Cadastrar {
                 user.setEmail(email);
                 user.setNom_login(nomeUsuario);
                 user.setSenha(senha);            
-                        
                 if(manter.cadastrar(user)){      
                     jsp = "/index.jsp";
                     request.getSession().setAttribute("usuario", user);

@@ -23,7 +23,6 @@ import util.db.exception.PersistenciaException;
  */
 public class stubManterUsuario implements IManterUsuario{
 
-    private Usuario user;
     private Socket socket;
     private String host = "localhost";
     private int port = 2223;
@@ -58,9 +57,8 @@ public class stubManterUsuario implements IManterUsuario{
             socket = new Socket(host, port);
             ObjectInputStream in = AbstractInOut.getObjectReader(socket);
             ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-            
             out.writeObject(Request.CADASTRAR);
-            out.writeObject(user);
+            out.writeObject(usuario);
             out.flush();
             
             boolean resposta = in.readBoolean();            
@@ -78,7 +76,7 @@ public class stubManterUsuario implements IManterUsuario{
             ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
             
             out.writeObject(Request.CADASTRAR);
-            out.writeObject(user);
+            out.writeObject(usuario);
             out.flush();
             
             boolean resposta = in.readBoolean();            

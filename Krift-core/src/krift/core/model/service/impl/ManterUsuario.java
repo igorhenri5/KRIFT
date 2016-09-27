@@ -30,12 +30,17 @@ public class ManterUsuario implements IManterUsuario{
 
     @Override
     public boolean cadastrar(Usuario usuario) throws PersistenciaException, NegocioException {
+        
         IUsuarioDAO usuarioDAO = new UsuarioDAO();
+        
+        
         if(usuario.getSenha()== null ||
            usuario.getNom_login()== null ||
            usuario.getEmail()== null){
             throw new NegocioException("Nome, senha e email são obrigatorios");
         }
+        
+        
         return usuarioDAO.inserir(usuario);
     }
 

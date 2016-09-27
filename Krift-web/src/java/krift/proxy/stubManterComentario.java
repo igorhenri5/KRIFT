@@ -41,5 +41,15 @@ public class stubManterComentario implements IManterComentario{
     public List<Comentario> listarTodos() throws PersistenciaException, NegocioException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public boolean comentar(Comentario comentario) throws PersistenciaException, NegocioException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean deletarComentario(Comentario comentario) throws PersistenciaException, NegocioException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

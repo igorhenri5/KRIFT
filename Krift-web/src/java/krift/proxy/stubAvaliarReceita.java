@@ -26,16 +26,6 @@ public class stubAvaliarReceita implements IAvaliarReceita{
     }
 
     @Override
-    public boolean comentar(Comentario comentario) throws PersistenciaException, NegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean excluirComentario(Comentario comentario) throws PersistenciaException, NegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public boolean avaliar(Avaliacao avaliacao) throws PersistenciaException, NegocioException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
