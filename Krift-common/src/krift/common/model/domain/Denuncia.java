@@ -5,11 +5,13 @@
  */
 package krift.common.model.domain;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Aluno
  */
-public class Denuncia {
+public class Denuncia implements Serializable{
     private long seq_denuncia;
     private long nro_seq_receita;
     private String des_comentario;

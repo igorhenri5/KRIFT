@@ -5,13 +5,14 @@
  */
 package krift.common.model.domain;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  *
  * @author Nome
  */
-public class Comentario {
+public class Comentario implements Serializable{
     private Date dat_publicacao;
     private long nro_seq_receita;
     private String nom_login;

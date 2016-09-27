@@ -5,6 +5,7 @@
  */
 package krift.common.model.domain;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author Aluno
  */
-public class Receita {
+public class Receita implements Serializable{
     private long nro_seq_receita;
     private String num_login;
     private String nom_receita;

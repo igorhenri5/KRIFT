@@ -5,11 +5,13 @@
  */
 package krift.common.model.domain;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Nome
  */
-public class Ingrediente {
+public class Ingrediente implements Serializable{
     private long nro_seq_receita;
     private long nro_seq_ingrediente;
     private String des_quantidade;
