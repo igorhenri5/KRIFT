@@ -5,11 +5,17 @@
  */
 package krift.common.model.services;
 
+import java.util.ArrayList;
+import krift.common.model.domain.Receita;
+import util.db.exception.NegocioException;
+import util.db.exception.PersistenciaException;
+
 /**
  *
  * @author Aluno
  */
 public interface IManterFavoritos {
-    public boolean favoritar();
-    public boolean desfavoritar();
+    public boolean favoritar(String nom_login, long nro_seq_receita) throws PersistenciaException, NegocioException;
+    public ArrayList<Receita> listarFavoritos(String nom_login, long nro_seq_receita) throws PersistenciaException, NegocioException;
+    public boolean desfavoritar(String nom_login, long nro_seq_receita) throws PersistenciaException, NegocioException;
 }

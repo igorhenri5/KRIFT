@@ -6,7 +6,6 @@
 package krift.core.model.service.impl;
 
 import krift.common.model.domain.Avaliacao;
-import krift.common.model.domain.Comentario;
 import krift.common.model.domain.Denuncia;
 import krift.common.model.domain.Receita;
 import krift.common.model.services.IAvaliarReceita;
@@ -23,17 +22,7 @@ public class AvaliarReceita implements IAvaliarReceita{
     public boolean denunciar(Denuncia denuncia) throws PersistenciaException, NegocioException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public boolean comentar(Comentario comentario) throws PersistenciaException, NegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean excluirComentario(Comentario comentario) throws PersistenciaException, NegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
     @Override
     public boolean avaliar(Avaliacao avaliacao) throws PersistenciaException, NegocioException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

@@ -14,8 +14,9 @@ import util.db.exception.PersistenciaException;
  * @author Nome
  */
 public interface IUsuarioDAO{
-    String inserir(Usuario obj) throws PersistenciaException;
-    void atualizar(Usuario obj) throws PersistenciaException;
+    boolean inserir(Usuario obj) throws PersistenciaException;
+    boolean atualizar(Usuario obj) throws PersistenciaException;
     Usuario consultarPorNome(String name) throws PersistenciaException;
     ArrayList<Usuario> listarTodos() throws PersistenciaException;
+    boolean login(String name, String senha) throws PersistenciaException;
 }

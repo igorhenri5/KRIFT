@@ -18,6 +18,7 @@ public interface IManterReceita{
     public boolean criar(Receita receita) throws PersistenciaException, NegocioException;
     public boolean alterar(Receita receita) throws PersistenciaException, NegocioException;
     public boolean excluir(long id) throws PersistenciaException, NegocioException;
+    public Receita visualizar(long id) throws PersistenciaException, NegocioException;
     public ArrayList<Receita> buscar(String sql) throws PersistenciaException, NegocioException;
     public ArrayList<Receita> listarReceitasRecomendadas(String nom_login) throws PersistenciaException, NegocioException;
     public ArrayList<Receita> listarReceitasPorUsuario(String nom_login) throws PersistenciaException, NegocioException;    

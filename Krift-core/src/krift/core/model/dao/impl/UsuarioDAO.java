@@ -21,56 +21,25 @@ import util.db.exception.PersistenciaException;
 public class UsuarioDAO implements IUsuarioDAO{
 
     @Override
-    public String inserir(Usuario usuario) throws PersistenciaException {
+    public boolean inserir(Usuario usuario) throws PersistenciaException {
         Long id = null;
-        String name = null;
+        boolean sucesso = false;
 
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql ="BEGIN;";
+            String sql = "INSERT INTO \"USUARIO\"(" +
+                        "            \"NOM_LOGIN\"," +
+                        "            \"EMAIL\", \"SENHA\")" +
+                        "    VALUES (?, ?, ?) returning \"NOM_LOGIN\";";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.executeQuery();
-             sql ="INSERT INTO \"IMAGEM_USUARIO\"(\"ARQ_IMAGEM\")" +
-                  "    VALUES (?)  returning \"SEQ_IMAGEM\";";
-
-            statement = connection.prepareStatement(sql);
-
-            statement.setBytes(1, usuario.getImagem());
-            
-            ResultSet resultSet = statement.executeQuery();
-            
-            if (resultSet.next()) {
-                id = resultSet.getLong("SEQ_IMAGEM");
-                usuario.setSeq_imagem(id);
-            }else{
-                sql ="ROLLBACK;";
-                statement = connection.prepareStatement(sql);
-                throw new PersistenciaException("Não foi possivel enviar a imagem");
-            }
-            
-            sql = "INSERT INTO \"USUARIO\"(" +
-                        "            \"NOM_LOGIN\", \"SEQ_IMAGEM\", \"NOM_PERFIL_USUARIO\", \"DAT_CADASTRO\"," +
-                        "            \"EMAIL\", \"SENHA\", \"DES_USUARIO\", \"IDT_TENDENCIA\"," +
-                        "            \"NRO_PONTOS\", \"POS_RANKING\")" +
-                        "    VALUES (?, ?, ?, ?," +
-                        "            ?, ?, ?, ?, ?," +
-                        "            ?, ?) returning \"NOM_LOGIN\";";
-            statement = connection.prepareStatement(sql);
             statement.setString(1, usuario.getNom_login());
-            statement.setLong(2, usuario.getSeq_imagem());
-            statement.setString(3, usuario.getNom_perfil_usuario());
-            statement.setDate(4, usuario.getDat_cadastro());
-            statement.setString(5, usuario.getEmail());
-            statement.setString(6, usuario.getSenha());
-            statement.setString(7, usuario.getDes_usuario());
-            statement.setString(8, usuario.getIdt_tendencia());
-            statement.setLong(9, 0);
-            statement.setLong(10, 0);
+            statement.setString(2, usuario.getEmail());
+            statement.setString(3, usuario.getSenha());
 
-            resultSet = statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                name = resultSet.getString("NOM_LOGIN");
+                sucesso = true;
                 sql ="COMMIT;";
                 statement = connection.prepareStatement(sql);
                 statement.executeQuery();
@@ -88,13 +57,13 @@ public class UsuarioDAO implements IUsuarioDAO{
             throw new PersistenciaException(e.getMessage(), e);
         }
 
-        return name;
+        return sucesso;
     }
 
     @Override
-    public void atualizar(Usuario usuario) throws PersistenciaException {
+    public boolean atualizar(Usuario usuario) throws PersistenciaException {
         Long id = null;
-        String name = null;
+        boolean sucesso = false;
 
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
@@ -138,7 +107,7 @@ public class UsuarioDAO implements IUsuarioDAO{
             resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                name = resultSet.getString("NOM_LOGIN");
+                sucesso = true;
                 sql ="COMMIT;";
                 statement = connection.prepareStatement(sql);
                 statement.executeQuery();
@@ -153,6 +122,7 @@ public class UsuarioDAO implements IUsuarioDAO{
             e.printStackTrace();
             throw new PersistenciaException(e.getMessage(), e);
         }
+        return sucesso;
     }
 
     @Override
@@ -229,6 +199,35 @@ public class UsuarioDAO implements IUsuarioDAO{
             throw new PersistenciaException(e.getMessage(), e);
         }
         return usuarios;
+    }
+
+    @Override
+    public boolean login(String name, String senha) throws PersistenciaException {
+        boolean usuario = false;
+        try{
+            Connection connection = JDBCConnectionManager.getInstance().getConnection();
+            String sql ="SELECT \"NOM_LOGIN\", \"SEQ_IMAGEM\", \"NOM_PERFIL_USUARIO\", \"DAT_CADASTRO\", " +
+                        "       \"EMAIL\", \"SENHA\", \"DES_USUARIO\", \"IDT_TENDENCIA\", \"NRO_PONTOS\", " +
+                        "       \"POS_RANKING\", \"ARQ_IMAGEM\"" +
+                        "  FROM \"USUARIO\"\n" +
+                        "  NATURAL JOIN \"IMAGEM_USUARIO\"" +
+                        "WHERE \"NOM_LOGIN\" = ? AND \"SENHA\" = ?;";
+            PreparedStatement statement = connection.prepareStatement(sql);
+             statement.setString(1, name);
+             statement.setString(1, senha);
+            
+            ResultSet resultSet = statement.executeQuery();
+            
+            if (resultSet.next()) {
+                usuario = true;
+            }
+            
+            connection.close();
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new PersistenciaException(e.getMessage(), e);
+        }
+        return usuario;
     }
     
 }

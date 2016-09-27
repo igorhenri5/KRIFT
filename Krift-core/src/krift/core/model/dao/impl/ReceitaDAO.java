@@ -26,9 +26,9 @@ import util.db.exception.PersistenciaException;
 public class ReceitaDAO implements IReceitaDAO{
 
     @Override
-    public long inserir(Receita receita) throws PersistenciaException {
+    public boolean inserir(Receita receita) throws PersistenciaException {
         Long id_image = null;
-        Long id_receita = null;
+        boolean sucesso = false;
 
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
@@ -72,8 +72,8 @@ public class ReceitaDAO implements IReceitaDAO{
             resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                id_receita = resultSet.getLong("NRO_SEQ_RECEITA");
-                receita.setNro_seq_receita(id_receita);
+                sucesso = true;
+                receita.setNro_seq_receita(resultSet.getLong("NRO_SEQ_RECEITA"));
                 statement.executeQuery();
             }else{
                 sql ="ROLLBACK;";
@@ -99,12 +99,13 @@ public class ReceitaDAO implements IReceitaDAO{
             throw new PersistenciaException(e.getMessage(), e);
         }
 
-        return id_receita;
+        return sucesso;
     }
 
     @Override
-    public void atualizar(Receita receita) throws PersistenciaException {
+    public boolean atualizar(Receita receita) throws PersistenciaException {
         Long id_image = null;
+        boolean sucesso = false;
 
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
@@ -165,16 +166,18 @@ public class ReceitaDAO implements IReceitaDAO{
             sql ="COMMIT;";
             statement = connection.prepareStatement(sql);
             statement.executeQuery();
-            
+            sucesso = true;
             connection.close();
         }catch (Exception e){
             e.printStackTrace();
             throw new PersistenciaException(e.getMessage(), e);
         }
+        return sucesso;
     }
 
     @Override
-    public void excluir(long id) throws PersistenciaException {
+    public boolean excluir(long id) throws PersistenciaException {
+        boolean sucesso = false;
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
             String sql ="DELETE FROM \"IMAGEM\" WHERE \"SEQ_IMAGEM\" = ("
@@ -184,10 +187,12 @@ public class ReceitaDAO implements IReceitaDAO{
 
             statement.setLong(1, id);
             statement.executeQuery();
+            sucesso = true;
         }catch(Exception e){
             e.printStackTrace();
             throw new PersistenciaException(e.getMessage(), e);
         }
+        return sucesso;
     }
 
     @Override
@@ -274,5 +279,57 @@ public class ReceitaDAO implements IReceitaDAO{
         }
         return receitas;
     }
-    
+
+    @Override
+    public ArrayList<Receita> buscar(String sql) throws PersistenciaException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<Receita> recomendados(String nom_login) throws PersistenciaException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<Receita> listarPorUsuario(String nom_login) throws PersistenciaException {
+        IProcedimentoDAO procedimentoDAO = new ProcedimentoDAO();
+        IIngredienteDAO ingredienteDAO = new IngredienteDAO();
+        ArrayList<Receita> receitas = new ArrayList<>();
+        try{
+            Connection connection = JDBCConnectionManager.getInstance().getConnection();
+            String sql ="SELECT \"NRO_SEQ_RECEITA\", \"NOM_LOGIN\", \"SEQ_IMAGEM\", \"NOM_RECEITA\", " +
+                        "       \"DES_RECEITA\", \"DAT_PUBLICACAO\", \"IDT_TENDENCIA\", \"QTD_TEMPO\", " +
+                        "       \"QTD_RENDIMENTO\"" +
+                        "  FROM public.\"RECEITA\"" +
+                        "  NATURAL JOIN \"IMAGEM\";"
+                    + "WHERE \"NOM_LOGIN\" = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, nom_login);
+            ResultSet resultSet = statement.executeQuery();
+            
+            while(resultSet.next()) {
+                Receita receita = new Receita();
+                IUsuarioDAO usuarioDAO = new UsuarioDAO();
+                receita.setAutor(usuarioDAO.consultarPorNome(resultSet.getString("NOM_LOGIN")));
+                receita.setSeq_imagem(resultSet.getLong("SEQ_IMAGEM"));
+                receita.setNro_seq_receita(resultSet.getLong("NRO_SEQ_RECEITA"));
+                receita.setNom_receita(resultSet.getString("NOM_RECEITA"));
+                receita.setDes_receita(resultSet.getString("DES_RECEITA"));
+                receita.setDat_publicacao(resultSet.getDate("DAT_PUBLICACAO"));
+                receita.setIdt_tendencia(resultSet.getString("IDT_TENDENCIA"));
+                receita.setQtd_tempo(resultSet.getInt("QTD_TEMPO"));
+                receita.setQtd_rendimento(resultSet.getInt("QTD_RENDIMENTO"));
+                receita.setImagem(resultSet.getBytes("ARQ_IMAGEM"));
+                receita.setIngredientes(ingredienteDAO.listarPorReceita(receita.getNro_seq_receita()));
+                receita.setProcedimentos(procedimentoDAO.listarPorReceita(receita.getNro_seq_receita()));
+                receitas.add(receita);
+            }
+            
+            connection.close();
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new PersistenciaException(e.getMessage(), e);
+        }
+        return receitas;
+    }
 }
