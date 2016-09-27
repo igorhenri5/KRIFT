@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<html><head>
+<html>
+    <head>
         <meta charset="utf-8"> 
         <title>Krift</title>
         <meta name="viewport" content="width=device-width,initial-scale=1, user-scalable=no"> 
@@ -22,11 +23,11 @@
                         <div class="iconMessage">
                         </div>
                     </button>
-                    <button onclick="alert('RANKING')">
+                    <button onclick="window.location='ranking.jsp'">
                         <div class="iconRanking">
                         </div>
                     </button>
-                    <button onclick="alert('HOME')">
+                    <button onclick="window.location='index.jsp'">
                         <div class="iconHome">
                         </div>
                     </button>
@@ -34,7 +35,7 @@
             </div>  
 
             <div class="middle">
-                <img src="klogo.png" class="klogo">
+                <a href="index.jsp"><img src="klogo.png" class="klogo"></a>
             </div>
             <div class="right">
                 <div>
@@ -90,7 +91,7 @@
                 </div>
 
                 <div>
-                    <form id="form">
+                    <form id="form" method="POST" action="/Krift/servletweb?acao=EditarPerfil">
                         <div class="navblock" style="padding-bottom: 20px;"> 
                             <h2 class="title whitetitle">EDIÇÃO DE PERFIL</h2>
 
@@ -110,7 +111,7 @@
                                             <option value="vegetarianismo">Vegetarianismo - Contém vegetais e derivados de animais</option>
                                             <option value="veganismo">Veganismo - Contém apenas vegetais</option>
                                             <option value="carnivorismo">Carnivorismo - Contém apenas carne</option>	
-                                            <option value="semtendencia">Sem tendência - Não classificado</option>
+                                            <option value="sem tendencia">Sem tendência - Não classificado</option>
                                         </select>
                                         <span>NECESSÁRIO</span>
                                     </div>

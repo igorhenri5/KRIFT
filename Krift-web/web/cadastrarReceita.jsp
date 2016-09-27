@@ -22,11 +22,11 @@
                         <div class="iconMessage">
                         </div>
                     </button>
-                    <button onclick="alert('RANKING')">
+                    <button onclick="window.location='ranking.jsp'">
                         <div class="iconRanking">
                         </div>
                     </button>
-                    <button onclick="alert('HOME')">
+                    <button onclick="window.location='index.jsp'">
                         <div class="iconHome">
                         </div>
                     </button>
@@ -34,7 +34,7 @@
             </div>  
 
             <div class="middle">
-                <img src="klogo.png" class="klogo">
+                <a href="index.jsp"><img src="klogo.png" class="klogo"></a>
             </div>
             <div class="right">
                 <div>
@@ -90,7 +90,7 @@
                 </div>
 
                 <div>   
-                    <form id="form">
+                    <form id="form" method="POST" action="/Krift/servletweb?acao=CriarReceita">
                         <div class="navblock" style="padding-bottom: 20px;"> 
 
                             <h2 class="title whitetitle">CADASTRO DE RECEITA - DADOS BÁSICOS</h2>

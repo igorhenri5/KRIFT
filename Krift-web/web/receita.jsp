@@ -24,11 +24,11 @@
                         <div class="iconMessage">
                         </div>
                     </button>
-                    <button onclick="alert('RANKING')">
+                    <button onclick="window.location='ranking.jsp'">
                         <div class="iconRanking">
                         </div>
                     </button>
-                    <button onclick="alert('HOME')">
+                    <button onclick="window.location='index.jsp'">
                         <div class="iconHome">
                         </div>
                     </button>
@@ -36,7 +36,7 @@
             </div>  
 
             <div class="middle">
-                <img src="klogo.png" class="klogo">
+                <a href="index.jsp"><img src="klogo.png" class="klogo"></a>
             </div>
             <div class="right">
                 <div>

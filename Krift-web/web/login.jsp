@@ -13,18 +13,13 @@
 
         <div class="login-page">
             <div class="form">
-
-
-                <img class="login-logo" src="klogo.png">
-                <form id="form" class="login-form">
+                <a href="index.jsp"><img class="login-logo" src="klogo.png"></a>
+                <form id="form" method="POST" action="/Krift/servletweb?acao=Login" class="login-form">
                     <input type="text" name="usuario" placeholder="Usuário">
                     <input type="password" name="senha" placeholder="Senha">
                     <button>login</button> 
                     <p class="message">Ainda não está registrado? 
-                        <a href="cadastro.html">Crie uma conta</a>
-                    </p>
-                    <p class="message">
-                        <a href="cadastro.html">Esqueci minha senha</a>
+                        <a href="cadastro.jsp">Crie uma conta</a>
                     </p>
                 </form> 
             </div>

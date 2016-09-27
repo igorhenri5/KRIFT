@@ -13,15 +13,15 @@
         <div class="login-page">
             <div class="form">
 
-                <img class="login-logo" src="klogo.png">
-                <form id="form" class="login-form">
+                <a href="index.jsp"><img class="login-logo" src="klogo.png"></a>
+                <form id="form" class="login-form" method="POST" action="/Krift/servletweb?acao=Cadastrar" class="login-form">
                     <input type="text" name="email" placeholder="Email"/>
                     <input type="text" name="usuario" placeholder="Usuário"/>
                     <input type="password" name="senha" placeholder="Senha"/>
                     <input type="password" name="confirmacao" placeholder="Confirmação de senha"/>
                     <button>Cadastrar</button>  
                     <p class="message">Já possui um registro? 
-                        <a href="login.html">Entre em sua conta</a>
+                        <a href="login.jsp">Entre em sua conta</a>
                     </p>
                 </form>
             </div> 

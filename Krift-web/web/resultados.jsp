@@ -21,11 +21,11 @@
                         <div class="iconMessage">
                         </div>
                     </button>
-                    <button onclick="alert('RANKING')">
+                    <button onclick="window.location='ranking.jsp'">
                         <div class="iconRanking">
                         </div>
                     </button>
-                    <button onclick="alert('HOME')">
+                    <button onclick="window.location='index.jsp'">
                         <div class="iconHome">
                         </div>
                     </button>
@@ -33,7 +33,7 @@
             </div>  
 
             <div class="middle">
-                <img src="klogo.png" class="klogo">
+                <a href="index.jsp"><img src="klogo.png" class="klogo"></a>
             </div>
             <div class="right">
                 <div>
@@ -87,11 +87,11 @@
                         </a> 
                     </ul>  
                 </div>
-
+                        
                 <div>
                     <div class="navblock"> 
                         <h2 class="title">RESULTADOS PARA "Sushi"</h2>
-
+                        <% /*for(){ %>
                         <ul class="resultados">  
                             <li>
                                 <div class="img" style="background-image:url(http://www.sisenor.com.br/wp-content/uploads/2016/01/banner_lamberjack.jpg);">
@@ -104,6 +104,7 @@
                                 </div>
                             </li>
                         </ul>  
+                        <% } */%>
                     </div>
                 </div>
 
