@@ -22,28 +22,38 @@ public class UsuarioDAO implements IUsuarioDAO{
 
     @Override
     public boolean inserir(Usuario usuario) throws PersistenciaException {
+        System.out.println("CADASTRAR");
+        
         Long id = null;
         boolean sucesso = false;
         
+        System.out.println("NOME  "+usuario.getNom_login());
+        System.out.println("EMAIL "+usuario.getEmail());
+        System.out.println("SENHA "+usuario.getSenha());
         
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
             String sql = "INSERT INTO \"USUARIO\"(" +
-                        "            \"NOM_LOGIN\"," +
+                        "            \"NOM_LOGIN\",\"NOM_PERFIL_USUARIO\"," +
                         "            \"EMAIL\", \"SENHA\")" +
-                        "    VALUES (?, ?, ?) returning \"NOM_LOGIN\";";
+                        "    VALUES (?, ?, ?, ?) returning \"NOM_LOGIN\";";
             PreparedStatement statement = connection.prepareStatement(sql);
+            
             statement.setString(1, usuario.getNom_login());
-            statement.setString(2, usuario.getEmail());
-            statement.setString(3, usuario.getSenha());
+            statement.setString(2, usuario.getNom_login());
+            statement.setString(3, usuario.getEmail());
+            statement.setString(4, usuario.getSenha());
 
+            //adicionar vinculo com a imagem padrão que será inserida no BD
+            
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
                 sucesso = true;
                 sql ="COMMIT;";
                 statement = connection.prepareStatement(sql);
-                statement.executeQuery();
+                statement.execute();
+                connection.commit();
             }else{
                 sql ="ROLLBACK;";
                 statement = connection.prepareStatement(sql);
@@ -204,15 +214,26 @@ public class UsuarioDAO implements IUsuarioDAO{
 
     @Override
     public boolean login(String name, String senha) throws PersistenciaException {
+        
+        System.out.println("LOGAR");
+        
+        System.out.println("NOME  "+name);
+        System.out.println("SENHA "+senha);
+        
         boolean usuario = false;
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql ="SELECT \"NOM_LOGIN\", \"SEQ_IMAGEM\", \"NOM_PERFIL_USUARIO\", \"DAT_CADASTRO\", " +
+           /* String sql ="SELECT \"NOM_LOGIN\", \"SEQ_IMAGEM\", \"NOM_PERFIL_USUARIO\", \"DAT_CADASTRO\", " +
                         "       \"EMAIL\", \"SENHA\", \"DES_USUARIO\", \"IDT_TENDENCIA\", \"NRO_PONTOS\", " +
                         "       \"POS_RANKING\", \"ARQ_IMAGEM\"" +
                         "  FROM \"USUARIO\"\n" +
                         "  NATURAL JOIN \"IMAGEM_USUARIO\"" +
+                        "WHERE \"NOM_LOGIN\" = ? AND \"SENHA\" = ?;";*/
+           
+            String sql ="SELECT \"NOM_LOGIN\""  +
+                        "  FROM \"USUARIO\"\n"  +
                         "WHERE \"NOM_LOGIN\" = ? AND \"SENHA\" = ?;";
+           
             PreparedStatement statement = connection.prepareStatement(sql);
             
              statement.setString(1, name);

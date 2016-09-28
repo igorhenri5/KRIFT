@@ -14,18 +14,17 @@ import krift.proxy.*;
  *
  * @author Igor
  */
-public class CriarReceita {
-    
+public class EditarReceita {
+
     public static String execute(HttpServletRequest request) {
-        
+
         String jsp = "index.jsp";
         String host = "localhost";
-        
+
         int port = 2223;
-        
         try {
             
-            Receita receita = new Receita();            
+            Receita receita = (Receita) request.getAttribute("receita");    
             
             String nome = request.getParameter("nome");
             String descricao = request.getParameter("descricao");
@@ -33,27 +32,23 @@ public class CriarReceita {
             String tempo = request.getParameter("tempo");
             String tendencia = request.getParameter("tendencia");
             String imagem = request.getParameter("imagem");
-            //lidar com ingredientes e passos
             
             IManterReceita manter = new stubManterReceita(host,port);
             
             if(false){ // trocar pra validação de campos
-                jsp = "/cadastrarReceita.jsp";
-            }else{
-                
-                receita.setNom_receita(nome);            
+                jsp = "/editarReceita.jsp";
+            }else{                          
                         
-                if(manter.criar(receita)){      
+                if(manter.alterar(receita)){      
                     jsp = "/index.jsp";
                 }
             }
             
         } catch (Exception e) {
             e.printStackTrace();
-            jsp = "/cadastrarReceita.jsp";
+            jsp = "/editarPerfil.jsp";
         }
-        
-        return jsp;        
-    }
-}    
 
+        return jsp;
+    }
+}

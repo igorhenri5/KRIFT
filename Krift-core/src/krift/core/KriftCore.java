@@ -21,7 +21,6 @@ public class KriftCore {
         try {
             while (true) {
                 Socket socket = server.accept();
-                System.out.println("STUFF");
                 Skeleton skeleton = new Skeleton(socket);
                 Thread t = new Thread(skeleton);
                 t.start();

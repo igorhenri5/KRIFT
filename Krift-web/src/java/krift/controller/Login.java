@@ -17,14 +17,13 @@ import krift.proxy.stubManterUsuario;
 public class Login {
 
     public static String execute(HttpServletRequest request) {
-        String jsp = "index.jsp";
+        String jsp = "login.jsp";
         String host = "localhost";
-
+        
         int port = 2223;
 
         try {
-            Usuario user = new Usuario();            
-
+            Usuario user = new Usuario();     
             String nomeUsuario = request.getParameter("usuario");
             String senha = request.getParameter("senha");            
             
@@ -32,8 +31,9 @@ public class Login {
             
             if(nomeUsuario.equals("")||nomeUsuario==null||senha.equals("")||senha==null){
                 jsp = "/login.jsp";
-            }else{            
-                if (manter.logar(nomeUsuario, senha)) {        
+            }else{     
+                if (manter.logar(nomeUsuario, senha)) {   
+                    user = manter.buscar(nomeUsuario);
                     jsp = "/index.jsp";
                     request.getSession().setAttribute("usuario", user);
                     request.getSession().setAttribute("logado", true);

@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import krift.common.model.domain.*;
 
 public class ServletWeb extends HttpServlet {
@@ -30,7 +31,13 @@ public class ServletWeb extends HttpServlet {
                 break;   
             case "Login":
                 jsp = Login.execute(request);
-                break;      
+                break;     
+            case "Logout":
+                HttpSession session = request.getSession(false);
+            if(session != null)
+                session.invalidate();            
+                jsp = "/login.jsp";
+                break;
             case "EditarPerfil":
                 jsp = EditarPerfil.execute(request);
                 break;    

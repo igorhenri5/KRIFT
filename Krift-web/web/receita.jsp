@@ -42,7 +42,10 @@
                 <div>
                     <input class="searchbar" placeholder="Buscar" type="text">	
                     <div class="sbutton"></div>
-                </div><div class="profileimage"></div>
+                </div><div class="profileimage">
+                    <div class="useropt"><a href="/Krift/servletweb?acao=Logout">SAIR</a>
+                    </div>
+                </div>
             </div>  
         </div>
 

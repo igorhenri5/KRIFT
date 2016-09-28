@@ -34,6 +34,7 @@ public class stubManterUsuario implements IManterUsuario{
     
     @Override
     public boolean logar(String nom_login, String Senha) throws PersistenciaException, NegocioException {
+        
         try {
             socket = new Socket(host, port);
             ObjectInputStream in = AbstractInOut.getObjectReader(socket);
@@ -44,15 +45,17 @@ public class stubManterUsuario implements IManterUsuario{
             out.writeObject(Senha);
             out.flush();
             
-            boolean resposta = in.readBoolean();            
+            boolean resposta = in.readBoolean();             
             return resposta;            
         } catch (IOException ex) {
-            return false;
+            ex.printStackTrace();
+            return false;            
         }
     }
 
     @Override
-    public boolean cadastrar(Usuario usuario) throws PersistenciaException, NegocioException {
+    public boolean cadastrar(Usuario usuario) throws PersistenciaException, NegocioException {      
+        
         try {
             socket = new Socket(host, port);
             ObjectInputStream in = AbstractInOut.getObjectReader(socket);
@@ -94,7 +97,7 @@ public class stubManterUsuario implements IManterUsuario{
             ObjectInputStream in = AbstractInOut.getObjectReader(socket);
             ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
             
-            out.writeObject(Request.LOGAR);
+            out.writeObject(Request.VISITAR_PERFIL);
             out.writeObject(nom_login);
             out.flush();
             

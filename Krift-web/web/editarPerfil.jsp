@@ -23,11 +23,11 @@
                         <div class="iconMessage">
                         </div>
                     </button>
-                    <button onclick="window.location='ranking.jsp'">
+                    <button onclick="window.location = 'ranking.jsp'">
                         <div class="iconRanking">
                         </div>
                     </button>
-                    <button onclick="window.location='index.jsp'">
+                    <button onclick="window.location = 'index.jsp'">
                         <div class="iconHome">
                         </div>
                     </button>
@@ -41,7 +41,12 @@
                 <div>
                     <input class="searchbar" placeholder="Buscar" type="text">	
                     <div class="sbutton"></div>
-                </div><div class="profileimage"></div>
+                </div>
+                <div class="profileimage">
+                    <div class="useropt">
+                        <a href="/Krift/servletweb?acao=Logout">SAIR</a>
+                    </div>
+                </div>
             </div>  
         </div>
 
@@ -73,7 +78,7 @@
                             </li>
                         </a>  
                         <%
-                            /* } */
+ /* } */
                         %>
                         <a href="#">
                             <li>

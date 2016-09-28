@@ -15,7 +15,7 @@ import krift.proxy.*;
  *
  * @author Igor
  */
-public class BuscarReceita {
+public class VisualizarUsuario {
     
     public static String execute(HttpServletRequest request) {
         
@@ -25,23 +25,24 @@ public class BuscarReceita {
         int port = 2223;
         
         try {
-            ArrayList<Receita> receitas = null;     
             
-            String nome = request.getParameter("nome");
-            String tendencia = request.getParameter("tendencia");
+            Usuario user = null;   
+            ArrayList<Receita> receitas = null;
             
-            String sql = "SELECT * FROM \"RECEITA\" WHERE \"nom_receita\" LIKE \""+nome+"\" AND \"idt_tendencia\"="+tendencia;
+            String nomeUsuario = request.getParameter("usuario");
             
-            IManterReceita manter = new stubManterReceita(host,port);     
+            IManterUsuario manter = new stubManterUsuario(host,port);            
+            IManterReceita manterR = new stubManterReceita(host, port);    
             
-            receitas = manter.buscar(sql);
-            
-            if(receitas!=null){
-                request.setAttribute("receitas", receitas);
-                jsp = "/resultados.jsp";
-            }else{
+            if(nomeUsuario==null||nomeUsuario.equals("")){
                 jsp = "/index.jsp";
-            }    
+            }else{           
+                user = manter.buscar(nomeUsuario);
+                receitas = manterR.listarReceitasPorUsuario(nomeUsuario);
+                if(user!=null){                         
+                    jsp = "/perfil.jsp";                     
+                }                
+            }
             
         } catch (Exception e) {
             e.printStackTrace();

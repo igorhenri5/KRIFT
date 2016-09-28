@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<html><head>
+
+<html>
+    <head>
         <meta charset="utf-8"> 
         <title>Krift</title>
         <meta name="viewport" content="width=device-width,initial-scale=1, user-scalable=no"> 
@@ -40,7 +42,10 @@
                 <div>
                     <input class="searchbar" placeholder="Buscar" type="text">	
                     <div class="sbutton"></div>
-                </div><div class="profileimage"></div>
+                </div><div class="profileimage">
+                    <div class="useropt"><a href="/Krift/servletweb?acao=Logout">SAIR</a>
+                    </div>
+                </div>
             </div>  
         </div>
 
