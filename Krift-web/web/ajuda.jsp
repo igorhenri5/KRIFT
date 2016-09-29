@@ -1,3 +1,4 @@
+<%@page import="krift.common.model.domain.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html><head>
         <meta charset="utf-8"> 
@@ -12,7 +13,7 @@
         <div class="header">
             <div class="left">
                 <div id="add">
-                    <button onclick="alert('ADD')">
+                    <button onclick="window.location='cadastrarReceita.jsp'">
                         <div class="addicon">                            
                         </div>
                     </button>                        
@@ -22,7 +23,7 @@
                         <div class="iconMessage">
                         </div>
                     </button>
-                    <button onclick="window.location='ranking.jsp'">
+                    <button onclick="window.location = '/Krift/servletweb?acao=ListarUsuarios'">
                         <div class="iconRanking">
                         </div>
                     </button>
@@ -40,10 +41,17 @@
                 <div>
                     <input class="searchbar" placeholder="Buscar" type="text">	
                     <div class="sbutton"></div>
-                </div><div class="profileimage">
-                    <div class="useropt"><a href="/Krift/servletweb?acao=Logout">SAIR</a>
+                </div>
+                <% 
+                    if(session.getAttribute("logado")!=null){ %>
+                <div class="profileimage">
+                    <div class="useropt">
+                        <a href="/Krift/servletweb?acao=Logout">SAIR</a>
                     </div>
                 </div>
+                <% }else{ %>
+                <a href="login.jsp" class="toLogin">LOGIN</a>    
+                <% } %>
             </div>  
         </div>
 
@@ -54,7 +62,7 @@
                     <img class="navicon" src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png">
                     <ul class="sidenav"> 
                         <%
-                            /* if(usuariocadastrado){ */
+                            if(session.getAttribute("logado")!=null){
                         %>
                         <a href="#">
                             <li> 
@@ -62,7 +70,7 @@
                                 <img class="navicon" src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png">  
                             </li>
                         </a>
-                        <a href="#">
+                        <a href="/Krift/servletweb?acao=VisualizarUsuario&nome=<%= ((Usuario)session.getAttribute("logado")).getNom_login() %>">
                             <li>  
                                 <span>MEU PERFIL</span>  
                                 <img class="navicon" src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png">
@@ -75,15 +83,15 @@
                             </li>
                         </a>  
                         <%
-                            /* } */
+                            }
                         %>
-                        <a href="#">
+                        <a href="ajuda.jsp">
                             <li>
                                 <span>SOBRE</span> 
                                 <img class="navicon" src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png">
                             </li>
                         </a>
-                        <a href="#">
+                        <a href="ajuda.jsp">
                             <li> 
                                 <span>AJUDA</span>
                                 <img class="navicon" src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png">

@@ -1,0 +1,101 @@
+@font-face {
+    font-family: 'PL';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Proxima Nova Alt Light'), url('Mark Simonson - Proxima Nova Alt Light.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'PL';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Proxima Nova Alt Light'), url('Mark Simonson - Proxima Nova Alt Light.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'ss';
+    font-style: normal;
+    font-weight: normal;
+    src: url('ssb.otf');
+}
+
+@font-face {
+    font-family: 'PR';
+    font-style: normal;
+    font-weight: normal;
+    src: url('Mark Simonson - Proxima Nova Alt Regular.otf');
+}
+
+@font-face {
+    font-family: 'PB';
+    font-style: normal;
+    font-weight: normal;
+    src: url('Mark Simonson - Proxima Nova Bold.otf');
+}
+
+@font-face {
+    font-family: 'PBL';
+    font-style: normal;
+    font-weight: normal;
+    src: url('Mark Simonson - Proxima Nova Black.otf');
+}
+
+@font-face {
+    font-family: 'pt';
+    font-style: normal;
+    font-weight: normal;
+    src: url('proximanova-thin-webfont.ttf');
+}
+
+@font-face {
+    font-family: 'pl';
+    font-style: normal;
+    font-weight: normal;
+    src: url('proximanova-light-webfont.ttf');
+}
+
+@font-face {
+    font-family: 'ps';
+    font-style: normal;
+    font-weight: normal;
+    src: url('proximanova-semibold-webfont.ttf');
+}
+
+@font-face {
+    font-family: 'pb';
+    font-style: normal;
+    font-weight: normal;
+    src: url('proximanova-bold-webfont.ttf');
+}
+.header {
+    position: fixed;
+    top: 0px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    z-index: 999;
+    height: 80px;
+    background-color: #ffffff;
+    box-shadow: 1px 0px 2px rgba(0,0,0,0.15);
+    /* box-shadow: 0px 0px 18px rgba(0,0,0,0.15); */
+    box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.05);
+}
+
+
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: "ss";
+}
+
+input {
+    width: 280px;
+    outline: 0px;
+    resize: none;
+    border: 1px solid gainsboro;
+    font-size: 12px;
+    padding: 10px;
+    color: #887a78;
+    font-weight: bold;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}

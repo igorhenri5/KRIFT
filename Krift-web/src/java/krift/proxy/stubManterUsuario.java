@@ -10,6 +10,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import krift.common.model.domain.Usuario;
 import krift.common.model.services.IManterUsuario;
 import krift.common.util.AbstractInOut;
@@ -39,15 +41,14 @@ public class stubManterUsuario implements IManterUsuario{
             socket = new Socket(host, port);
             ObjectInputStream in = AbstractInOut.getObjectReader(socket);
             ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-            
             out.writeObject(Request.LOGAR);
             out.writeObject(nom_login);
             out.writeObject(Senha);
             out.flush();
             
-            boolean resposta = in.readBoolean();             
+            boolean resposta = (Boolean)in.readObject();             
             return resposta;            
-        } catch (IOException ex) {
+        } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();
             return false;            
         }
@@ -63,11 +64,11 @@ public class stubManterUsuario implements IManterUsuario{
             out.writeObject(Request.CADASTRAR);
             out.writeObject(usuario);
             out.flush();
-            
-            boolean resposta = in.readBoolean();            
-            return resposta;
-        } catch (IOException ex) {
-            return false;
+            boolean resposta = (Boolean)in.readObject();             
+            return resposta;            
+        } catch (IOException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+            return false;            
         }
     }
 
@@ -115,12 +116,13 @@ public class stubManterUsuario implements IManterUsuario{
             socket = new Socket(host, port);
             ObjectInputStream in = AbstractInOut.getObjectReader(socket);
             ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-            out.writeObject(Request.LISTAR_USUARIOS);
+            out.writeObject(Request.LISTAR_RANKING);
             out.flush();
             ArrayList<Usuario> resposta = (ArrayList<Usuario>) in.readObject();
             return resposta;
         } catch (IOException | ClassNotFoundException ex) {
-            return null;
+            ex.printStackTrace();
+            return null;            
         }
     }
     

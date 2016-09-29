@@ -18,7 +18,7 @@ public class Cadastrar {
     
     public static String execute(HttpServletRequest request) {
         
-        String jsp = "index.jsp";
+        String jsp = "cadastro.jsp";
         String host = "localhost";
         
         int port = 2223;

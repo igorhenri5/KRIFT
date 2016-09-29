@@ -29,14 +29,14 @@ public class Login {
             
             IManterUsuario manter = new stubManterUsuario(host,port);
             
-            if(nomeUsuario.equals("")||nomeUsuario==null||senha.equals("")||senha==null){
+            if(nomeUsuario==null||nomeUsuario.equals("")||senha==null||senha.equals("")){
                 jsp = "/login.jsp";
             }else{     
                 if (manter.logar(nomeUsuario, senha)) {   
                     user = manter.buscar(nomeUsuario);
                     jsp = "/index.jsp";
-                    request.getSession().setAttribute("usuario", user);
-                    request.getSession().setAttribute("logado", true);
+                    
+                    request.getSession().setAttribute("logado", user);
                 }
             }
             

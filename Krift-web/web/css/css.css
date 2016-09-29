@@ -87,7 +87,7 @@ body{
     background-color: #ffffff;
     box-shadow: 1px 0px 2px rgba(0,0,0,0.15);
     /* box-shadow: 0px 0px 18px rgba(0,0,0,0.15); */
-    /* box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.05); */
+    /* box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.05); */    
 }
 
 .iconRanking{
@@ -277,7 +277,7 @@ input.searchbar:focus {
 }
 
 .wrapper {
-    display: inline-flex;
+    display: -webkit-inline-box;
     text-align: left;
 }
 
@@ -417,7 +417,7 @@ ul.resultados {
 }
 
 .sidebox {
-    height: 420px;
+    
     width: 300px;
     position: relative;
     background: #ee4c58;
@@ -438,10 +438,14 @@ ul.resultados {
     box-shadow: 0px 3px 13px -5px rgba(0,0,0,0.07);
     list-style: none;
     text-align: left;
-    transition: all 0.2s ease;
+    transition: all 0.5s ease;
     position: relative;
     background-color: white;
     padding-left: 15px;
+}
+
+.sidenav li:hover {
+    padding-left: 30px;
 }
 
 .sidenav li span {
@@ -965,3 +969,22 @@ table.ranking {
     opacity: 1;
 }
 
+.toLogin {
+    position: fixed;
+    margin: 20px;
+    line-height: 42px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    color: #ee4c58;
+}
+
+table a{
+    text-decoration: none;
+    color: black;
+    transition: 0.3s ease;
+}
+
+table td a:hover{
+    color: #ee4c58;
+}

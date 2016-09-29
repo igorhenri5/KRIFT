@@ -138,14 +138,15 @@ public class UsuarioDAO implements IUsuarioDAO{
 
     @Override
     public Usuario consultarPorNome(String name) throws PersistenciaException {
-        Usuario usuario = null;
+        Usuario usuario = new Usuario();        
+        
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
             String sql ="SELECT \"NOM_LOGIN\", \"SEQ_IMAGEM\", \"NOM_PERFIL_USUARIO\", \"DAT_CADASTRO\", " +
                         "       \"EMAIL\", \"SENHA\", \"DES_USUARIO\", \"IDT_TENDENCIA\", \"NRO_PONTOS\", " +
                         "       \"POS_RANKING\", \"ARQ_IMAGEM\"" +
                         "  FROM \"USUARIO\"\n" +
-                        "  NATURAL JOIN \"IMAGEM_USUARIO\"" +
+                        "  NATURAL JOIN \"IMAGEM\"" +
                         "WHERE \"NOM_LOGIN\" = ?;";
             PreparedStatement statement = connection.prepareStatement(sql);
              statement.setString(1, name);
@@ -153,7 +154,7 @@ public class UsuarioDAO implements IUsuarioDAO{
             ResultSet resultSet = statement.executeQuery();
             
             if (resultSet.next()) {
-                usuario.setNom_login(resultSet.getString("SEQ_LOGIN"));
+                usuario.setNom_login(resultSet.getString("NOM_LOGIN"));
                 usuario.setSeq_imagem(resultSet.getLong("SEQ_IMAGEM"));
                 usuario.setNom_perfil_usuario(resultSet.getString("NOM_PERFIL_USUARIO"));
                 usuario.setDat_cadastro(resultSet.getDate("DAT_CADASTRO"));
@@ -183,14 +184,14 @@ public class UsuarioDAO implements IUsuarioDAO{
                         "       \"EMAIL\", \"SENHA\", \"DES_USUARIO\", \"IDT_TENDENCIA\", \"NRO_PONTOS\", " +
                         "       \"POS_RANKING\", \"ARQ_IMAGEM\"" +
                         "  FROM \"USUARIO\"\n" +
-                        "  NATURAL JOIN \"IMAGEM_USUARIO\" ORDER BY 10;";                        
+                        "  NATURAL JOIN \"IMAGEM\" ORDER BY 10;";                        
             PreparedStatement statement = connection.prepareStatement(sql);
             
             ResultSet resultSet = statement.executeQuery();
             
             while(resultSet.next()) {
                 Usuario usuario = new Usuario();
-                usuario.setNom_login(resultSet.getString("SEQ_LOGIN"));
+                usuario.setNom_login(resultSet.getString("NOM_LOGIN"));
                 usuario.setSeq_imagem(resultSet.getLong("SEQ_IMAGEM"));
                 usuario.setNom_perfil_usuario(resultSet.getString("NOM_PERFIL_USUARIO"));
                 usuario.setDat_cadastro(resultSet.getDate("DAT_CADASTRO"));

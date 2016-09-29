@@ -74,8 +74,9 @@ public class Skeleton implements Runnable{
             Avaliacao avaliacao;
             Denuncia denuncia;
             
-            switch (command) {
-                
+            System.out.println("TRAB");
+            
+            switch (command) {                
                 case CADASTRAR:
                     usuario = (Usuario)reader.readObject();
                     writer.writeObject(manterUsuario.cadastrar(usuario));
@@ -167,7 +168,8 @@ public class Skeleton implements Runnable{
                     writer.writeObject(manterUsuario.listar());
                     break;
                     
-            }
+            }            
+            writer.close();
         } catch (IOException ex) {
             Logger.getLogger(Skeleton.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException(ex.getMessage());

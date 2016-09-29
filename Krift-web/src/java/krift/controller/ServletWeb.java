@@ -5,8 +5,6 @@ package krift.controller;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,40 +15,47 @@ import javax.servlet.http.HttpSession;
 import krift.common.model.domain.*;
 
 public class ServletWeb extends HttpServlet {
+
     private String jsp = "";
-    
+
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String acao = request.getParameter("acao");
-        String type = request.getParameter("type");        
-        
+        String type = request.getParameter("type");
+
         switch (acao) {
             case "Cadastrar":
                 jsp = Cadastrar.execute(request);
-                break;   
+                break;
             case "Login":
                 jsp = Login.execute(request);
-                break;     
+                break;
             case "Logout":
                 HttpSession session = request.getSession(false);
-            if(session != null)
-                session.invalidate();            
+                if (session != null) {
+                    session.invalidate();
+                }
                 jsp = "/login.jsp";
+                break;
+            case "VisualizarUsuario":
+                jsp = VisualizarUsuario.execute(request);
                 break;
             case "EditarPerfil":
                 jsp = EditarPerfil.execute(request);
-                break;    
+                break;
             case "CriarReceita":
                 jsp = CriarReceita.execute(request);
-                break;     
+                break;
             case "BuscarReceita":
                 jsp = BuscarReceita.execute(request);
-                break;      
+                break;
+            case "ListarUsuarios":
+                jsp = ListarUsuarios.execute(request);
+                break;
         }
-            
+
         RequestDispatcher rd = request.getRequestDispatcher(jsp);
         rd.forward(request, response);
-    }    
+    }
 }
-

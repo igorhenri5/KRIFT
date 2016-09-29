@@ -31,7 +31,9 @@ public class ListarUsuarios {
             IManterUsuario manter = new stubManterUsuario(host, port);
 
             user = manter.listar();
+            
             if (user != null) {
+                request.setAttribute("listaRanking", user);
                 jsp = "/ranking.jsp";
             }else{
                 jsp = "/index.jsp";

@@ -13,7 +13,7 @@
         <div class="header">
             <div class="left">
                 <div id="add">
-                    <button onclick="alert('ADD')">
+                    <button onclick="window.location='cadastrarReceita.jsp'">
                         <div class="addicon">                            
                         </div>
                     </button>                        
@@ -23,7 +23,7 @@
                         <div class="iconMessage">
                         </div>
                     </button>
-                    <button onclick="window.location='ranking.jsp'">
+                    <button onclick="window.location = '/Krift/servletweb?acao=ListarUsuarios'">
                         <div class="iconRanking">
                         </div>
                     </button>
@@ -55,7 +55,7 @@
                     <img class="navicon" src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png">
                     <ul class="sidenav"> 
                         <%
-                            /* if(usuariocadastrado){ */
+                            if(session.getAttribute("logado")!=null){
                         %>
                         <a href="#">
                             <li> 
@@ -76,7 +76,7 @@
                             </li>
                         </a>  
                         <%
- /* } */
+ }
                         %>
                         <a href="#">
                             <li>

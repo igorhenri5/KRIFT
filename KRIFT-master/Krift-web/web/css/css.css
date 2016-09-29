@@ -1,0 +1,712 @@
+@font-face {
+    font-family: 'PL';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Proxima Nova Alt Light'), url('Mark Simonson - Proxima Nova Alt Light.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'PL';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Proxima Nova Alt Light'), url('Mark Simonson - Proxima Nova Alt Light.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'museo';
+    font-style: normal;
+    font-weight: normal;
+    src: url('museo.otf');
+}
+
+@font-face {
+    font-family: 'PR';
+    font-style: normal;
+    font-weight: normal;
+    src: url('Mark Simonson - Proxima Nova Alt Regular.otf');
+}
+
+@font-face {
+    font-family: 'PB';
+    font-style: normal;
+    font-weight: normal;
+    src: url('Mark Simonson - Proxima Nova Bold.otf');
+}
+
+@font-face {
+    font-family: 'PBL';
+    font-style: normal;
+    font-weight: normal;
+    src: url('Mark Simonson - Proxima Nova Black.otf');
+}
+
+@font-face {
+    font-family: 'pt';
+    font-style: normal;
+    font-weight: normal;
+    src: url('proximanova-thin-webfont.ttf');
+}
+
+@font-face {
+    font-family: 'pl';
+    font-style: normal;
+    font-weight: normal;
+    src: url('proximanova-light-webfont.ttf');
+}
+
+@font-face {
+    font-family: 'ps';
+    font-style: normal;
+    font-weight: normal;
+    src: url('proximanova-semibold-webfont.ttf');
+}
+
+@font-face {
+    font-family: 'pb';
+    font-style: normal;
+    font-weight: normal;
+    src: url('proximanova-bold-webfont.ttf');
+}
+.header {
+    position: fixed;
+    top: 0px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    z-index: 999;
+    height: 80px;
+    background-color: #ffffff;
+    box-shadow: 1px 0px 2px rgba(0,0,0,0.15);
+    /* box-shadow: 0px 0px 18px rgba(0,0,0,0.15); */
+    box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.05);
+}
+
+
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: "PL";
+}
+
+.content {
+    background-color: rgb(243,243,243);
+    background: #ecebea;
+    padding: 80px 0px 20px 0px;
+    box-shadow: 0px 4px 13px 5px rgba(0,0,0,0.09);
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 100%;
+    display: table;
+}
+
+aside.sidebar {
+    width: 300px;
+    background: #f04f55;
+    min-height: 300px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 80;
+}
+
+.sbutton {
+    height: 12px;
+    background: aqua;
+    background: url(bss.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: relative;
+    top: -25px;
+    left: 190;
+}
+
+.left {
+    height: 80px;
+    width: 300px;
+    min-width: 300px;
+    float: left;
+}
+
+.left #add {
+    height: 80px;
+    width: 80px;
+    float: left;
+    border-right: 1px solid #f1ede6;
+    display: -webkit-inline-box;
+}
+
+#add button {
+    height: 40px;
+    width: 40px;
+    border: none;
+    line-height: 40px;
+    margin: 20px;
+    background: #f04f55;
+    border-radius: 100px;
+    outline: 0;
+    color: #414040;
+    color: white;
+    font-size: 24px;
+    box-shadow: 3px 3px 5px -1px rgba(0,0,0,0.2);
+}
+
+#options {
+    display: inline;
+    line-height: 107px;
+}
+
+#options button {
+    height: 40px;
+    display: inline-block;
+    width: 40px;
+    background: none;
+    border-radius: 5px;
+    outline: 0;
+    margin-left: 16px;
+    border: 1px solid gainsboro;
+    font-size: 12px;
+    color: #47444d;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+    transition: 1s ease;
+}
+
+#options button:hover {
+    border: 1px solid #f04f55;
+}
+
+#options div {
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 22px;
+    width: 22px;
+    margin: 0 auto;
+    margin-top: 1px;
+}
+
+.middle {
+    margin: 0 auto;
+    padding-left: 32px;
+    padding-right: 32px;
+}
+
+.right {
+    height: 80px;
+    width: 300px;
+    /* float: right; */
+    /* display: inline; */
+}
+
+.seachbar:hover{
+    border:1px solid green;
+}
+
+input.searchbar {
+    height: 40px;
+    border-radius: 5px;
+    width: 208px;
+    background: none;
+    margin-top: 20px;
+    margin-left: 8px;
+    padding: 0px 35 0 15;
+    letter-spacing:0.5px;
+    transition: 0.5s;
+    outline: 0px;
+    resize: none;
+    border: 1px solid gainsboro;
+    font-size: 12px;
+    color: #47444d;
+    font-weight: bold;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}
+
+input.searchbar:hover {
+    border: 1px solid #fbc4c8;
+}
+
+input.searchbar:focus {
+    border: 1px solid #ee4c58;
+}
+
+.profileimage {
+    height: 40px;
+    width: 40px;
+    background: url(http://i.imgur.com/VVZYJel.png);
+    background-size: contain;
+    display: inline-block;
+    vertical-align: middle;
+    position: fixed;
+    margin: 20px;
+    border-radius: 10em;
+    border: 1px solid gainsboro;
+    box-shadow: 0 1px 2px rgba(0,0,0,.15);
+}
+
+.wrapper {
+    display: inline-flex;
+}
+
+.navblock{
+    margin: 0 auto;
+    min-width: 700px;
+    /* width: 700px; */
+    margin-top: 15px;
+    background-color: white;
+    border-radius: 2px;
+    display: table;
+    box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.05);
+}
+
+.passos{
+    list-style: none;
+    padding: 10px;
+    font-weight: bold;
+    display: inline-block;
+    width: 580px;
+    max-width: 1030px;
+    margin-bottom: 3px;
+}
+
+.passos li{
+    display: block;
+    padding: 5px 10px 6px 5px;
+    position: relative;
+    margin-bottom: 10px;
+    transition: 0.5s ease;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.navblock ul li:hover{ 
+}
+
+.resultados .img {
+    height: 160px;
+    width: 240px;
+    background: #e5e5e5;
+    background-size: cover;
+    margin: auto;
+    display: block; 
+    box-shadow: 1px -1px 13px 1px rgba(0,0,0,0.09);
+}
+
+.resultados .desc{
+    padding: 5px 0px 5px 10px;
+    border-top: 1px solid rgba(236, 235, 234, 0.38);
+    text-align: left;
+    position: absolute;
+    left: 0px;
+    top:130px;
+    right: 0px;
+    bottom: 0px;
+    box-shadow: 0px 3px 13px -3px rgba(0,0,0,0.09);
+    background: rgba(41, 44, 51,0.8);
+    transition: all 0.4s ease-out;
+}
+
+
+.resultados li {
+    display: inline-block;
+    margin: 5px 10px 15px 5px;
+    position: relative;
+    transition: 0.5s ease;
+    /* width: 30; */
+}
+
+.resultados li:hover .desc{
+    top:0px;
+}
+
+ul.resultados {
+    list-style: none;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.resultados #rcp{
+    font-size: 16px;
+    font-weight: 900;
+    display: block;
+    color: white;
+}
+
+.navblock ul li #atr{
+    font-size: 10px;
+    font-weight: 900;
+    font-family: helv;
+    line-height: 10px;
+    display: block;
+}
+
+.rating{
+    height: 12px;
+    margin-top: 3px; 
+}
+
+.sidebox {
+    height: 420px;
+    width: 300px;
+    position: relative;
+    background: #ee4c58;
+    background: white;
+    display: inline-block;
+    margin: 15 15 0 15;
+}
+
+
+.sidenav a {
+    text-decoration: none;
+}
+
+.sidenav li {
+    height: 73px;
+    background: inherit;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    box-shadow: 0px 3px 13px -5px rgba(0,0,0,0.07);
+    list-style: none;
+    text-align: left;
+    transition: all 0.2s ease;
+    position: relative;
+    background-color: white;
+    padding-left: 15px;
+}
+
+.sidenav li span {
+    line-height: 73px;
+    color: #ee4c58;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.ingredientes li {
+    display: block !important;
+}
+
+.addicon {
+    background-image: url(../plas.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 12px;
+    width: 12px;
+    margin: 0 auto;
+}
+
+h2.title {
+    color: #ffffff;
+    background: white;
+    background: #6c4a4a;
+    background: #ee4c58;
+    box-shadow: 0px 6px 15px -1px rgba(0,0,0,0.1);
+    padding: 15px;
+    position: relative;
+    z-index: 1;
+}
+
+img.navicon {
+    height: 20px;
+    position: absolute;
+    top: 18px;
+    right: 10px;
+    z-index: 2;
+}
+
+h5.tendenciaO {
+    padding: 4px 10px;
+    font-size: 10px;
+    margin-right: 5px;
+    border: 1px solid #ee4c58;
+    border-radius: 10em;
+    color: #ee4c58;
+    display: inline-block;
+}
+
+.receitaImg {
+    height: 160px;
+    width: 240px;
+    display: inline-block;
+    background-size: cover;
+    color: black;
+}
+
+.receitaDesc {
+    position: relative;
+    float: right;
+    width: 390px;
+    min-height: 160px;
+    background: white;
+    box-sizing: border-box;
+    padding: 10px;
+    margin-bottom: 15px;
+    padding-bottom: 42px;
+    box-shadow: 0px 3px 8px rgba(0,0,0,0.1);
+    /* box-shadow: 0 1px 2px rgba(0,0,0,.1); */
+}
+
+.receitaAutor {
+    display: inline-block;
+    float: right;
+}
+
+.receitaAutor .idt {
+    display: inline-block;
+    float: left;
+    line-height: 18px;
+    font-weight: bold;
+    font-size: 10px;
+    font-style: italic;
+    margin: 7px 10px;
+}
+
+.receitaAutor img {
+    height: 48px;
+    float: right;
+    border: 1px solid gainsboro;
+}
+
+.receitaDesc .nota {
+    margin-top: 20px;
+    position: absolute;
+    box-sizing: border-box;
+    bottom: -4px;
+    right: 5px;
+}
+
+.nota h3 {
+    display: inline-block;
+    color: #ee4c58;
+    color: white;
+    float: right;
+    padding: 10px;
+    background: #ee4c58;
+}
+
+.ingredientes{
+    min-height: 315px;width: 470px;float: left;display: inline-block;background: white;box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.05);
+}
+
+.IRT h2 {
+    color: #ee4c58;
+    background: #ffffff;
+    border-bottom: 1px solid #eaeaea;
+    box-shadow: none;
+}
+
+.comentar {
+    display: inline-block;
+    padding-left: 20px;
+    position: relative;
+    padding-top: 20px;
+}
+
+.comentar h3 {
+    color: #ee4c58;
+    margin-bottom: 15px;
+}
+
+.comentar input {
+    width: 580px;
+    outline: 0px;
+    resize: none;
+    border: 1px solid gainsboro;
+    height: 40px;
+    padding: 10px;
+    color: #47444d;
+    font-weight: bold;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}
+
+
+fieldset, label { margin: 0; padding: 0; }
+
+h1 { font-size: 1.5em; margin: 10px; }
+
+/****** Style Star Rating Widget *****/
+
+.rating { 
+    border: none;
+    float: left;
+}
+
+.rating > input { display: none; } 
+
+.rating > label:before { 
+    margin: 5px;
+    font-size: 1.25em;
+    font-family: "Arial";
+    display: inline-block;
+    content: "\2605";
+}
+
+.rating > .half:before { 
+    content: "\2605";
+    position: absolute;
+}
+
+.rating > label { 
+    color: #ddd; 
+    float: right; 
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
+
+.comentar button {
+    height: 40px;
+    border: 1px solid gainsboro;
+    padding: 10px;
+    margin-left: 10px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+    background-color: white;
+    color: #f04f55;
+    outline: 0px;
+    font-weight: bold;
+}
+
+.passos h4{
+    font-size: 20px;
+    color: #ee4c58;
+}
+
+.formulario span {
+    width: 48px;
+    text-align: center;
+    height: 14px;
+    border: 1px solid gainsboro;
+    padding: 10px;
+    line-height: 14px;
+    margin-left: 10px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+    background-color: white;
+    color: #f04f55;
+    outline: 0px;
+    font-weight: bold;
+    position: absolute;
+    font-size: 8;
+}
+
+.formulario input {
+    width: 580px;
+    outline: 0px;
+    resize: none;
+    border: 1px solid gainsboro;
+    font-size: 12px;
+    padding: 10px;
+    color: #47444d;
+    font-weight: bold;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}
+
+.formulario h4 {
+    color: #ee4c58;
+    margin-bottom: 5px;
+    font-size: small;
+}
+
+.formulario {
+    display: inline-block;
+    padding-left: 20px;
+    position: relative;
+    padding-top: 20px;
+}
+
+.formsection {
+    margin-bottom: 10px;
+}
+
+.formulario div {
+    position: relative;
+}
+
+.formulario textarea {
+    width: 580px;
+    outline: 0px;
+    resize: none;
+    border: 1px solid gainsboro;
+    font-size: 12px;
+    padding: 10px;
+    color: #47444d;
+    font-weight: bold;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}
+
+select#selectTendencia {
+    width: 580px;
+    outline: 0px;
+    resize: none;
+    border: 1px solid gainsboro;
+    font-size: 12px;
+    padding: 10px;
+    color: #47444d;
+    font-weight: bold;
+    height: 35px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}
+
+option {
+    font-weight: bold;
+}
+
+.perfil .nomerank {
+    color: #ee4c58;
+    display: inline-table;
+    padding: 20px;
+    padding-top: 25px;
+}
+
+.perfil {
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.78);
+    background: rgba(255, 255, 255, 0.61);
+    position: relative;
+    display: flex;
+    border-radius: 2px;
+}
+
+.imgperfil {
+    border-radius: 3px;
+    border: 1px solid gainsboro;
+    box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    height: 128px;
+}
+
+.perfil .estastitica {
+    color: #ee4c58;
+    padding: 6px;
+    position: absolute;
+    bottom: 45px;
+    background-color: rgba(243, 243, 243, 0.66);
+    left: 180;
+    font-weight: bold;
+    /* width: 480; */
+    border-radius: 2px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.10);
+    font-size: 12px;
+    /* display: none; */
+}
+
+.ranking th {
+    text-align: initial;
+    border-bottom: 1px solid gainsboro;
+    color: #ee4c58;
+    padding: 5px;
+}
+
+td {
+    text-align: center;
+    padding: 3px;
+    font-weight: bold;
+}
+
+table.ranking {
+    width: 100%;
+    padding: 10px 20px 10px 20px;
+}
+
