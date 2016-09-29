@@ -176,18 +176,18 @@ public class UsuarioDAO implements IUsuarioDAO{
         ArrayList<Usuario> usuarios = new ArrayList<>();
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql ="SELECT nom_login, seq_imagem, nom_perfil_usuario, " +
+            String sql ="SELECT nom_login, seq_imagem, nom_perfil_usuario, dat_cadastro, " +
                         "       email, senha, des_usuario, idt_tendencia, nro_pontos, " +
                         "       pos_ranking, arq_imagem " +
                         "  FROM usuario" +
-                        "  NATURAL JOIN imagem ORDER BY 9;";                        
+                        "  NATURAL JOIN imagem ORDER BY 10;";                        
             PreparedStatement statement = connection.prepareStatement(sql);
             
             ResultSet resultSet = statement.executeQuery();
             
             while(resultSet.next()) {
                 Usuario usuario = new Usuario();
-                usuario.setNom_login(resultSet.getString("nom_login"));
+                usuario.setNom_login(resultSet.getString("seq_login"));
                 usuario.setSeq_imagem(resultSet.getLong("seq_imagem"));
                 usuario.setNom_perfil_usuario(resultSet.getString("nom_perfil_usuario"));
                 usuario.setEmail(resultSet.getString("email"));

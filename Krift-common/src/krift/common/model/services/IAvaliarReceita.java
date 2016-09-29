@@ -19,5 +19,6 @@ public interface IAvaliarReceita{
     public boolean denunciar(Denuncia denuncia) throws PersistenciaException, NegocioException;
     public boolean avaliar(Avaliacao avaliacao) throws PersistenciaException, NegocioException;
     public boolean alterarAvaliacao(Avaliacao avaliacao) throws PersistenciaException, NegocioException;
+    public boolean listarComentarios(Receita receita) throws PersistenciaException, NegocioException;
 }
 

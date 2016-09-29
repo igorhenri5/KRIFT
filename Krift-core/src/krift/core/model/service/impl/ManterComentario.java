@@ -5,13 +5,9 @@
  */
 package krift.core.model.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import krift.common.model.domain.Comentario;
-import krift.common.model.domain.Receita;
 import krift.common.model.services.IManterComentario;
-import krift.core.model.dao.IComentarioDAO;
-import krift.core.model.dao.impl.ComentarioDAO;
 import util.db.exception.NegocioException;
 import util.db.exception.PersistenciaException;
 
@@ -23,20 +19,37 @@ public class ManterComentario implements IManterComentario{
 
     @Override
     public boolean comentar(Comentario comentario) throws PersistenciaException, NegocioException {
-        IComentarioDAO comentarioDAO = new ComentarioDAO();
-        return comentarioDAO.comentar(comentario);
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public boolean deletarComentario(Comentario comentario) throws PersistenciaException, NegocioException {
-        IComentarioDAO comentarioDAO = new ComentarioDAO();
-        return comentarioDAO.comentar(comentario);
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<Comentario> comentariosDaReceita(long nro_seq_receita) throws PersistenciaException, NegocioException {
-        IComentarioDAO comentarioDAO = new ComentarioDAO();
-        return comentarioDAO.comentariosDaReceita(nro_seq_receita);
+    public void cadastrar(Comentario e) throws PersistenciaException, NegocioException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void alterar(Comentario e) throws PersistenciaException, NegocioException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Comentario buscarPorId(long id) throws PersistenciaException, NegocioException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void excluir(long e) throws PersistenciaException, NegocioException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Comentario> listarTodos() throws PersistenciaException, NegocioException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

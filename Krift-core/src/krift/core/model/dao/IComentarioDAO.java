@@ -15,10 +15,10 @@ import util.db.exception.PersistenciaException;
  */
 public interface IComentarioDAO {
 
-    boolean comentar(Comentario comentario) throws PersistenciaException;
+    void comentar(Comentario comentario) throws PersistenciaException;
 
-    ArrayList<Comentario> comentariosDaReceita(long nro_seq_receita) throws PersistenciaException;
+    ArrayList<Comentario> comentariosDaReceita(Comentario comentario) throws PersistenciaException;
 
-    boolean detetarComentario(Comentario comentario) throws PersistenciaException;
+    void detetarComentario(Comentario comentario) throws PersistenciaException;
     
 }
