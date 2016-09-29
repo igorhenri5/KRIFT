@@ -15,7 +15,7 @@ import util.db.exception.PersistenciaException;
  */
 public interface IReceitaDAO extends GenericDAO<Receita>{
 
-    public ArrayList<Receita> buscar(String sql) throws PersistenciaException;
+    public ArrayList<Receita> buscar(String search, String idt_tendencia) throws PersistenciaException;
 
     public ArrayList<Receita> recomendados(String nom_login) throws PersistenciaException;
 

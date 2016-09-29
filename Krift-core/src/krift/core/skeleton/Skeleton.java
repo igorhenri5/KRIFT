@@ -69,14 +69,13 @@ public class Skeleton implements Runnable{
             Usuario usuario;
             Receita receita;
             Comentario comentario;
-            String nome, senha, query;
+            String nome, senha, search, idt_tendencia;
             long id;
             Avaliacao avaliacao;
             Denuncia denuncia;
             
-            System.out.println("TRAB");
-            
-            switch (command) {                
+            switch (command) {
+                
                 case CADASTRAR:
                     usuario = (Usuario)reader.readObject();
                     writer.writeObject(manterUsuario.cadastrar(usuario));
@@ -107,8 +106,9 @@ public class Skeleton implements Runnable{
                     writer.writeObject(manterReceita.excluir(id));
                     break;
                 case BUSCAR_RECEITAS:
-                    query = (String)reader.readObject();
-                    writer.writeObject(manterReceita.buscar(query));
+                    search = (String)reader.readObject();
+                    idt_tendencia = (String)reader.readObject();
+                    writer.writeObject(manterReceita.buscar(search,idt_tendencia));
                     break;
                 case LISTAR_RECEITAS:
                     nome = (String)reader.readObject();
@@ -149,8 +149,8 @@ public class Skeleton implements Runnable{
                     writer.writeObject(manterFavoritos.favoritar(nome, id));
                     break;
                 case VISITAR_RECEITA:
-                    query = (String)reader.readObject();
-                    writer.writeObject(manterReceita.buscar(query));
+                    id = reader.readLong();
+                    writer.writeObject(manterReceita.visualizar(id));
                     break;
                 case LISTAR_FAVORITOS:
                     nome = (String)reader.readObject();
@@ -168,8 +168,7 @@ public class Skeleton implements Runnable{
                     writer.writeObject(manterUsuario.listar());
                     break;
                     
-            }            
-            writer.close();
+            }
         } catch (IOException ex) {
             Logger.getLogger(Skeleton.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException(ex.getMessage());

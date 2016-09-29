@@ -24,7 +24,7 @@ public class AvaliacaoDAO implements IAvaliacaoDAO{
     public void avaliar(Avaliacao avaliacao) throws PersistenciaException {
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql ="INSERT INTO \"AVALIACAO\"(\"NRO_SEQ_RECEITA\",\"NOM_LOGIN\", \"VLR_AVALIACAO\")" +
+            String sql ="INSERT INTO avaliacao(nro_seq_receita,nom_login, vlr_avaliacao)" +
                   "    VALUES (?,?,?)  returning 1;";
             PreparedStatement statement = connection.prepareStatement(sql);
             
@@ -49,8 +49,8 @@ public class AvaliacaoDAO implements IAvaliacaoDAO{
     public void alterar(Avaliacao avaliacao) throws PersistenciaException {
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql ="UPDATE \"AVALIACAO\" SET \"VLR_AVALIACAO\" = ?" +
-                  "    WHERE NRO_SEQ_RECEITA = ? AND NOM_LOGIN = ?  returning 1;";
+            String sql ="UPDATE avaliacao SET vlr_avaliacao = ?" +
+                  "    WHERE nro_seq_receita = ? AND nom_login = ?  returning 1;";
             PreparedStatement statement = connection.prepareStatement(sql);
             
             statement.setInt(1, avaliacao.getVlr_avaliacao());
@@ -74,8 +74,8 @@ public class AvaliacaoDAO implements IAvaliacaoDAO{
     public Avaliacao consultaAvaliacao(Avaliacao avaliacao) throws PersistenciaException {
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql ="SELECT \"VLR_AVALIACAO\" FROM \"AVALIACAO\" WHERE " +
-                  "    WHERE NRO_SEQ_RECEITA = ? AND NOM_LOGIN = ?;";
+            String sql ="SELECT vlr_avaliacao FROM avaliacao WHERE " +
+                  "    WHERE nro_seq_receita = ? AND nom_login = ?;";
             PreparedStatement statement = connection.prepareStatement(sql);
             
             statement.setLong(1, avaliacao.getNro_seq_receita());
@@ -84,7 +84,7 @@ public class AvaliacaoDAO implements IAvaliacaoDAO{
             ResultSet resultSet = statement.executeQuery();
             
             if (resultSet.next()) {
-                avaliacao.setVlr_avaliacao(resultSet.getInt("VLR_AVALIACAO"));
+                avaliacao.setVlr_avaliacao(resultSet.getInt("vlr_avaliacao"));
             }else{
                 avaliacao.setVlr_avaliacao(0);
             }
@@ -101,8 +101,8 @@ public class AvaliacaoDAO implements IAvaliacaoDAO{
     public Avaliacao avaliacaoReceita(Avaliacao avaliacao) throws PersistenciaException {
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql ="SELECT AVG(\"VLR_AVALIACAO\") as VLR FROM \"AVALIACAO\" WHERE " +
-                  "    WHERE NRO_SEQ_RECEITA = ?;";
+            String sql ="SELECT AVG(vlr_avaliacao) as vlr FROM avaliacao WHERE " +
+                  "    WHERE nro_seq_receita = ?;";
             PreparedStatement statement = connection.prepareStatement(sql);
             
             statement.setLong(1, avaliacao.getNro_seq_receita());
@@ -110,7 +110,7 @@ public class AvaliacaoDAO implements IAvaliacaoDAO{
             ResultSet resultSet = statement.executeQuery();
             
             if (resultSet.next()) {
-                avaliacao.setVlr_avaliacao(resultSet.getInt("VLR"));
+                avaliacao.setVlr_avaliacao(resultSet.getInt("vlr"));
             }else{
                 throw new PersistenciaException("Não foi possivel calcular a avaliação da receita");
             }
@@ -129,8 +129,8 @@ public class AvaliacaoDAO implements IAvaliacaoDAO{
 
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql ="INSERT INTO \"DENUNCIA\"(\"NRO_SEQ_RECEITA\",\"DES_COMENTARIO\")" +
-                  "    VALUES (?,?)  returning \"SEQ_DENUNCIA\";";
+            String sql ="INSERT INTO denuncia(nro_seq_receita,des_comentario)" +
+                  "    VALUES (?,?)  returning nro_seq_denuncia;";
             PreparedStatement statement = connection.prepareStatement(sql);
             
             statement.setLong(1, denuncia.getNro_seq_receita());
@@ -139,7 +139,7 @@ public class AvaliacaoDAO implements IAvaliacaoDAO{
             ResultSet resultSet = statement.executeQuery();
             
             if (resultSet.next()) {
-                id = resultSet.getLong("NRO_SEQ_DENUNCIA");
+                id = resultSet.getLong("nro_seq_denuncia");
                 denuncia.setSeq_denuncia(id);
             }else{
                 throw new PersistenciaException("Não foi possivel registrar a denuncia");

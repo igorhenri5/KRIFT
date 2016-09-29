@@ -25,9 +25,9 @@ public class IngredienteDAO implements IIngredienteDAO{
         long id;
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql = "INSERT INTO \"INGREDIENTE\"(" +
-                    "            \"NRO_SEQ_RECEITA\", \"DES_QUANTIDADE\", \"NOM_INGREDIENTE\")" +
-                    "    VALUES (?, ?, ?) returning \"NRO_SEQ_INGREDIENTE\";";
+            String sql = "INSERT INTO ingrediente(" +
+                    "            nro_seq_receita, des_quantidade, nom_ingrediente)" +
+                    "    VALUES (?, ?, ?) returning nro_seq_ingrediente;";
                 PreparedStatement statement = connection.prepareStatement(sql);
                 statement.setLong(1, ingrediente.getNro_seq_receita());
                 statement.setString(2, ingrediente.getDes_quantidade());
@@ -35,7 +35,7 @@ public class IngredienteDAO implements IIngredienteDAO{
                 ResultSet resultSet = statement.executeQuery();
 
                 if (resultSet.next()) {
-                    ingrediente.setNro_seq_ingrediente(resultSet.getLong("NRO_SEQ_INGREDIENTE"));
+                    ingrediente.setNro_seq_ingrediente(resultSet.getLong("nro_seq_ingrediente"));
                     id = ingrediente.getNro_seq_ingrediente();
                 }else{
                     sql ="ROLLBACK;";
@@ -54,8 +54,8 @@ public class IngredienteDAO implements IIngredienteDAO{
     public void excluir(Ingrediente ingrediente) throws PersistenciaException {
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql = "DELETE FROM \"INGREDIENTE\" WHERE " +
-                "            \"NRO_SEQ_RECEITA\" = ? AND \"NRO_SEQ_INGREDIENTE\" = ?;";
+            String sql = "DELETE FROM ingrediente WHERE " +
+                "            nro_seq_receita = ? AND nro_seq_ingrediente = ?;";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, ingrediente.getNro_seq_receita());
             statement.setLong(2, ingrediente.getNro_seq_ingrediente());
@@ -71,17 +71,16 @@ public class IngredienteDAO implements IIngredienteDAO{
         ArrayList<Ingrediente> ingredientes = null;
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql = "SELECT \"NRO_SEQ_INGREDIENTE\" \"DES_QUANTIDADE\", \"NOM_INGREDIENTE\" FROM \"INGREDIENTE\" WHERE " +
-                "            \"NRO_SEQ_RECEITA\" = ?;";
+            String sql = "SELECT nro_seq_receita, des_quantidade, nom_ingrediente FROM ingrediente WHERE " +
+                "            nro_seq_receita = ?;";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, nro_seq_receita);
             ResultSet resultSet = statement.executeQuery();
             while(resultSet.next()){
                 Ingrediente ing = new Ingrediente();
-                ing.setDes_quantidade(resultSet.getString("DES_QUANTIDADE"));
-                ing.setNom_ingrediente(resultSet.getString("NOM_INGREDIENTE"));
-                ing.setNro_seq_receita(nro_seq_receita);
-                ing.setNro_seq_receita(resultSet.getLong("NRO_SEQ_INGREDIENTE"));
+                ing.setDes_quantidade(resultSet.getString("des_quantidade"));
+                ing.setNom_ingrediente(resultSet.getString("nom_ingrediente"));
+                ing.setNro_seq_receita(nro_seq_receita); 
                 ingredientes.add(ing);
             }
         }catch(Exception e){

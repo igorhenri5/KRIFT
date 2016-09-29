@@ -25,8 +25,8 @@ public class ComentarioDAO implements IComentarioDAO{
         
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql ="INSERT INTO \"COMENTARIO\"(\"NRO_SEQ_RECEITA\",\"NOM_LOGIN\", \"DES_COMENTARIO\")" +
-                  "    VALUES (?,?,?)  returning \"DAT_PUBLICACAO\";";
+            String sql ="INSERT INTO comentario(nro_seq_receita,nom_login, des_comentario)" +
+                  "    VALUES (?,?,?)  returning dat_publicacao;";
             PreparedStatement statement = connection.prepareStatement(sql);
             
             statement.setLong(1, comentario.getNro_seq_receita());
@@ -36,7 +36,7 @@ public class ComentarioDAO implements IComentarioDAO{
             ResultSet resultSet = statement.executeQuery();
             
             if (resultSet.next()) {
-                comentario.setDat_publicacao(resultSet.getDate("DAT_PUBLICACAO"));
+                comentario.setDat_publicacao(resultSet.getDate("dat_publicacao"));
             }else{
                 throw new PersistenciaException("Não foi possivel comentar a receita");
             }
@@ -53,8 +53,8 @@ public class ComentarioDAO implements IComentarioDAO{
         ArrayList<Comentario> comentarios = new ArrayList<>();
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql ="SELECT \"NRO_SEQ_RECEITA\",\"NOM_LOGIN\",\"DES_COMENTARIO\", \"DAT_PUBLICACAO\" FROM \"COMENTARIO\"" +
-                  "    WHERE \"NRO_SEQ_RECEITA\" = ?;";
+            String sql ="SELECT nro_seq_receita,nom_login,des_comentario, dat_publicacao FROM comentario" +
+                  "    WHERE nro_seq_receita = ?;";
             PreparedStatement statement = connection.prepareStatement(sql);
             
             statement.setLong(1, comentario.getNro_seq_receita());
@@ -62,10 +62,10 @@ public class ComentarioDAO implements IComentarioDAO{
             
             while (resultSet.next()) {
                 Comentario coment = new Comentario();
-                coment.setDat_publicacao(resultSet.getDate("DAT_PUBLICACAO"));
-                coment.setDes_comentario(resultSet.getString("DES_COMENTARIO"));
-                coment.setNom_login(resultSet.getString("NOM_LOGIN"));
-                coment.setNro_seq_receita(resultSet.getLong("NRO_SEQ_RECEITA"));
+                coment.setDat_publicacao(resultSet.getDate("dat_publicacao"));
+                coment.setDes_comentario(resultSet.getString("des_comentario"));
+                coment.setNom_login(resultSet.getString("nom_login"));
+                coment.setNro_seq_receita(resultSet.getLong("nro_seq_receita"));
             }
             
             connection.close();
@@ -80,9 +80,9 @@ public class ComentarioDAO implements IComentarioDAO{
     public void detetarComentario(Comentario comentario) throws PersistenciaException {
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql ="DELETE FROM \"COMENTARIO\"" +
-                  "    WHERE \"NRO_SEQ_RECEITA\" = ? AND \"NOM_LOGIN\" =? AND "
-                    + " \"DAT_PUBLICACAO\" = ?;";
+            String sql ="DELETE FROM comentario" +
+                  "    WHERE nro_seq_receita = ? AND nom_login =? AND "
+                    + " dat_publicacao = ?;";
             PreparedStatement statement = connection.prepareStatement(sql);
             
             statement.setLong(1, comentario.getNro_seq_receita());

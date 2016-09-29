@@ -38,9 +38,9 @@ public class ManterReceita implements IManterReceita{
     }
 
     @Override
-    public ArrayList<Receita> buscar(String sql) throws PersistenciaException, NegocioException {
+    public ArrayList<Receita> buscar(String search, String idt_tendencia) throws PersistenciaException, NegocioException {
         IReceitaDAO receitaDAO = new ReceitaDAO();
-        return receitaDAO.buscar(sql);
+        return receitaDAO.buscar(search, idt_tendencia);
     }
 
     @Override

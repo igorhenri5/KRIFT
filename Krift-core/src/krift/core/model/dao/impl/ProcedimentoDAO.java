@@ -25,16 +25,16 @@ public class ProcedimentoDAO implements IProcedimentoDAO{
         long id;
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql = "INSERT INTO \"PROCEDIMENTO\"(" +
-                "            \"NRO_SEQ_RECEITA\", \"DES_PROCEDIMENTO\")" +
-                "    VALUES (?, ?) returning \"NRO_SEQ_PROCEDIMENTO\";";
+            String sql = "INSERT INTO procedimento(" +
+                "            nro_seq_receita, des_procedimento)" +
+                "    VALUES (?, ?) returning nro_seq_procedimento;";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, procedimento.getNro_seq_receita());
             statement.setString(2, procedimento.getDes_procedimento());
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                procedimento.setNro_seq_procedimento(resultSet.getLong("NRO_SEQ_PROCEDIMENTO"));
+                procedimento.setNro_seq_procedimento(resultSet.getLong("nro_seq_procedimento"));
                 id = procedimento.getNro_seq_procedimento();
             }else{
                 sql ="ROLLBACK;";
@@ -53,8 +53,8 @@ public class ProcedimentoDAO implements IProcedimentoDAO{
     public void excluir(Procedimento procedimento) throws PersistenciaException {
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql = "DELETE FROM \"PROCEDIMENTO\" WHERE " +
-                "            \"NRO_SEQ_RECEITA\" = ? AND \"NRO_SEQ_PROCEDIMENTO\" = ?;";
+            String sql = "DELETE FROM procedimento WHERE " +
+                "            nro_seq_receita = ? AND nro_seq_procedimento = ?;";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, procedimento.getNro_seq_receita());
             statement.setLong(2, procedimento.getNro_seq_procedimento());
@@ -69,16 +69,16 @@ public class ProcedimentoDAO implements IProcedimentoDAO{
         ArrayList<Procedimento> procedimentos = null;
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql = "SELECT \"NRO_SEQ_PROCEDIMENTO\", \"DES_PROCEDIMENTO\" FROM \"PROCEDIMENTO\" WHERE " +
-                "            \"NRO_SEQ_RECEITA\" = ?;";
+            String sql = "SELECT nro_seq_procedimento, des_procedimento FROM procedimento WHERE " +
+                "            nro_seq_receita = ?;";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, nro_seq_receita);
             ResultSet resultSet = statement.executeQuery();
             while(resultSet.next()){
                 Procedimento procedimento = new Procedimento();
-                procedimento.setDes_procedimento(resultSet.getString("DES_PROCEDIMENTO"));
+                procedimento.setDes_procedimento(resultSet.getString("des_procedimento"));
                 procedimento.setNro_seq_receita(nro_seq_receita);
-                procedimento.setNro_seq_procedimento(resultSet.getLong("NRO_SEQ_PROCEDIMENTO"));
+                procedimento.setNro_seq_procedimento(resultSet.getLong("nro_seq_procedimento"));
                 procedimentos.add(procedimento);
             }
         }catch(Exception e){

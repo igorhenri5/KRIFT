@@ -17,7 +17,6 @@ public class Usuario implements Serializable{
     private String nom_login;
     private long seq_imagem;
     private String nom_perfil_usuario;
-    private Date dat_cadastro;
     private String email;
     private String senha;
     private String des_usuario;
@@ -31,11 +30,10 @@ public class Usuario implements Serializable{
     public Usuario() {
     }
 
-    public Usuario(String nom_login, long seq_imagem, String nom_perfil_usuario, Date dat_cadastro, String email, String senha, String des_usuario, String idt_tendencia, long nro_pontos, int pos_ranking, ArrayList<Receita> historico, ArrayList<Receita> favoritos, byte[] imagem) {
+    public Usuario(String nom_login, long seq_imagem, String nom_perfil_usuario, String email, String senha, String des_usuario, String idt_tendencia, long nro_pontos, int pos_ranking, ArrayList<Receita> historico, ArrayList<Receita> favoritos, byte[] imagem) {
         this.nom_login = nom_login;
         this.seq_imagem = seq_imagem;
         this.nom_perfil_usuario = nom_perfil_usuario;
-        this.dat_cadastro = dat_cadastro;
         this.email = email;
         this.senha = senha;
         this.des_usuario = des_usuario;
@@ -69,14 +67,6 @@ public class Usuario implements Serializable{
 
     public void setNom_perfil_usuario(String nom_perfil_usuario) {
         this.nom_perfil_usuario = nom_perfil_usuario;
-    }
-
-    public Date getDat_cadastro() {
-        return dat_cadastro;
-    }
-
-    public void setDat_cadastro(Date dat_cadastro) {
-        this.dat_cadastro = dat_cadastro;
     }
 
     public String getEmail() {

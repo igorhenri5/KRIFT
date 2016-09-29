@@ -27,13 +27,13 @@ public class HistoricoDAO implements IHistoricoDAO {
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
             IReceitaDAO receitaDAO = new ReceitaDAO();
-            String sql = "SELECT \"NRO_SEQ_RECEITA\" FROM \"HISTORICO\" WHERE " +
-                "            \"NOM_LOGIN\" = ?;";
+            String sql = "SELECT nro_seq_receita FROM historico WHERE " +
+                "            nom_login = ?;";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, nom_login);
             ResultSet resultSet = statement.executeQuery();
             while(resultSet.next()){
-                receitas.add(receitaDAO.consultarPorId(resultSet.getLong("NRO_SEQ_RECEITA")));
+                receitas.add(receitaDAO.consultarPorId(resultSet.getLong("nro_seq_receita")));
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -46,9 +46,9 @@ public class HistoricoDAO implements IHistoricoDAO {
     public void inserir(String nom_login, long nro_seq_receita) throws PersistenciaException{
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql = "INSERT INTO \"HISTORICO\"(" +
-                    "            \"NRO_SEQ_RECEITA\", \"NOM_LOGIN\")" +
-                    "    VALUES (?, ?) returning \"DAT_ACESSO\";";
+            String sql = "INSERT INTO historico(" +
+                    "            nro_seq_receita, nom_login)" +
+                    "    VALUES (?, ?) returning dat_acesso;";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, nro_seq_receita);
             statement.setString(2, nom_login);

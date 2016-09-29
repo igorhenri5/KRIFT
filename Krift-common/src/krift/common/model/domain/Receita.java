@@ -24,6 +24,7 @@ public class Receita implements Serializable{
     private int qtd_rendimento;
     private byte[] imagem;
     private long seq_imagem;
+    private float nota;
     private Usuario autor;
     private ArrayList<Ingrediente> ingredientes;
     private ArrayList<Procedimento> procedimentos;
@@ -33,7 +34,7 @@ public class Receita implements Serializable{
         procedimentos = new ArrayList<>();
     }
 
-    public Receita(long nro_seq_receita, String num_login, String nom_receita, String des_receita, Date dat_publicacao, String idt_tendencia, int qtd_tempo, int qtd_rendimento, byte[] imagem, long seq_imagem, Usuario autor, ArrayList<Ingrediente> ingredientes, ArrayList<Procedimento> procedimentos, ArrayList<Denuncia> denuncias, Avaliacao avaliacoes, ArrayList<Comentario> comentarios) {
+    public Receita(long nro_seq_receita, String num_login, String nom_receita, String des_receita, Date dat_publicacao, String idt_tendencia, int qtd_tempo, int qtd_rendimento, byte[] imagem, long seq_imagem, Usuario autor, ArrayList<Ingrediente> ingredientes, ArrayList<Procedimento> procedimentos, ArrayList<Denuncia> denuncias, Avaliacao avaliacoes, ArrayList<Comentario> comentarios, float nota) {
         this.nro_seq_receita = nro_seq_receita;
         this.num_login = num_login;
         this.nom_receita = nom_receita;
@@ -47,6 +48,7 @@ public class Receita implements Serializable{
         this.autor = autor;
         this.ingredientes = ingredientes;
         this.procedimentos = procedimentos;
+        this.nota = nota;
     }
 
     public long getNro_seq_receita() {
@@ -153,4 +155,11 @@ public class Receita implements Serializable{
         this.procedimentos = procedimentos;
     }
 
+    public float getNota() {
+        return nota;
+    }
+
+    public void setNota(float nota) {
+        this.nota = nota;
+    }
 }
