@@ -35,15 +35,16 @@ public class UsuarioDAO implements IUsuarioDAO{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
             String sql = "INSERT INTO usuario(" +
                         "            nom_login,nom_perfil_usuario," +
-                        "            email, senha, seq_imagem)" +
-                        "    VALUES (?, ?, ?, ?, ?) returning nom_login;";
+                        "            email, senha, seq_imagem, pos_ranking)" +
+                        "    VALUES (?, ?, ?, ?, ?, ?) returning nom_login;";
             PreparedStatement statement = connection.prepareStatement(sql);
             
             statement.setString(1, usuario.getNom_login());
             statement.setString(2, usuario.getNom_login());
             statement.setString(3, usuario.getEmail());
             statement.setString(4, usuario.getSenha());
-            statement.setLong(5, 0);
+            statement.setLong(5, 1);
+            statement.setInt(6, 0);
 
             //adicionar vinculo com a imagem padrão que será inserida no BD
             
@@ -142,7 +143,7 @@ public class UsuarioDAO implements IUsuarioDAO{
                         "       email, senha, des_usuario, idt_tendencia, nro_pontos, " +
                         "       pos_ranking, arq_imagem" +
                         "  FROM usuario" +
-                        "  NATURAL JOIN imagem" +
+                        "  NATURAL JOIN imagem " +
                         "WHERE nom_login = ?;";
             PreparedStatement statement = connection.prepareStatement(sql);
              statement.setString(1, name);
@@ -150,7 +151,7 @@ public class UsuarioDAO implements IUsuarioDAO{
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 usuario = new Usuario();
-                usuario.setNom_login(resultSet.getString("seq_login"));
+                usuario.setNom_login(resultSet.getString("nom_login"));
                 usuario.setSeq_imagem(resultSet.getLong("seq_imagem"));
                 usuario.setNom_perfil_usuario(resultSet.getString("nom_perfil_usuario"));
                 usuario.setEmail(resultSet.getString("email"));
@@ -177,7 +178,7 @@ public class UsuarioDAO implements IUsuarioDAO{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
             String sql ="SELECT nom_login, seq_imagem, nom_perfil_usuario, dat_cadastro, " +
                         "       email, senha, des_usuario, idt_tendencia, nro_pontos, " +
-                        "       pos_ranking, arq_imagem" +
+                        "       pos_ranking, arq_imagem " +
                         "  FROM usuario" +
                         "  NATURAL JOIN imagem ORDER BY 10;";                        
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -220,8 +221,8 @@ public class UsuarioDAO implements IUsuarioDAO{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
            
             String sql ="SELECT nom_login"  +
-                        "  FROM usuario"  +
-                        "WHERE nom_login = ? AND senha = ?;";
+                        "  FROM usuario "  +
+                        "WHERE nom_login LIKE ? AND senha LIKE ?;";
            
             PreparedStatement statement = connection.prepareStatement(sql);
             

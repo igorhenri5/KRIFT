@@ -42,8 +42,7 @@ public class Cadastrar {
                 user.setSenha(senha);            
                 if(manter.cadastrar(user)){      
                     jsp = "/index.jsp";
-                    request.getSession().setAttribute("usuario", user);
-                    request.getSession().setAttribute("logado", true);
+                    request.getSession().setAttribute("logado", user);
                 }
             }
             
