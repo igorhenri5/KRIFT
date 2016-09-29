@@ -21,7 +21,8 @@ import util.db.exception.PersistenciaException;
 public class AvaliacaoDAO implements IAvaliacaoDAO{
 
     @Override
-    public void avaliar(Avaliacao avaliacao) throws PersistenciaException {
+    public boolean avaliar(Avaliacao avaliacao) throws PersistenciaException {
+        boolean sucesso = false;
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
             String sql ="INSERT INTO avaliacao(nro_seq_receita,nom_login, vlr_avaliacao)" +
@@ -39,14 +40,18 @@ public class AvaliacaoDAO implements IAvaliacaoDAO{
             }
             
             connection.close();
+            
+            sucesso = true;
         }catch (Exception e){
             e.printStackTrace();
             throw new PersistenciaException(e.getMessage(), e);
         }
+        return sucesso;
     }
 
     @Override
-    public void alterar(Avaliacao avaliacao) throws PersistenciaException {
+    public boolean alterar(Avaliacao avaliacao) throws PersistenciaException {
+        boolean sucesso = false;
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
             String sql ="UPDATE avaliacao SET vlr_avaliacao = ?" +
@@ -62,12 +67,13 @@ public class AvaliacaoDAO implements IAvaliacaoDAO{
             if (!resultSet.next()) {
                 throw new PersistenciaException("Não foi possivel avaliar a receita");
             }
-            
             connection.close();
+            sucesso = true;
         }catch (Exception e){
             e.printStackTrace();
             throw new PersistenciaException(e.getMessage(), e);
         }
+        return sucesso;
     }
     
     @Override
@@ -124,8 +130,8 @@ public class AvaliacaoDAO implements IAvaliacaoDAO{
     }
     
     @Override
-    public long denunciar(Denuncia denuncia) throws PersistenciaException {
-        Long id = null;
+    public boolean denunciar(Denuncia denuncia) throws PersistenciaException {
+        boolean sucesso = false;
 
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
@@ -139,19 +145,19 @@ public class AvaliacaoDAO implements IAvaliacaoDAO{
             ResultSet resultSet = statement.executeQuery();
             
             if (resultSet.next()) {
-                id = resultSet.getLong("nro_seq_denuncia");
-                denuncia.setSeq_denuncia(id);
+                denuncia.setSeq_denuncia(resultSet.getLong("nro_seq_denuncia"));
             }else{
                 throw new PersistenciaException("Não foi possivel registrar a denuncia");
             }
             
             connection.close();
+            sucesso = true;
         }catch (Exception e){
             e.printStackTrace();
             throw new PersistenciaException(e.getMessage(), e);
         }
 
-        return id;
+        return sucesso;
     }
     
     

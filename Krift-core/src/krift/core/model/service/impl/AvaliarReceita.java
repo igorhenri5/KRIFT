@@ -7,8 +7,9 @@ package krift.core.model.service.impl;
 
 import krift.common.model.domain.Avaliacao;
 import krift.common.model.domain.Denuncia;
-import krift.common.model.domain.Receita;
 import krift.common.model.services.IAvaliarReceita;
+import krift.core.model.dao.IAvaliacaoDAO;
+import krift.core.model.dao.impl.AvaliacaoDAO;
 import util.db.exception.NegocioException;
 import util.db.exception.PersistenciaException;
 
@@ -20,22 +21,23 @@ public class AvaliarReceita implements IAvaliarReceita{
 
     @Override
     public boolean denunciar(Denuncia denuncia) throws PersistenciaException, NegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(denuncia.getDes_comentario().isEmpty()){
+            throw new NegocioException("Não é permitido denunciar sem exclarecer o motivo");
+        }
+        IAvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO();
+        return avaliacaoDAO.denunciar(denuncia);
     }
     
     @Override
     public boolean avaliar(Avaliacao avaliacao) throws PersistenciaException, NegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        IAvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO();
+        return avaliacaoDAO.avaliar(avaliacao);
     }
 
     @Override
     public boolean alterarAvaliacao(Avaliacao avaliacao) throws PersistenciaException, NegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean listarComentarios(Receita receita) throws PersistenciaException, NegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        IAvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO();
+        return avaliacaoDAO.alterar(avaliacao);
     }
        
 }

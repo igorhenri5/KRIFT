@@ -21,7 +21,7 @@ import util.db.exception.PersistenciaException;
  */
 public class FavoritoDAO implements IFavoritoDAO {
     @Override
-    public ArrayList<Receita> listarHistorico(String nom_login) throws PersistenciaException{
+    public ArrayList<Receita> listarFavoritos(String nom_login) throws PersistenciaException{
         ArrayList<Receita> receitas = new ArrayList<>();
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
@@ -34,6 +34,7 @@ public class FavoritoDAO implements IFavoritoDAO {
             while(resultSet.next()){
                 receitas.add(receitaDAO.consultarPorId(resultSet.getLong("nro_seq_receita")));
             }
+            connection.close();
         }catch(Exception e){
             e.printStackTrace();
             throw new PersistenciaException(e.getMessage(), e);
@@ -42,7 +43,8 @@ public class FavoritoDAO implements IFavoritoDAO {
     }
 
     @Override
-    public void inserir(String nom_login, long nro_seq_receita) throws PersistenciaException{
+    public boolean inserir(String nom_login, long nro_seq_receita) throws PersistenciaException{
+        boolean sucesso = false;
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
             String sql = "INSERT INTO favorito(" +
@@ -62,16 +64,18 @@ public class FavoritoDAO implements IFavoritoDAO {
             sql ="COMMIT;";
             statement = connection.prepareStatement(sql);
             statement.executeQuery();
-            
+            connection.close();
+            sucesso = true;
         }catch(Exception e){
             e.printStackTrace();
             throw new PersistenciaException(e.getMessage(), e);
         }
+        return sucesso;
     }
     
     @Override
-    public void excluir(String nom_login, long nro_seq_receita) throws PersistenciaException{
-        
+    public boolean excluir(String nom_login, long nro_seq_receita) throws PersistenciaException{
+        boolean sucesso = false;
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
             IReceitaDAO receitaDAO = new ReceitaDAO();
@@ -81,9 +85,12 @@ public class FavoritoDAO implements IFavoritoDAO {
             statement.setLong(1, nro_seq_receita);
             statement.setString(2, nom_login);
             statement.executeQuery();
+            sucesso = true;
+            connection.close();
         }catch(Exception e){
             e.printStackTrace();
             throw new PersistenciaException(e.getMessage(), e);
         }
+        return sucesso;
     }
 }
