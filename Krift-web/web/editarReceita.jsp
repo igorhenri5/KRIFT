@@ -11,12 +11,16 @@
     <body>  
         <div class="header">
             <div class="left">
+                <% 
+                    if(session.getAttribute("logado")!=null){ 
+                %>
                 <div id="add">
                     <button onclick="window.location='cadastrarReceita.jsp'">
                         <div class="addicon">                            
                         </div>
                     </button>                        
-                </div>  
+                </div> 
+                <% } %>
                 <div id="options">
                     <button onclick="alert('MSG')">
                         <div class="iconMessage">

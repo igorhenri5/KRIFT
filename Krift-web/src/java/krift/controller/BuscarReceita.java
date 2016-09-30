@@ -30,11 +30,11 @@ public class BuscarReceita {
             String nome = request.getParameter("nome");
             String tendencia = request.getParameter("tendencia");
             
-            String sql = "SELECT * FROM \"RECEITA\" WHERE \"nom_receita\" LIKE \""+nome+"\" AND \"idt_tendencia\"="+tendencia;
+            String sql = "";
             
             IManterReceita manter = new stubManterReceita(host,port);     
             
-            receitas = manter.buscar(sql);
+            receitas = manter.buscar(sql, tendencia);
             
             if(receitas!=null){
                 request.setAttribute("receitas", receitas);

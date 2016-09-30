@@ -14,22 +14,30 @@
     <body> 
         <div class="header">
             <div class="left">
+                <% 
+                    if(session.getAttribute("logado")!=null){ 
+                %>
                 <div id="add">
                     <button onclick="window.location='cadastrarReceita.jsp'">
                         <div class="addicon">                            
                         </div>
                     </button>                        
-                </div>  
+                </div> 
+                <% } %> 
                 <div id="options">
+                    <% 
+                    if(session.getAttribute("logado")!=null){ 
+                %>
                     <button onclick="alert('MSG')">
                         <div class="iconMessage">
                         </div>
                     </button>
+                    <% } %>
                     <button onclick="window.location = '/Krift/servletweb?acao=ListarUsuarios'">
                         <div class="iconRanking">
                         </div>
                     </button>
-                    <button onclick="window.location='index.jsp'">
+                    <button onclick="window.location = 'index.jsp'">
                         <div class="iconHome">
                         </div>
                     </button>
@@ -44,16 +52,16 @@
                     <input class="searchbar" placeholder="Buscar" type="text">	
                     <div class="sbutton"></div>
                 </div>
-                <% 
-                    if(session.getAttribute("logado")!=null){ %>
+                <%
+                    if (session.getAttribute("logado") != null) { %>
                 <div class="profileimage">
                     <div class="useropt">
                         <a href="/Krift/servletweb?acao=Logout">SAIR</a>
                     </div>
                 </div>
-                <% }else{ %>
+                <% } else { %>
                 <a href="login.jsp" class="toLogin">LOGIN</a>    
-                <% } %>
+                <% }%>
             </div> 
         </div>
 
@@ -70,7 +78,7 @@
                                 <img class="navicon" src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png">  
                             </li>
                         </a>
-                        <a href="/Krift/servletweb?acao=VisualizarUsuario&nome=<%= ((Usuario)session.getAttribute("logado")).getNom_login() %>">
+                        <a href="/Krift/servletweb?acao=VisualizarUsuario&nome=<%= ((Usuario) session.getAttribute("logado")).getNom_login()%>">
                             <li>  
                                 <span>MEU PERFIL</span>  
                                 <img class="navicon" src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png">
@@ -103,6 +111,11 @@
                         <div class="perfilBG"> 
 
                             <div class="perfil">
+                                <% if(session.getAttribute("logado")!=null){ 
+                                    if(((Usuario)session.getAttribute("logado")).getNom_login().equals(request.getAttribute("nome"))){                                        
+                                %>
+                                <a class="edit" href="editarPerfil.jsp">EDITAR</a>
+                                <% }} %>
                                 <img class="imgperfil" src="http://i.imgur.com/VVZYJel.png">
                                 <div class="nomerank">
                                     <h2><%= request.getAttribute("perfilNome") %></h2>
@@ -142,7 +155,7 @@
                                     </div>
                                 </li>
                             </ul>
-                            
+
                         </div>
                     </div>
 

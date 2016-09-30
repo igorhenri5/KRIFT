@@ -11,17 +11,25 @@
     <body>  
         <div class="header">
             <div class="left">
+                <% 
+                    if(session.getAttribute("logado")!=null){ 
+                %>
                 <div id="add">
                     <button onclick="window.location='cadastrarReceita.jsp'">
                         <div class="addicon">                            
                         </div>
                     </button>                        
-                </div>  
+                </div> 
+                <% } %> 
                 <div id="options">
+                    <% 
+                    if(session.getAttribute("logado")!=null){ 
+                %>
                     <button onclick="alert('MSG')">
                         <div class="iconMessage">
                         </div>
                     </button>
+                    <% } %>
                     <button onclick="window.location = '/Krift/servletweb?acao=ListarUsuarios'">
                         <div class="iconRanking">
                         </div>
@@ -140,7 +148,8 @@
                                     </div>
                                 </div>
 
-                                <div class="formsection"><h4>Tendência</h4>
+                                <div class="formsection">
+                                    <h4>Tendência</h4>
                                     <div>
                                         <select name="tendencia" id="selectTendencia">
                                             <option value="onivorismo">Onivorismo - Contém carne, vegetais e/ou derivados de animais simultaneamente</option>
@@ -153,7 +162,9 @@
                                     </div>
 
                                 </div>
-                                <div class="formsection"><h4>Imagem</h4>
+
+                                <div class="formsection">
+                                    <h4>Imagem</h4>
                                     <div>
                                         <input name="imagem" style="height: 36px;padding-top: 8px;" id="fileupload" value="fileupload" name="fileupload" type="file">
                                         <span style="color: #a2a2a2;">OPCIONAL</span>
@@ -166,12 +177,14 @@
                         <div class="navblock" style="padding-bottom: 20px;"> 
                             <h2 class="title whitetitle">CADASTRO DE RECEITA - INGREDIENTES</h2>
                             <div class="formulario">
-                                <div class="formsection">
-                                    <h4>Ingrediente 1</h4>
+                                <div class="formsection" id="igq">
                                     <div>
-                                        <input name="ingrediente" maxlength="30" placeholder="Digite aqui o nome do ingrediente" type="text" style="width: 280px; margin-right: 10px;"/>
-                                        <input name="quantidade" maxlength="40" placeholder="Digite aqui a quantidade" type="text" style="width: 290px;"/>
-                                        <span>NECESSÁRIO</span>
+                                        <h4>Ingrediente 1</h4>
+                                        <div>
+                                            <input name="ingrediente" onblur="addIngrediente()" maxlength="30" placeholder="Digite aqui o nome do ingrediente" type="text" style="width: 280px; margin-right: 10px;"/>
+                                            <input name="quantidade" onblur="addIngrediente()" maxlength="40" placeholder="Digite aqui a quantidade" type="text" style="width: 290px;"/>
+                                            <span>NECESSÁRIO</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -179,10 +192,14 @@
 
                         <div class="navblock" style="padding-bottom: 20px;"> 
                             <h2 class="title whitetitle">CADASTRO DE RECEITA - MODO DE PREPARO</h2>
-                            <div class="formulario"><div class="formsection"><h4>Passo 1</h4>
+                            <div class="formulario">
+                                <div class="formsection" id="pss">    
                                     <div>
-                                        <input name="passo" maxlength="255" placeholder="Digite aqui o passo" type="text"/>
-                                        <span>NECESSÁRIO</span>
+                                        <h4>Passo 1</h4>
+                                        <div>
+                                            <input onblur="addPasso()" name="passo" maxlength="255" placeholder="Digite aqui o passo" type="text"/>
+                                            <span>NECESSÁRIO</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -190,7 +207,7 @@
 
                         <div class="navblock" style="position: relative;"> 
                             <h2 class="title whitetitle">FIM DO FORMULÁRIO</h2>
-                            <button onclick="alert('nao vai nao')" class="formBotao" >ENVIAR
+                            <button onclick="window.location = '/Krift/servletweb?acao=CriarReceita'" class="formBotao" >ENVIAR
                             </button>
                         </div>
                     </form>    

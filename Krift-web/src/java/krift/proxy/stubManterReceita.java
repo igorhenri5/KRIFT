@@ -86,22 +86,7 @@ public class stubManterReceita implements IManterReceita{
         }
     }
 
-    @Override
-    public ArrayList<Receita> buscar(String sql) throws PersistenciaException, NegocioException {
-        try {
-            socket = new Socket(host, port);
-            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
-            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-            out.writeObject(Request.BUSCAR_RECEITAS);
-            out.flush();
-            ArrayList<Receita> resposta = (ArrayList<Receita>) in.readObject();
-            return resposta;
-        } catch (IOException | ClassNotFoundException ex) {
-            return null;
-        }
-    }
-
-    @Override
+     @Override
     public ArrayList<Receita> listarReceitasRecomendadas(String nom_login) throws PersistenciaException, NegocioException {
         try {
             socket = new Socket(host, port);
@@ -141,6 +126,24 @@ public class stubManterReceita implements IManterReceita{
             out.writeObject(id);
             out.flush();
             Receita resposta = (Receita) in.readObject();
+            return resposta;
+        } catch (IOException | ClassNotFoundException ex) {
+            return null;
+        }
+    }
+
+    @Override
+    public ArrayList<Receita> buscar(String search, String idt_tendencia) throws PersistenciaException, NegocioException {
+        try {
+            socket = new Socket(host, port);
+            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
+            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
+            out.writeObject(Request.BUSCAR_RECEITAS);
+            out.writeObject(search);
+            out.writeObject(idt_tendencia);
+            //mudar parametros
+            out.flush();
+            ArrayList<Receita> resposta = (ArrayList<Receita>) in.readObject();
             return resposta;
         } catch (IOException | ClassNotFoundException ex) {
             return null;

@@ -33,6 +33,7 @@ public class CriarReceita {
             String tempo = request.getParameter("tempo");
             String tendencia = request.getParameter("tendencia");
             String imagem = request.getParameter("imagem");
+            //receita.set
             //lidar com ingredientes e passos
             
             IManterReceita manter = new stubManterReceita(host,port);

@@ -23,7 +23,7 @@ public class Login {
         int port = 2223;
 
         try {
-            Usuario user = new Usuario();     
+            Usuario user = null;     
             String nomeUsuario = request.getParameter("usuario");
             String senha = request.getParameter("senha");            
             
@@ -34,8 +34,10 @@ public class Login {
             }else{     
                 if (manter.logar(nomeUsuario, senha)) {   
                     user = manter.buscar(nomeUsuario);
-                    jsp = "/index.jsp";
-                    
+                    if(user == null){
+                        System.out.println("USER NULO");
+                    }
+                    jsp = "/index.jsp";                    
                     request.getSession().setAttribute("logado", user);
                 }
             }

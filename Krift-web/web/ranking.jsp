@@ -13,17 +13,25 @@
     <body> 
         <div class="header">
             <div class="left">
+                <% 
+                    if(session.getAttribute("logado")!=null){ 
+                %>
                 <div id="add">
-                    <button onclick="window.location = 'cadastrarReceita.jsp'">
+                    <button onclick="window.location='cadastrarReceita.jsp'">
                         <div class="addicon">                            
                         </div>
                     </button>                        
-                </div>  
+                </div> 
+                <% } %>  
                 <div id="options">
+                    <% 
+                    if(session.getAttribute("logado")!=null){ 
+                %>
                     <button onclick="alert('MSG')">
                         <div class="iconMessage">
                         </div>
                     </button>
+                    <% } %>
                     <button onclick="window.location = '/Krift/servletweb?acao=ListarUsuarios'">
                         <div class="iconRanking">
                         </div>

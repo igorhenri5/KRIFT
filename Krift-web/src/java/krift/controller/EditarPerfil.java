@@ -29,28 +29,22 @@ public class EditarPerfil {
             String nomePerfil = request.getParameter("nome");
             String tendencia = request.getParameter("tendencia");
             String imagem = request.getParameter("imagem");
-            System.out.println("img -> "+imagem);
-            String sobre = request.getParameter("sobre");
+            String sobre = request.getParameter("sobre");            
             
             IManterUsuario manter = new stubManterUsuario(host,port);
             
             if(tendencia.equals("")||tendencia==null||nomePerfil.equals("")||nomePerfil==null||sobre.equals("")||sobre==null){
                 jsp = "/editarPerfil.jsp";
             }else{
-                user.setEmail(tendencia);
-                user.setNom_login(nomePerfil);
-                user.setSenha(sobre);            
-                        
-                if(manter.cadastrar(user)){      
-                    jsp = "/index.jsp";
-                    request.getSession().setAttribute("usuario", user);
-                    request.getSession().setAttribute("logado", true);
-                }
+                user.setNom_perfil_usuario(nomePerfil);
+                user.setIdt_tendencia(tendencia);
+                user.setDes_usuario(sobre);
+                manter.alterar(user);
             }
             
         } catch (Exception e) {
             e.printStackTrace();
-            jsp = "/editarPerfil.jsp";
+            jsp = "/index.jsp";
         }
 
         return jsp;

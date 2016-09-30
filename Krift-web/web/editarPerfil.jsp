@@ -13,17 +13,25 @@
     <body> 
         <div class="header">
             <div class="left">
+                <% 
+                    if(session.getAttribute("logado")!=null){ 
+                %>
                 <div id="add">
                     <button onclick="window.location='cadastrarReceita.jsp'">
                         <div class="addicon">                            
                         </div>
                     </button>                        
-                </div>  
+                </div> 
+                <% } %> 
                 <div id="options">
+                    <% 
+                    if(session.getAttribute("logado")!=null){ 
+                %>
                     <button onclick="alert('MSG')">
                         <div class="iconMessage">
                         </div>
                     </button>
+                    <% } %>
                     <button onclick="window.location = '/Krift/servletweb?acao=ListarUsuarios'">
                         <div class="iconRanking">
                         </div>
@@ -100,29 +108,62 @@
                         </a> 
                     </ul>  
                 </div>
-
+                        
                 <div>
-                    <form id="form" method="POST" action="/Krift/servletweb?acao=EditarPerfil">
+                    <form id="form" method="post" action="/Krift/servletweb?acao=EditarPerfil" enctype="multipart/form-data">
                         <div class="navblock" style="padding-bottom: 20px;"> 
                             <h2 class="title whitetitle">EDIÇÃO DE PERFIL</h2>
 
                             <div class="formulario">
                                 <div class="formsection"><h4>Nome</h4>
                                     <div>
-                                        <input name="nome" placeholder="Digite um novo nome" type="text">
+                                        <input name="nome" value="<%= ((Usuario)session.getAttribute("logado")).getNom_perfil_usuario() %>" placeholder="Digite um novo nome" type="text">
                                         <span>NECESSÁRIO</span>
                                     </div>
                                 </div>
-
                                 <div class="formsection">
                                     <h4>Tendência</h4>
                                     <div>
                                         <select name="tendencia" id="selectTendencia">
+                                            <% if(((Usuario)session.getAttribute("logado")).getIdt_tendencia().equals("SEM")){ %>  
                                             <option value="onivorismo">Onivorismo - Contém carne, vegetais e/ou derivados de animais simultaneamente</option>
                                             <option value="vegetarianismo">Vegetarianismo - Contém vegetais e derivados de animais</option>
                                             <option value="veganismo">Veganismo - Contém apenas vegetais</option>
                                             <option value="carnivorismo">Carnivorismo - Contém apenas carne</option>	
+                                            <option selected value="sem tendencia">Sem tendência - Não classificado</option>
+                                            <% } %>  
+                                            
+                                            <% if(((Usuario)session.getAttribute("logado")).getIdt_tendencia().equals("ONV")){ %>  
+                                            <option selected value="onivorismo">Onivorismo - Contém carne, vegetais e/ou derivados de animais simultaneamente</option>
+                                            <option value="vegetarianismo">Vegetarianismo - Contém vegetais e derivados de animais</option>
+                                            <option value="veganismo">Veganismo - Contém apenas vegetais</option>
+                                            <option value="carnivorismo">Carnivorismo - Contém apenas carne</option>	
+                                            <option selected value="sem tendencia">Sem tendência - Não classificado</option>
+                                            <% } %> 
+                                            
+                                            <% if(((Usuario)session.getAttribute("logado")).getIdt_tendencia().equals("VGN")){ %>  
+                                            <option value="onivorismo">Onivorismo - Contém carne, vegetais e/ou derivados de animais simultaneamente</option>
+                                            <option value="vegetarianismo">Vegetarianismo - Contém vegetais e derivados de animais</option>
+                                            <option selected value="veganismo">Veganismo - Contém apenas vegetais</option>
+                                            <option value="carnivorismo">Carnivorismo - Contém apenas carne</option>	
+                                            <option selected value="sem tendencia">Sem tendência - Não classificado</option>
+                                            <% } %> 
+                                            
+                                            <% if(((Usuario)session.getAttribute("logado")).getIdt_tendencia().equals("VGT")){ %>  
+                                            <option value="onivorismo">Onivorismo - Contém carne, vegetais e/ou derivados de animais simultaneamente</option>
+                                            <option selected value="vegetarianismo">Vegetarianismo - Contém vegetais e derivados de animais</option>
+                                            <option value="veganismo">Veganismo - Contém apenas vegetais</option>
+                                            <option value="carnivorismo">Carnivorismo - Contém apenas carne</option>	
                                             <option value="sem tendencia">Sem tendência - Não classificado</option>
+                                            <% } %> 
+                                            
+                                            <% if(((Usuario)session.getAttribute("logado")).getIdt_tendencia().equals("CRN")){ %>  
+                                            <option value="onivorismo">Onivorismo - Contém carne, vegetais e/ou derivados de animais simultaneamente</option>
+                                            <option value="vegetarianismo">Vegetarianismo - Contém vegetais e derivados de animais</option>
+                                            <option value="veganismo">Veganismo - Contém apenas vegetais</option>
+                                            <option selected value="carnivorismo">Carnivorismo - Contém apenas carne</option>	
+                                            <option value="sem tendencia">Sem tendência - Não classificado</option>
+                                            <% } %> 
                                         </select>
                                         <span>NECESSÁRIO</span>
                                     </div>
@@ -140,7 +181,7 @@
                                 <div class="formsection">
                                     <h4>Sobre você</h4>
                                     <div>
-                                        <textarea name="sobre" placeholder="Digite um texto sobre você" rows="4" cols="50" maxlength="255" style="margin: 0px; height: 66px; width: 579px;"></textarea>
+                                        <textarea name="sobre" placeholder="Digite um texto sobre você" rows="4" cols="50" maxlength="255" style="margin: 0px; height: 66px; width: 579px;"><%=((Usuario)session.getAttribute("logado")).getDes_usuario() %></textarea>
                                         <span style="color: #a2a2a2;">OPCIONAL</span>
                                     </div>
 
@@ -153,7 +194,7 @@
 
                         <div class="navblock" style="position: relative;"> 
                             <h2 class="title">FIM DO FORMULÁRIO</h2>
-                            <button onclick="alert('nao vai nao')" class="formBotao">ENVIAR</button>
+                            <button onclick="window.location='/Krift/servletweb?acao=EditarPerfil'" class="formBotao">ENVIAR</button>
                         </div>
                     </form>
                 </div>

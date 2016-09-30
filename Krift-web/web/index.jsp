@@ -15,17 +15,25 @@
     <body> 
         <div class="header">
             <div class="left">
+                 <% 
+                    if(session.getAttribute("logado")!=null){ 
+                %>
                 <div id="add">
                     <button onclick="window.location='cadastrarReceita.jsp'">
                         <div class="addicon">                            
                         </div>
                     </button>                        
-                </div>  
+                </div> 
+                <% } %>
                 <div id="options">
+                    <% 
+                    if(session.getAttribute("logado")!=null){ 
+                %>
                     <button onclick="alert('MSG')">
                         <div class="iconMessage">
                         </div>
                     </button>
+                    <% } %>
                     <button onclick="window.location = '/Krift/servletweb?acao=ListarUsuarios'">
                         <div class="iconRanking">
                         </div>
@@ -46,7 +54,8 @@
                     <a class="sbutton" href="/Krift/servletweb?acao=Busca"></a>
                 </div>
                 <% 
-                    if(session.getAttribute("logado")!=null){ %>
+                    if(session.getAttribute("logado")!=null){ 
+                %>
                 <div class="profileimage">
                     <div class="useropt">
                         <a href="/Krift/servletweb?acao=Logout">SAIR</a>

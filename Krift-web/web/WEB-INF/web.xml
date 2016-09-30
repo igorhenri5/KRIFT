@@ -3,15 +3,13 @@
     <servlet>
         <servlet-name>ServletWeb</servlet-name>
         <servlet-class>krift.controller.ServletWeb</servlet-class>
+               
     </servlet>
     <servlet>
         <servlet-name>Login</servlet-name>
         <servlet-class>krift.controller.Login</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>NewServlet</servlet-name>
-        <servlet-class>cchat.controller.NewServlet</servlet-class>
-    </servlet>
+   
     <servlet-mapping>
         <servlet-name>ServletWeb</servlet-name>
         <url-pattern>/servletweb</url-pattern>
@@ -20,10 +18,8 @@
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>NewServlet</servlet-name>
-        <url-pattern>/NewServlet</url-pattern>
-    </servlet-mapping>
+
+   
     <session-config>
         <session-timeout>
             30

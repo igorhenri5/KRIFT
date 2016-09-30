@@ -32,7 +32,7 @@ public class VisualizarUsuario {
             String nomeUsuario = request.getParameter("nome");
             System.out.println("GOD -> "+nomeUsuario);
             IManterUsuario manter = new stubManterUsuario(host,port);            
-            IManterReceita manterR = new stubManterReceita(host, port);    
+//            IManterReceita manterR = new stubManterReceita(host, port);    
             
             if(nomeUsuario==null||nomeUsuario.equals("")){
                 jsp = "/index.jsp";
@@ -40,11 +40,35 @@ public class VisualizarUsuario {
                 System.out.println("G");
                 user = manter.buscar(nomeUsuario);
                 
+                request.setAttribute("nome", nomeUsuario);
                 request.setAttribute("perfilNome", user.getNom_perfil_usuario());
                 request.setAttribute("perfilRank", user.getPos_ranking());
-                request.setAttribute("perfilPontos", user.getNro_pontos());
-                request.setAttribute("perfilTendencia", user.getIdt_tendencia());
+                request.setAttribute("perfilPontos", user.getNro_pontos());                
                 request.setAttribute("perfilSobre", user.getDes_usuario());
+                
+                String td = user.getIdt_tendencia();
+                
+                if(td.equals("SEM")){
+                    td = "SEM TENDÊNCIA";
+                }
+                
+                if(td.equals("VGN")){
+                    td = "VEGANO";
+                }
+                
+                if(td.equals("VGT")){
+                    td = "VEGETARIANO";
+                }
+                
+                if(td.equals("ONV")){
+                    td = "ONÍVORO";
+                }
+                
+                if(td.equals("CRN")){
+                    td = "CARNÍVORO";
+                }
+                
+                request.setAttribute("perfilTendencia", td);
                 
                 if(user!=null){    
                     System.out.println("B");

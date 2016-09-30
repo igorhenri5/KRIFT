@@ -46,7 +46,10 @@ public class stubManterUsuario implements IManterUsuario{
             out.writeObject(Senha);
             out.flush();
             
-            boolean resposta = (Boolean)in.readObject();             
+            boolean resposta = (Boolean)in.readObject();   
+            if(resposta){
+                System.out.println("VAI LOGAR SIM");
+            }
             return resposta;            
         } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();
