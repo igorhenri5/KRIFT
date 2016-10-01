@@ -8,6 +8,7 @@ package krift.core.model.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import krift.common.model.domain.Usuario;
 import krift.core.model.dao.IUsuarioDAO;
@@ -61,9 +62,6 @@ public class UsuarioDAO implements IUsuarioDAO{
                 statement = connection.prepareStatement(sql);
                 throw new PersistenciaException("Não foi possivel cadastrar o Usuario");
             }
-            
-            
-            
             connection.close();
         }catch (Exception e){
             e.printStackTrace();
@@ -176,7 +174,7 @@ public class UsuarioDAO implements IUsuarioDAO{
         ArrayList<Usuario> usuarios = new ArrayList<>();
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql ="SELECT nom_login, seq_imagem, nom_perfil_usuario, dat_cadastro, " +
+            String sql ="SELECT nom_login, seq_imagem, nom_perfil_usuario, " +
                         "       email, senha, des_usuario, idt_tendencia, nro_pontos, " +
                         "       pos_ranking, arq_imagem " +
                         "  FROM usuario" +
@@ -187,7 +185,7 @@ public class UsuarioDAO implements IUsuarioDAO{
             
             while(resultSet.next()) {
                 Usuario usuario = new Usuario();
-                usuario.setNom_login(resultSet.getString("seq_login"));
+                usuario.setNom_login(resultSet.getString("nom_login"));
                 usuario.setSeq_imagem(resultSet.getLong("seq_imagem"));
                 usuario.setNom_perfil_usuario(resultSet.getString("nom_perfil_usuario"));
                 usuario.setEmail(resultSet.getString("email"));
@@ -236,7 +234,7 @@ public class UsuarioDAO implements IUsuarioDAO{
             }
             
             connection.close();
-        }catch (Exception e){
+        }catch (ClassNotFoundException | SQLException e){
             e.printStackTrace();
             throw new PersistenciaException(e.getMessage(), e);
         }
