@@ -71,7 +71,7 @@
             <div class="wrapper">     
                 <div class="sidebox">
                     <h2 class="title">MENU</h2>
-                    <img class="navicon" src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png">
+                    <img class="navicon" src="menuicons.png">
                     <ul class="sidenav"> 
                         <%
                             if(session.getAttribute("logado")!=null){;                                
@@ -79,19 +79,19 @@
                         <a href="#">
                             <li> 
                                 <span>MINHAS RECEITAS</span>
-                                <img class="navicon" src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png">  
+                                <img class="navicon" src="menuicons.png">  
                             </li>
                         </a>
                         <a href="/Krift/servletweb?acao=VisualizarUsuario&nome=<%= ((Usuario)session.getAttribute("logado")).getNom_login() %>"> 
                             <li>  
                                 <span>MEU PERFIL</span>  
-                                <img class="navicon" src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png">
+                                <img class="navicon" src="menuicons.png">
                             </li>
                         </a>
                         <a href="#"> 
                             <li>  
                                 <span>FAVORITOS</span>
-                                <img class="navicon" src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png">
+                                <img class="navicon" src="menuicons.png">
                             </li>
                         </a>  
                         <%
@@ -100,13 +100,13 @@
                         <a href="ajuda.jsp">
                             <li>
                                 <span>SOBRE</span> 
-                                <img class="navicon" src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png">
+                                <img class="navicon" src="menuicons.png">
                             </li>
                         </a>
                         <a href="ajuda.jsp">
                             <li> 
                                 <span>AJUDA</span>
-                                <img class="navicon" src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png">
+                                <img class="navicon" src="menuicons.png">
                             </li>
                         </a> 
                     </ul>  
@@ -119,7 +119,7 @@
                             <% /* for(varrervetordereceitas){ */
                             %>
                             <li>
-                                <div class="img" style="background-image:url(http://www.sisenor.com.br/wp-content/uploads/2016/01/banner_lamberjack.jpg);">
+                                <div class="img" style="background-image:url(picanha.jpg);">
                                     <div class="desc"><span id="rcp">Nome da receita</span>
                                         <span class="autor">por Autor</span><span class="tendencia">tendência</span>
 
@@ -137,33 +137,33 @@
 
                 <div class="sidebox">
                     <h2 class="title" style="font-size: 20px;">TENDÊNCIAS NA BUSCA</h2>
-                    <img class="navicon" src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png">
+                    <img class="navicon" src="menuicons.png">
                     <ul class="sidenav"> 
                         <a href="#">
                             <li> 
                                 <span style="color: #42b1d7;">ONIVORISMO</span>
-                                <img class="navicon" src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png">  
+                                <img class="navicon" src="menuicons.png">  
                             </li>
                         </a>
                         <a href="#">
                             <li>  
                                 <span style="color: #8ee04c;">VEGETARIANISMO</span>  
-                                <img class="navicon" src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png"></li>
+                                <img class="navicon" src="menuicons.png"></li>
                         </a>
                         <a href="#"> 
                             <li>  
                                 <span style="color: #d5d548;">VEGANISMO</span>
-                                <img class="navicon" src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png"></li>
+                                <img class="navicon" src="menuicons.png"></li>
                         </a>  
                         <a href="#">
                             <li>
                                 <span style="color: #ee4c58;">CARNIVORISMO</span> 
-                                <img class="navicon" src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png"></li>
+                                <img class="navicon" src="menuicons.png"></li>
                         </a>
                         <a href="#">
                             <li> 
                                 <span style="color: black;">SEM TENDÊNCIA</span>
-                                <img class="navicon" src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png"></li>
+                                <img class="navicon" src="menuicons.png"></li>
                         </a> 
                     </ul>  
                 </div>

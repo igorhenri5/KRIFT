@@ -39,7 +39,10 @@ public class Cadastrar {
             }else{
                 user.setEmail(email);
                 user.setNom_login(nomeUsuario);
-                user.setSenha(senha);            
+                user.setSenha(senha);         
+                user.setIdt_tendencia("SEM");
+                request.getSession().setAttribute("SessaoTendencia","SEM");
+                
                 if(manter.cadastrar(user)){      
                     jsp = "/index.jsp";
                     request.getSession().setAttribute("logado", user);

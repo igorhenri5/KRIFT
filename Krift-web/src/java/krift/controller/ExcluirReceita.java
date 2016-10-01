@@ -15,35 +15,38 @@ import krift.proxy.*;
  *
  * @author Igor
  */
-public class ListarReceitasRecomendadas {
-
+public class ExcluirReceita {
+    
     public static String execute(HttpServletRequest request) {
-
+        
         String jsp = "index.jsp";
         String host = "localhost";
-
+        
         int port = 2223;
-
+        
         try {
-
-            ArrayList<Usuario> user = null;
-
-            IManterUsuario manter = new stubManterUsuario(host, port);
-
-            user = manter.listar();
-            if (user != null) {
-                jsp = "/index.jsp";
-            }else{
-                jsp = "/ranking.jsp";
-            }
+            ArrayList<Receita> receitas = null;     
             
-            request.setAttribute("usuarios", user);
-
+            String tendencia = request.getParameter("tendencia");            
+            String busca = request.getParameter("busca"); 
+            
+            IManterReceita manter = new stubManterReceita(host,port);     
+            
+            receitas = manter.buscar(busca, tendencia);
+            
+            if(receitas!=null){
+                request.setAttribute("receitas", receitas);
+                jsp = "/resultados.jsp";
+            }else{
+                jsp = "/index.jsp";
+            }    
+            
         } catch (Exception e) {
             e.printStackTrace();
             jsp = "/index.jsp";
         }
-
-        return jsp;
+        
+        return jsp;        
     }
-}
+}    
+

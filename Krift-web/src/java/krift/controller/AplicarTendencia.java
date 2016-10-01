@@ -15,7 +15,7 @@ import krift.proxy.*;
  *
  * @author Igor
  */
-public class BuscarReceita {
+public class AplicarTendencia {
     
     public static String execute(HttpServletRequest request) {
         
@@ -25,18 +25,12 @@ public class BuscarReceita {
         int port = 2223;
         
         try {
-            ArrayList<Receita> receitas = null;     
             
-            String tendencia = (String)request.getSession().getAttribute("SessaoTendencia");    
-            String busca = request.getParameter("busca"); 
+            String tendencia = request.getParameter("SessaoTendencia");            
             
-            IManterReceita manter = new stubManterReceita(host,port);     
-            
-            receitas = manter.buscar(busca, tendencia);
-            
-            if(receitas!=null){
-                request.setAttribute("receitas", receitas);
-                jsp = "/resultados.jsp";
+            if(tendencia.equals("ONV")||tendencia.equals("CRN")||tendencia.equals("VGT")||tendencia.equals("VGN")||tendencia.equals("SEM")){
+                request.getSession().setAttribute("SessaoTendencia",tendencia);
+                jsp = "/index.jsp";
             }else{
                 jsp = "/index.jsp";
             }    

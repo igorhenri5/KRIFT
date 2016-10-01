@@ -30,21 +30,20 @@ public class VisualizarUsuario {
             ArrayList<Receita> receitas = null;
             
             String nomeUsuario = request.getParameter("nome");
-            System.out.println("GOD -> "+nomeUsuario);
             IManterUsuario manter = new stubManterUsuario(host,port);            
-//            IManterReceita manterR = new stubManterReceita(host, port);    
+            IManterReceita manterR = new stubManterReceita(host, port);    
             
             if(nomeUsuario==null||nomeUsuario.equals("")){
                 jsp = "/index.jsp";
             }else{           
-                System.out.println("G");
-                user = manter.buscar(nomeUsuario);
+                user = manter.buscar(nomeUsuario);          
                 
                 request.setAttribute("nome", nomeUsuario);
                 request.setAttribute("perfilNome", user.getNom_perfil_usuario());
                 request.setAttribute("perfilRank", user.getPos_ranking());
                 request.setAttribute("perfilPontos", user.getNro_pontos());                
                 request.setAttribute("perfilSobre", user.getDes_usuario());
+                request.setAttribute("perfilReceitas", manterR.listarReceitasPorUsuario(nomeUsuario));
                 
                 String td = user.getIdt_tendencia();
                 

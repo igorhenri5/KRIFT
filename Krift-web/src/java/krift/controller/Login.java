@@ -8,6 +8,7 @@ package krift.controller;
 import javax.servlet.http.HttpServletRequest;
 import krift.common.model.domain.*;
 import krift.common.model.services.*;
+import krift.proxy.stubManterReceita;
 import krift.proxy.stubManterUsuario;
 
 /**
@@ -19,29 +20,30 @@ public class Login {
     public static String execute(HttpServletRequest request) {
         String jsp = "login.jsp";
         String host = "localhost";
-        
+
         int port = 2223;
 
         try {
-            Usuario user = null;     
+            Usuario user = null;
             String nomeUsuario = request.getParameter("usuario");
-            String senha = request.getParameter("senha");            
-            
-            IManterUsuario manter = new stubManterUsuario(host,port);
-            
-            if(nomeUsuario==null||nomeUsuario.equals("")||senha==null||senha.equals("")){
+            String senha = request.getParameter("senha");
+
+            IManterUsuario manter = new stubManterUsuario(host, port);
+            IManterReceita manter2 = new stubManterReceita(host, port);
+
+            if (nomeUsuario == null || nomeUsuario.equals("") || senha == null || senha.equals("")) {
                 jsp = "/login.jsp";
-            }else{     
-                if (manter.logar(nomeUsuario, senha)) {   
-                    user = manter.buscar(nomeUsuario);
-                    if(user == null){
-                        System.out.println("USER NULO");
-                    }
-                    jsp = "/index.jsp";                    
-                    request.getSession().setAttribute("logado", user);
+            } else if (manter.logar(nomeUsuario, senha)) {
+                user = manter.buscar(nomeUsuario);
+                request.setAttribute("receitasRecomendadas", manter2.listarReceitasRecomendadas(host));
+
+                if (user == null) {
+                    System.out.println("USER NULO");
                 }
+                jsp = "/index.jsp";
+                request.getSession().setAttribute("logado", user);
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             jsp = "/login.jsp";

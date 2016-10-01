@@ -141,7 +141,6 @@ public class stubManterReceita implements IManterReceita{
             out.writeObject(Request.BUSCAR_RECEITAS);
             out.writeObject(search);
             out.writeObject(idt_tendencia);
-            //mudar parametros
             out.flush();
             ArrayList<Receita> resposta = (ArrayList<Receita>) in.readObject();
             return resposta;

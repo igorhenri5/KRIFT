@@ -15,7 +15,7 @@ import krift.proxy.*;
  *
  * @author Igor
  */
-public class BuscarReceita {
+public class DenunciarReceita {
     
     public static String execute(HttpServletRequest request) {
         
@@ -25,18 +25,25 @@ public class BuscarReceita {
         int port = 2223;
         
         try {
-            ArrayList<Receita> receitas = null;     
             
-            String tendencia = (String)request.getSession().getAttribute("SessaoTendencia");    
-            String busca = request.getParameter("busca"); 
+            Receita receita = null;   
             
-            IManterReceita manter = new stubManterReceita(host,port);     
+            IAvaliarReceita manter = new stubAvaliarReceita(host, port);  
+            IManterReceita manterR = new stubManterReceita(host, port);    
             
-            receitas = manter.buscar(busca, tendencia);
+            Long id = Long.parseLong(request.getParameter("idReceita"));
             
-            if(receitas!=null){
-                request.setAttribute("receitas", receitas);
-                jsp = "/resultados.jsp";
+            Denuncia den = new Denuncia();
+            
+            if(!(id.equals(""))&&id!=null){
+                receita = manterR.visualizar(id);
+                manter.denunciar(den);
+                den.setNro_seq_receita(id);
+                den.setDes_comentario("D E N U N C I A D O");
+                if(receita!=null){                         
+                    jsp = "/receita.jsp";     
+                    request.setAttribute("receita",receita);
+                } 
             }else{
                 jsp = "/index.jsp";
             }    
