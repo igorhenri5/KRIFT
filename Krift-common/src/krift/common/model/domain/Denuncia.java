@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package krift.common.model.domain;
 
 import java.io.Serializable;
@@ -12,25 +7,25 @@ import java.io.Serializable;
  * @author Aluno
  */
 public class Denuncia implements Serializable{
-    private long seq_denuncia;
+    private String nom_login;
     private long nro_seq_receita;
     private String des_comentario;
 
     public Denuncia() {
     }
 
-    public Denuncia(long seq_denuncia, long seq_receita, String des_comentario) {
-        this.seq_denuncia = seq_denuncia;
+    public Denuncia(String nom_login, long seq_receita, String des_comentario) {
+        this.nom_login = nom_login;
         this.nro_seq_receita = seq_receita;
         this.des_comentario = des_comentario;
     }
 
-    public long getSeq_denuncia() {
-        return seq_denuncia;
+    public String getNom_login() {
+        return nom_login;
     }
 
-    public void setSeq_denuncia(long seq_denuncia) {
-        this.seq_denuncia = seq_denuncia;
+    public void setNom_login(String nom_login) {
+        this.nom_login = nom_login;
     }
 
     public long getNro_seq_receita() {

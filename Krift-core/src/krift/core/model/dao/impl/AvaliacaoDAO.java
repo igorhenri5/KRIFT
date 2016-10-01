@@ -132,24 +132,22 @@ public class AvaliacaoDAO implements IAvaliacaoDAO{
     @Override
     public boolean denunciar(Denuncia denuncia) throws PersistenciaException {
         boolean sucesso = false;
-
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql ="INSERT INTO denuncia(nro_seq_receita,des_comentario)" +
-                  "    VALUES (?,?)  returning nro_seq_denuncia;";
+            String sql ="INSERT INTO denuncia(nom_login, nro_seq_receita,des_comentario)" +
+                  "    VALUES (?,?,?)  returning 1;";
             PreparedStatement statement = connection.prepareStatement(sql);
-            
-            statement.setLong(1, denuncia.getNro_seq_receita());
-            statement.setString(2, denuncia.getDes_comentario());
-            
+
+            statement.setString(1, denuncia.getNom_login());
+            statement.setLong(2, denuncia.getNro_seq_receita());
+            statement.setString(3, denuncia.getDes_comentario());
+
             ResultSet resultSet = statement.executeQuery();
-            
-            if (resultSet.next()) {
-                denuncia.setSeq_denuncia(resultSet.getLong("nro_seq_denuncia"));
-            }else{
+
+            if (!resultSet.next()) {
                 throw new PersistenciaException("Não foi possivel registrar a denuncia");
             }
-            
+
             connection.close();
             sucesso = true;
         }catch (Exception e){
