@@ -21,7 +21,7 @@ import util.db.exception.PersistenciaException;
  */
 public class FavoritoDAO implements IFavoritoDAO {
     @Override
-    public ArrayList<Receita> listarFavoritos(String nom_login) throws PersistenciaException{
+    public ArrayList<Receita> listarHistorico(String nom_login) throws PersistenciaException{
         ArrayList<Receita> receitas = new ArrayList<>();
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
@@ -42,8 +42,7 @@ public class FavoritoDAO implements IFavoritoDAO {
     }
 
     @Override
-    public boolean inserir(String nom_login, long nro_seq_receita) throws PersistenciaException{
-        boolean sucesso = false;
+    public void inserir(String nom_login, long nro_seq_receita) throws PersistenciaException{
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
             String sql = "INSERT INTO favorito(" +
@@ -63,30 +62,28 @@ public class FavoritoDAO implements IFavoritoDAO {
             sql ="COMMIT;";
             statement = connection.prepareStatement(sql);
             statement.executeQuery();
-            sucesso = true;
+            
         }catch(Exception e){
             e.printStackTrace();
             throw new PersistenciaException(e.getMessage(), e);
         }
-        return sucesso;
     }
     
     @Override
-    public boolean excluir(String nom_login, long nro_seq_receita) throws PersistenciaException{
-        boolean sucesso = false;
+    public void excluir(String nom_login, long nro_seq_receita) throws PersistenciaException{
+        
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
+            IReceitaDAO receitaDAO = new ReceitaDAO();
             String sql = "DELETE FROM favorito  WHERE " +
                 "   nro_seq_receita AND nom_login = ?;";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, nro_seq_receita);
             statement.setString(2, nom_login);
             statement.executeQuery();
-            sucesso = true;
         }catch(Exception e){
             e.printStackTrace();
             throw new PersistenciaException(e.getMessage(), e);
         }
-        return sucesso;
     }
 }

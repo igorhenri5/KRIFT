@@ -15,10 +15,10 @@ import util.db.exception.PersistenciaException;
  */
 public interface IFavoritoDAO {
 
-    boolean excluir(String nom_login, long nro_seq_receita) throws PersistenciaException;
+    void excluir(String nom_login, long nro_seq_receita) throws PersistenciaException;
 
-    boolean inserir(String nom_login, long nro_seq_receita) throws PersistenciaException;
+    void inserir(String nom_login, long nro_seq_receita) throws PersistenciaException;
 
-    ArrayList<Receita> listarFavoritos(String nom_login) throws PersistenciaException;
+    ArrayList<Receita> listarHistorico(String nom_login) throws PersistenciaException;
     
 }

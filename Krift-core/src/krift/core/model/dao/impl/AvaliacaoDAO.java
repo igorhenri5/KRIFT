@@ -129,17 +129,19 @@ public class AvaliacaoDAO implements IAvaliacaoDAO{
 
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql ="INSERT INTO denuncia(nom_login, nro_seq_receita,des_comentario)" +
-                  "    VALUES (?,?,?)  returning 1;";
+            String sql ="INSERT INTO denuncia(nro_seq_receita,des_comentario)" +
+                  "    VALUES (?,?)  returning nro_seq_denuncia;";
             PreparedStatement statement = connection.prepareStatement(sql);
             
-            statement.setString(1, denuncia.getNom_login());
-            statement.setLong(2, denuncia.getNro_seq_receita());
-            statement.setString(3, denuncia.getDes_comentario());
+            statement.setLong(1, denuncia.getNro_seq_receita());
+            statement.setString(2, denuncia.getDes_comentario());
             
             ResultSet resultSet = statement.executeQuery();
             
-            if (!resultSet.next()) {
+            if (resultSet.next()) {
+                id = resultSet.getLong("nro_seq_denuncia");
+                denuncia.setSeq_denuncia(id);
+            }else{
                 throw new PersistenciaException("Não foi possivel registrar a denuncia");
             }
             

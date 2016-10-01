@@ -157,6 +157,8 @@ public class Skeleton implements Runnable{
                     id = reader.readLong();
                     writer.writeObject(manterFavoritos.listarFavoritos(nome, id));
                     break;
+                case LISTAR_HISTORICO:
+                    break;
                 case LISTAR_COMENTARIOS:
                     nome = (String)reader.readObject();
                     id = reader.readLong();

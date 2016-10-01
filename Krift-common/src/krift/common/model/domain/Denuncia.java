@@ -12,25 +12,25 @@ import java.io.Serializable;
  * @author Aluno
  */
 public class Denuncia implements Serializable{
-    private String nom_login;
+    private long seq_denuncia;
     private long nro_seq_receita;
     private String des_comentario;
 
     public Denuncia() {
     }
 
-    public Denuncia(String nom_login, long seq_receita, String des_comentario) {
-        this.nom_login = nom_login;
+    public Denuncia(long seq_denuncia, long seq_receita, String des_comentario) {
+        this.seq_denuncia = seq_denuncia;
         this.nro_seq_receita = seq_receita;
         this.des_comentario = des_comentario;
     }
 
-    public String getNom_login() {
-        return nom_login;
+    public long getSeq_denuncia() {
+        return seq_denuncia;
     }
 
-    public void setNom_login(String nom_login) {
-        this.nom_login = nom_login;
+    public void setSeq_denuncia(long seq_denuncia) {
+        this.seq_denuncia = seq_denuncia;
     }
 
     public long getNro_seq_receita() {
