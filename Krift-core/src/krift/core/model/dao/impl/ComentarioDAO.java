@@ -21,8 +21,8 @@ import util.db.exception.PersistenciaException;
 public class ComentarioDAO implements IComentarioDAO{
 
     @Override
-    public void comentar(Comentario comentario) throws PersistenciaException {
-        
+    public boolean comentar(Comentario comentario) throws PersistenciaException {
+        boolean sucesso = false;
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
             String sql ="INSERT INTO comentario(nro_seq_receita,nom_login, des_comentario)" +
@@ -42,14 +42,16 @@ public class ComentarioDAO implements IComentarioDAO{
             }
             
             connection.close();
+            sucesso = true;
         }catch (Exception e){
             e.printStackTrace();
             throw new PersistenciaException(e.getMessage(), e);
         }
+        return sucesso;
     }
     
     @Override
-    public ArrayList<Comentario> comentariosDaReceita(Comentario comentario) throws PersistenciaException {
+    public ArrayList<Comentario> comentariosDaReceita(long nro_seq_receita) throws PersistenciaException {
         ArrayList<Comentario> comentarios = new ArrayList<>();
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
@@ -57,7 +59,7 @@ public class ComentarioDAO implements IComentarioDAO{
                   "    WHERE nro_seq_receita = ?;";
             PreparedStatement statement = connection.prepareStatement(sql);
             
-            statement.setLong(1, comentario.getNro_seq_receita());
+            statement.setLong(1, nro_seq_receita);
             ResultSet resultSet = statement.executeQuery();
             
             while (resultSet.next()) {
@@ -77,7 +79,8 @@ public class ComentarioDAO implements IComentarioDAO{
     }
     
     @Override
-    public void detetarComentario(Comentario comentario) throws PersistenciaException {
+    public boolean detetarComentario(Comentario comentario) throws PersistenciaException {
+        boolean sucesso = false;
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
             String sql ="DELETE FROM comentario" +
@@ -91,9 +94,11 @@ public class ComentarioDAO implements IComentarioDAO{
             statement.executeQuery();
             
             connection.close();
+            sucesso = true;
         }catch (Exception e){
             e.printStackTrace();
             throw new PersistenciaException(e.getMessage(), e);
         }
+        return true;
     }
 }

@@ -14,9 +14,9 @@ import util.db.exception.PersistenciaException;
  * @author Nome
  */
 public interface IAvaliacaoDAO {
-    public void avaliar(Avaliacao avaliacao) throws PersistenciaException;
-    public void alterar(Avaliacao avaliacao) throws PersistenciaException;
+    public boolean avaliar(Avaliacao avaliacao) throws PersistenciaException;
+    public boolean alterar(Avaliacao avaliacao) throws PersistenciaException;
     public Avaliacao consultaAvaliacao(Avaliacao avaliacao) throws PersistenciaException;
     public Avaliacao avaliacaoReceita(Avaliacao avaliacao) throws PersistenciaException;
-    public long denunciar(Denuncia denuncia) throws PersistenciaException;
+    public boolean denunciar(Denuncia denuncia) throws PersistenciaException;
 }
