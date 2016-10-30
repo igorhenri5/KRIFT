@@ -1,2 +1,0 @@
-# KRIFT
-TCC - KRIFT
