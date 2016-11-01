@@ -6,15 +6,13 @@
 package krift.proxy;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
-import java.util.List;
 import krift.common.model.domain.*;
 import krift.common.model.services.*;
-import krift.common.util.AbstractInOut;
-import krift.common.util.Request;
 import util.db.exception.NegocioException;
 import util.db.exception.PersistenciaException;
 
@@ -24,28 +22,22 @@ import util.db.exception.PersistenciaException;
  */
 public class stubManterComentario implements IManterComentario {
 
-    private Socket socket;
-    private String host = "localhost";
-    private int port = 2223;
+    Registry registry;
+    IManterComentario manterComentario;
 
-    public stubManterComentario(String host, int port) {
-        this.host = host;
-        this.port = port;
+    public stubManterComentario() {
+        try{
+            registry = LocateRegistry.getRegistry("localhost",2345);
+            manterComentario = (IManterComentario) registry.lookup("comentario");
+        }catch(RemoteException | NotBoundException ex){
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override
     public boolean comentar(Comentario comentario) throws PersistenciaException, NegocioException {
         try {
-            socket = new Socket(host, port);
-            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
-            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-
-            out.writeObject(Request.COMENTAR);
-            out.writeObject(comentario);
-            out.flush();
-
-            boolean resposta = in.readBoolean();
-            return resposta;
+            return manterComentario.comentar(comentario);
         } catch (IOException ex) {
             return false;
         }
@@ -54,16 +46,7 @@ public class stubManterComentario implements IManterComentario {
     @Override
     public boolean deletarComentario(Comentario comentario) throws PersistenciaException, NegocioException {
         try {
-            socket = new Socket(host, port);
-            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
-            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-
-            out.writeObject(Request.EXCLUIR_COMENTARIO);
-            out.writeObject(comentario);
-            out.flush();
-
-            boolean resposta = in.readBoolean();
-            return resposta;
+            return manterComentario.deletarComentario(comentario);
         } catch (IOException ex) {
             return false;
         }
@@ -72,17 +55,8 @@ public class stubManterComentario implements IManterComentario {
     @Override
     public ArrayList<Comentario> comentariosDaReceita(long nro_seq_receita) throws PersistenciaException, NegocioException {
         try {
-            socket = new Socket(host, port);
-            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
-            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-
-            out.writeObject(Request.LISTAR_COMENTARIOS);
-            out.writeObject(nro_seq_receita);
-            out.flush();
-
-            ArrayList<Comentario> resposta = (ArrayList) in.readObject();
-            return resposta;
-        } catch (IOException | ClassNotFoundException ex) {
+            return manterComentario.comentariosDaReceita(nro_seq_receita);
+        } catch (IOException ex) {
             return null;
         }
     }

@@ -19,9 +19,9 @@ public class EditarReceita {
     public static String execute(HttpServletRequest request) {
 
         String jsp = "index.jsp";
-        String host = "localhost";
+        
 
-        int port = 2223;
+       
         try {
             
             Receita receita = (Receita) request.getAttribute("receita");    
@@ -33,7 +33,7 @@ public class EditarReceita {
             String tendencia = request.getParameter("tendencia");
             String imagem = request.getParameter("imagem");
             
-            IManterReceita manter = new stubManterReceita(host,port);
+            IManterReceita manter = new stubManterReceita();
             
             if(false){ // trocar pra validação de campos
                 jsp = "/editarReceita.jsp";

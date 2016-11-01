@@ -20,9 +20,9 @@ public class VisualizarReceita {
     public static String execute(HttpServletRequest request) {
         
         String jsp = "index.jsp";
-        String host = "localhost";
         
-        int port = 2223;
+        
+       
         
         try {
             
@@ -30,7 +30,7 @@ public class VisualizarReceita {
             
             Long idReceita = Long.parseLong(request.getParameter("idReceita"));
                       
-            IManterReceita manterR = new stubManterReceita(host, port);    
+            IManterReceita manterR = new stubManterReceita();    
             
             if(idReceita == null){
                 jsp = "/index.jsp";

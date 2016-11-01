@@ -19,9 +19,9 @@ public class EditarPerfil {
     public static String execute(HttpServletRequest request) {
 
         String jsp = "index.jsp";
-        String host = "localhost";
+        
 
-        int port = 2223;
+       
         try {
             
             Usuario user = new Usuario();            
@@ -31,15 +31,15 @@ public class EditarPerfil {
             String imagem = request.getParameter("imagem");
             String sobre = request.getParameter("sobre");    
                     
-            IManterUsuario manter = new stubManterUsuario(host,port);
+            IManterUsuario manter = new stubManterUsuario();
             
-            if(tendencia.equals("")||tendencia==null||nomePerfil.equals("")||nomePerfil==null||sobre.equals("")||sobre==null){
+            if(tendencia.equals("")||tendencia==null||nomePerfil.equals("")||nomePerfil==null){
                 jsp = "/editarPerfil.jsp";
             }else{
                 user.setNom_perfil_usuario(nomePerfil);
                 user.setIdt_tendencia(tendencia);
                 user.setDes_usuario(sobre);
-                user.setImagem(imagem.getBytes());
+                user.setImagem(imagem.substring(22));
                 manter.alterar(user);                
             }
             

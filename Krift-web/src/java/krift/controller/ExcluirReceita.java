@@ -20,9 +20,9 @@ public class ExcluirReceita {
     public static String execute(HttpServletRequest request) {
         
         String jsp = "index.jsp";
-        String host = "localhost";
         
-        int port = 2223;
+        
+       
         
         try {
             ArrayList<Receita> receitas = null;     
@@ -30,7 +30,7 @@ public class ExcluirReceita {
             String tendencia = request.getParameter("tendencia");            
             String busca = request.getParameter("busca"); 
             
-            IManterReceita manter = new stubManterReceita(host,port);     
+            IManterReceita manter = new stubManterReceita();     
             
             receitas = manter.buscar(busca, tendencia);
             

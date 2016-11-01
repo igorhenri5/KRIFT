@@ -19,9 +19,9 @@ public class CriarReceita {
     public static String execute(HttpServletRequest request) {
         
         String jsp = "index.jsp";
-        String host = "localhost";
         
-        int port = 2223;
+        
+       
         
         try {
             
@@ -36,7 +36,7 @@ public class CriarReceita {
             //receita.set
             //lidar com ingredientes e passos
             
-            IManterReceita manter = new stubManterReceita(host,port);
+            IManterReceita manter = new stubManterReceita();
             
             if(false){ // trocar pra validação de campos
                 jsp = "/cadastrarReceita.jsp";

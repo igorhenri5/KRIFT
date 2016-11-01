@@ -83,11 +83,11 @@ public class UsuarioDAO implements IUsuarioDAO{
             String sql ="BEGIN;";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.executeQuery();
-             sql ="UPDATE imagem SET arq_imagem = ? returning seq_imagem;";
+             sql ="UPDATE imagem SET arq_imagem = decode(?,'base64') returning seq_imagem;";
 
             statement = connection.prepareStatement(sql);
 
-            statement.setBytes(1, usuario.getImagem());
+            statement.setString(1, usuario.getImagem());
             
             ResultSet resultSet = statement.executeQuery();
             
@@ -141,7 +141,7 @@ public class UsuarioDAO implements IUsuarioDAO{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
             String sql ="SELECT nom_login, seq_imagem, nom_perfil_usuario, " +
                         "       email, senha, des_usuario, idt_tendencia, nro_pontos, " +
-                        "       pos_ranking, arq_imagem" +
+                        "       pos_ranking, encode(arq_imagem, 'base64') as arq_imagem" +
                         "  FROM usuario" +
                         "  NATURAL JOIN imagem " +
                         "WHERE nom_login = ?;";
@@ -160,7 +160,7 @@ public class UsuarioDAO implements IUsuarioDAO{
                 usuario.setIdt_tendencia(resultSet.getString("idt_tendencia"));
                 usuario.setNro_pontos(resultSet.getLong("nro_pontos"));
                 usuario.setPos_ranking(resultSet.getInt("pos_ranking"));
-                usuario.setImagem(resultSet.getBytes("arq_imagem"));
+                usuario.setImagem(resultSet.getString("arq_imagem"));
             }
             
             connection.close();
@@ -178,7 +178,7 @@ public class UsuarioDAO implements IUsuarioDAO{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
             String sql ="SELECT nom_login, seq_imagem, nom_perfil_usuario, " +
                         "       email, senha, des_usuario, idt_tendencia, nro_pontos, " +
-                        "       pos_ranking, arq_imagem " +
+                        "       pos_ranking, encode(arq_imagem,'base64') as arq_imagem" +
                         "  FROM usuario" +
                         "  NATURAL JOIN imagem ORDER BY 9;";                        
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -196,7 +196,7 @@ public class UsuarioDAO implements IUsuarioDAO{
                 usuario.setIdt_tendencia(resultSet.getString("idt_tendencia"));
                 usuario.setNro_pontos(resultSet.getLong("nro_pontos"));
                 usuario.setPos_ranking(resultSet.getInt("pos_ranking"));
-                usuario.setImagem(resultSet.getBytes("arq_imagem"));
+                usuario.setImagem(resultSet.getString("arq_imagem"));
                 usuarios.add(usuario);
             }
             

@@ -6,14 +6,13 @@
 package krift.proxy;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import krift.common.model.domain.*;
 import krift.common.model.services.IManterFavoritos;
-import krift.common.util.AbstractInOut;
-import krift.common.util.Request;
 import util.db.exception.NegocioException;
 import util.db.exception.PersistenciaException;
 
@@ -23,30 +22,22 @@ import util.db.exception.PersistenciaException;
  */
 public class stubManterFavoritos implements IManterFavoritos{
     
-    private Socket socket;
-     private String host = "localhost";
-    private int port = 2223;
+    Registry registry;
+    IManterFavoritos manterFavoritos;
     
-    public stubManterFavoritos(String host, int port) {
-        this.host = host;
-        this.port = port;
+    public stubManterFavoritos() {
+        try{
+            registry = LocateRegistry.getRegistry("localhost",2345);
+            manterFavoritos = (IManterFavoritos) registry.lookup("favoritos");
+        }catch(RemoteException | NotBoundException ex){
+            throw new RuntimeException(ex);
+        }
     }
     
     @Override
     public boolean favoritar(String nom_login, long nro_seq_receita) throws PersistenciaException, NegocioException {
-        try {
-            socket = new Socket(host, port);
-            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
-            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-            
-            out.writeObject(Request.FAVORITAR);
-            
-            out.writeObject(nom_login);
-            out.writeObject(nro_seq_receita);
-            out.flush();
-            
-            boolean resposta = in.readBoolean();            
-            return resposta;
+        try {      
+            return manterFavoritos.favoritar(nom_login, nro_seq_receita);
         } catch (IOException ex) {
             return false;
         }
@@ -54,19 +45,9 @@ public class stubManterFavoritos implements IManterFavoritos{
 
     @Override
     public ArrayList<Receita> listarFavoritos(String nom_login, long nro_seq_receita) throws PersistenciaException, NegocioException {
-        try {
-            socket = new Socket(host, port);
-            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
-            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-            
-            out.writeObject(Request.LISTAR_FAVORITOS);
-            out.writeObject(nom_login);
-            out.writeObject(nro_seq_receita);
-            out.flush();
-            
-            ArrayList<Receita> resposta = (ArrayList) in.readObject();            
-            return resposta;
-        } catch (IOException | ClassNotFoundException ex) {
+        try {           
+            return manterFavoritos.listarFavoritos(nom_login, nro_seq_receita);
+        } catch (IOException ex) {
             return null;
         }
     }
@@ -74,17 +55,7 @@ public class stubManterFavoritos implements IManterFavoritos{
     @Override
     public boolean desfavoritar(String nom_login, long nro_seq_receita) throws PersistenciaException, NegocioException {
         try {
-            socket = new Socket(host, port);
-            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
-            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-            
-            out.writeObject(Request.REMOVER_FAVORITO);
-            out.writeObject(nom_login);
-            out.writeObject(nro_seq_receita);
-            out.flush();
-            
-            boolean resposta = in.readBoolean();            
-            return resposta;
+            return manterFavoritos.desfavoritar(nom_login, nro_seq_receita);
         } catch (IOException ex) {
             return false;
         }

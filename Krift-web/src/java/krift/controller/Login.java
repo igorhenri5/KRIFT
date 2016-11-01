@@ -19,23 +19,23 @@ public class Login {
 
     public static String execute(HttpServletRequest request) {
         String jsp = "login.jsp";
-        String host = "localhost";
+        
 
-        int port = 2223;
+       
 
         try {
             Usuario user = null;
             String nomeUsuario = request.getParameter("usuario");
             String senha = request.getParameter("senha");
 
-            IManterUsuario manter = new stubManterUsuario(host, port);
-            IManterReceita manter2 = new stubManterReceita(host, port);
+            IManterUsuario manter = new stubManterUsuario();
+            IManterReceita manter2 = new stubManterReceita();
 
             if (nomeUsuario == null || nomeUsuario.equals("") || senha == null || senha.equals("")) {
                 jsp = "/login.jsp";
             } else if (manter.logar(nomeUsuario, senha)) {
                 user = manter.buscar(nomeUsuario);
-                request.setAttribute("receitasRecomendadas", manter2.listarReceitasRecomendadas(host));
+                request.setAttribute("receitasRecomendadas", manter2.listarReceitasRecomendadas(nomeUsuario));
 
                 if (user == null) {
                     System.out.println("USER NULO");

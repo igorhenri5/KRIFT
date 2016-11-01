@@ -20,9 +20,9 @@ public class VisualizarUsuario {
     public static String execute(HttpServletRequest request) {
         
         String jsp = "index.jsp";
-        String host = "localhost";
         
-        int port = 2223;
+        
+       
         
         try {
             
@@ -30,8 +30,8 @@ public class VisualizarUsuario {
             ArrayList<Receita> receitas = null;
             
             String nomeUsuario = request.getParameter("nome");
-            IManterUsuario manter = new stubManterUsuario(host,port);            
-            IManterReceita manterR = new stubManterReceita(host, port);    
+            IManterUsuario manter = new stubManterUsuario();            
+            IManterReceita manterR = new stubManterReceita();    
             
             if(nomeUsuario==null||nomeUsuario.equals("")){
                 jsp = "/index.jsp";

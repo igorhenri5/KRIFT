@@ -19,9 +19,9 @@ public class Cadastrar {
     public static String execute(HttpServletRequest request) {
         
         String jsp = "cadastro.jsp";
-        String host = "localhost";
         
-        int port = 2223;
+        
+       
         
         try {
             
@@ -32,7 +32,7 @@ public class Cadastrar {
             String senha = request.getParameter("senha");
             String confirmacaoSenha = request.getParameter("confirmacao");
             
-            IManterUsuario manter = new stubManterUsuario(host,port);
+            IManterUsuario manter = new stubManterUsuario();
             
             if(email.equals("")||email==null||nomeUsuario.equals("")||nomeUsuario==null||senha.equals("")||senha==null||!(confirmacaoSenha.equals(senha))){
                 jsp = "/cadastro.jsp";

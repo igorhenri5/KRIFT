@@ -21,16 +21,16 @@ public class ComentarReceita {
         
         
         String jsp = "index.jsp";
-        String host = "localhost";
         
-        int port = 2223;
+        
+       
         
         try {
             
             Receita receita = null;   
             
-            IManterComentario manter = new stubManterComentario(host, port);  
-            IManterReceita manterR = new stubManterReceita(host, port);    
+            IManterComentario manter = new stubManterComentario();  
+            IManterReceita manterR = new stubManterReceita();    
             
             Long id = Long.parseLong(request.getParameter("idReceita"));   
             

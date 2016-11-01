@@ -21,16 +21,13 @@ public class AvaliarReceita {
         
         
         String jsp = "index.jsp";
-        String host = "localhost";
-        
-        int port = 2223;
         
         try {
             
             Receita receita = null;   
             
-            IAvaliarReceita manter = new stubAvaliarReceita(host, port);  
-            IManterReceita manterR = new stubManterReceita(host, port);    
+            IAvaliarReceita manter = new stubAvaliarReceita();  
+            IManterReceita manterR = new stubManterReceita();    
             
             Long id = Long.parseLong(request.getParameter("idReceita"));            
             

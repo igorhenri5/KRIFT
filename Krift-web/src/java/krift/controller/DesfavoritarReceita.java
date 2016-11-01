@@ -20,16 +20,16 @@ public class DesfavoritarReceita {
      public static String execute(HttpServletRequest request) {
         
         String jsp = "index.jsp";
-        String host = "localhost";
         
-        int port = 2223;
+        
+       
         
         try {
             
             Receita receita = null;   
             
-            IManterFavoritos manter = new stubManterFavoritos(host, port);  
-            IManterReceita manterR = new stubManterReceita(host, port);    
+            IManterFavoritos manter = new stubManterFavoritos();  
+            IManterReceita manterR = new stubManterReceita();    
             
             Long id = Long.parseLong(request.getParameter("idReceita"));                   
             

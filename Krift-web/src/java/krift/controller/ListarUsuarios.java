@@ -20,15 +20,15 @@ public class ListarUsuarios {
     public static String execute(HttpServletRequest request) {
 
         String jsp = "index.jsp";
-        String host = "localhost";
+        
 
-        int port = 2223;
+       
 
         try {
 
             ArrayList<Usuario> user = null;
 
-            IManterUsuario manter = new stubManterUsuario(host, port);
+            IManterUsuario manter = new stubManterUsuario();
 
             user = manter.listar();
             

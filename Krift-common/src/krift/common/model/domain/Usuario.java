@@ -25,12 +25,12 @@ public class Usuario implements Serializable{
     private int pos_ranking;
     private ArrayList<Receita> historico;
     private ArrayList<Receita> favoritos;
-    private byte[] imagem;
+    private String imagem;
 
     public Usuario() {
     }
 
-    public Usuario(String nom_login, long seq_imagem, String nom_perfil_usuario, String email, String senha, String des_usuario, String idt_tendencia, long nro_pontos, int pos_ranking, ArrayList<Receita> historico, ArrayList<Receita> favoritos, byte[] imagem) {
+    public Usuario(String nom_login, long seq_imagem, String nom_perfil_usuario, String email, String senha, String des_usuario, String idt_tendencia, long nro_pontos, int pos_ranking, ArrayList<Receita> historico, ArrayList<Receita> favoritos, String imagem) {
         this.nom_login = nom_login;
         this.seq_imagem = seq_imagem;
         this.nom_perfil_usuario = nom_perfil_usuario;
@@ -133,11 +133,11 @@ public class Usuario implements Serializable{
         this.favoritos = favoritos;
     }
 
-    public byte[] getImagem() {
+    public String getImagem() {
         return imagem;
     }
 
-    public void setImagem(byte[] imagem) {
+    public void setImagem(String imagem) {
         this.imagem = imagem;
     }
     

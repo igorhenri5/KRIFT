@@ -6,16 +6,13 @@
 package krift.proxy;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import krift.common.model.domain.Usuario;
 import krift.common.model.services.IManterUsuario;
-import krift.common.util.AbstractInOut;
-import krift.common.util.Request;
 import util.db.exception.NegocioException;
 import util.db.exception.PersistenciaException;
 
@@ -25,33 +22,24 @@ import util.db.exception.PersistenciaException;
  */
 public class stubManterUsuario implements IManterUsuario{
 
-    private Socket socket;
-    private String host = "localhost";
-    private int port = 2223;
+    Registry registry;
+    IManterUsuario manterUsuario;
 
-    public stubManterUsuario(String host, int port) {
-        this.host = host;
-        this.port = port;
+    public stubManterUsuario() {
+        try{
+            registry = LocateRegistry.getRegistry("localhost",2345);
+            manterUsuario = (IManterUsuario) registry.lookup("usuario");
+        }catch(RemoteException | NotBoundException ex){
+            throw new RuntimeException(ex);
+        }
     }
     
     @Override
     public boolean logar(String nom_login, String Senha) throws PersistenciaException, NegocioException {
         
         try {
-            socket = new Socket(host, port);
-            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
-            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-            out.writeObject(Request.LOGAR);
-            out.writeObject(nom_login);
-            out.writeObject(Senha);
-            out.flush();
-            
-            boolean resposta = (Boolean)in.readObject();   
-            if(resposta){
-                System.out.println("VAI LOGAR SIM");
-            }
-            return resposta;            
-        } catch (IOException | ClassNotFoundException ex) {
+            return manterUsuario.logar(nom_login, Senha);
+        } catch (IOException ex) {
             ex.printStackTrace();
             return false;            
         }
@@ -60,16 +48,9 @@ public class stubManterUsuario implements IManterUsuario{
     @Override
     public boolean cadastrar(Usuario usuario) throws PersistenciaException, NegocioException {      
         
-        try {
-            socket = new Socket(host, port);
-            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
-            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-            out.writeObject(Request.CADASTRAR);
-            out.writeObject(usuario);
-            out.flush();
-            boolean resposta = (Boolean)in.readObject();             
-            return resposta;            
-        } catch (IOException | ClassNotFoundException ex) {
+        try {           
+            return manterUsuario.cadastrar(usuario);            
+        } catch (IOException ex) {
             ex.printStackTrace();
             return false;            
         }
@@ -77,17 +58,8 @@ public class stubManterUsuario implements IManterUsuario{
 
     @Override
     public boolean alterar(Usuario usuario) throws PersistenciaException, NegocioException {
-        try {
-            socket = new Socket(host, port);
-            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
-            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-            
-            out.writeObject(Request.CADASTRAR);
-            out.writeObject(usuario);
-            out.flush();
-            
-            boolean resposta = in.readBoolean();            
-            return resposta;
+        try {           
+            return manterUsuario.alterar(usuario);
         } catch (IOException ex) {
             return false;
         }
@@ -97,18 +69,8 @@ public class stubManterUsuario implements IManterUsuario{
     public Usuario buscar(String nom_login) throws PersistenciaException, NegocioException {
         
         try {
-            socket = new Socket(host, port);
-            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
-            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-            
-            out.writeObject(Request.VISITAR_PERFIL);
-            out.writeObject(nom_login);
-            out.flush();
-            
-            Usuario resposta = (Usuario) in.readObject();   
-            
-            return resposta;            
-        } catch (IOException | ClassNotFoundException ex) {
+            return manterUsuario.buscar(nom_login);            
+        } catch (IOException ex) {
             return null;
         }
     }
@@ -116,14 +78,8 @@ public class stubManterUsuario implements IManterUsuario{
     @Override
     public ArrayList<Usuario> listar() throws PersistenciaException, NegocioException {
         try {
-            socket = new Socket(host, port);
-            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
-            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-            out.writeObject(Request.LISTAR_RANKING);
-            out.flush();
-            ArrayList<Usuario> resposta = (ArrayList<Usuario>) in.readObject();
-            return resposta;
-        } catch (IOException | ClassNotFoundException ex) {
+            return manterUsuario.listar();
+        } catch (IOException ex) {
             ex.printStackTrace();
             return null;            
         }

@@ -6,16 +6,13 @@
 package krift.proxy;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import krift.common.model.domain.Avaliacao;
-import krift.common.model.domain.Comentario;
 import krift.common.model.domain.Denuncia;
-import krift.common.model.domain.Receita;
 import krift.common.model.services.IAvaliarReceita;
-import krift.common.util.AbstractInOut;
-import krift.common.util.Request;
 import util.db.exception.NegocioException;
 import util.db.exception.PersistenciaException;
 
@@ -25,28 +22,22 @@ import util.db.exception.PersistenciaException;
  */
 public class stubAvaliarReceita implements IAvaliarReceita {
 
-    private Socket socket;
-    private String host = "localhost";
-    private int port = 2223;
-
-    public stubAvaliarReceita(String host, int port) {
-        this.host = host;
-        this.port = port;
+    Registry registry;
+    IAvaliarReceita avaliar;
+    
+    public stubAvaliarReceita() {
+        try{
+            registry = LocateRegistry.getRegistry("localhost",2345);
+            avaliar = (IAvaliarReceita) registry.lookup("avaliar");
+        }catch(RemoteException | NotBoundException ex){
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override
     public boolean denunciar(Denuncia denuncia) throws PersistenciaException, NegocioException {
-        try {
-            socket = new Socket(host, port);
-            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
-            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-            
-            out.writeObject(Request.DENUNCIAR); 
-            out.writeObject(denuncia);
-            out.flush();
-            
-            boolean resposta = in.readBoolean();            
-            return resposta;
+        try {         
+            return avaliar.denunciar(denuncia);
         } catch (IOException ex) {
             return false;
         }
@@ -54,17 +45,8 @@ public class stubAvaliarReceita implements IAvaliarReceita {
 
     @Override
     public boolean avaliar(Avaliacao avaliacao) throws PersistenciaException, NegocioException {
-        try {
-            socket = new Socket(host, port);
-            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
-            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-            
-            out.writeObject(Request.AVALIAR);
-            out.writeObject(avaliacao);
-            out.flush();
-            
-            boolean resposta = in.readBoolean();            
-            return resposta;
+        try {          
+            return avaliar.avaliar(avaliacao);
         } catch (IOException ex) {
             return false;
         }
@@ -73,16 +55,7 @@ public class stubAvaliarReceita implements IAvaliarReceita {
     @Override
     public boolean alterarAvaliacao(Avaliacao avaliacao) throws PersistenciaException, NegocioException {
         try {
-            socket = new Socket(host, port);
-            ObjectInputStream in = AbstractInOut.getObjectReader(socket);
-            ObjectOutputStream out = AbstractInOut.getObjectWriter(socket);
-            
-            out.writeObject(Request.ALTERAR_AVALIACAO);
-            out.writeObject(avaliacao);
-            out.flush();
-            
-            boolean resposta = in.readBoolean();            
-            return resposta;
+            return avaliar.alterarAvaliacao(avaliacao);
         } catch (IOException ex) {
             return false;
         }

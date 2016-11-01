@@ -20,17 +20,14 @@ public class BuscarReceita {
     public static String execute(HttpServletRequest request) {
         
         String jsp = "index.jsp";
-        String host = "localhost";
-        
-        int port = 2223;
-        
+
         try {
             ArrayList<Receita> receitas = null;     
             
             String tendencia = (String)request.getSession().getAttribute("SessaoTendencia");    
             String busca = request.getParameter("busca"); 
             
-            IManterReceita manter = new stubManterReceita(host,port);     
+            IManterReceita manter = new stubManterReceita();     
             
             receitas = manter.buscar(busca, tendencia);
             
