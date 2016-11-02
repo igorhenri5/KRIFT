@@ -1009,3 +1009,54 @@ table td a:hover{
 .perfil .edit:hover{
     padding-top:32px;    
 }
+
+ul.manterReceita {
+    list-style: none;
+}
+
+.manterReceita li {
+    height: 150px;
+    width: 700;
+    margin: 10px;
+    box-sizing: content-box;
+    border: 1px solid gainsboro;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}
+
+.manterReceita #img {
+    height: 150px;
+    width: 200px;
+    background: url(http://static.wixstatic.com/media/ba20a3_2b9122727d744c709a44b852f9491e73.jpg_srz_940_622_85_22_0.50_1.20_0.00_jpg_srz);
+    background-size: cover;
+    display: -webkit-inline-box;
+    float: left;
+}
+
+.manterReceita .title {
+    width: 500px;
+    display: inline-block;
+    font-weight:bold;
+}
+
+.title span {
+    margin: 10px;
+    width: 368px;
+    display: -webkit-inline-box;
+    word-break: break-word;
+}
+
+.title .actions {
+    display: inline-block;
+    font-size: 12px;
+}
+
+.actions a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #ee4c58;
+}
+
+.title p {
+    font-size: 12px;
+    margin: 10px;
+}
