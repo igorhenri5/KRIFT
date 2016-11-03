@@ -262,15 +262,26 @@ input.searchbar:focus {
     border: 1px solid #ee4c58;
 }
 
-.profileimage {
+.containerimage{
     height: 40px;
     width: 40px;
-    background: url(http://i.imgur.com/VVZYJel.png);
+    //background: url(http://i.imgur.com/VVZYJel.png);
     background-size: contain;
     display: inline-block;
     vertical-align: middle;
     position: fixed;
     margin: 20px;
+    //box-shadow: 0 1px 2px rgba(0,0,0,.15);
+}
+
+.profileimage {
+    height: 40px;
+    width: 40px;
+    //background: url(http://i.imgur.com/VVZYJel.png);
+    background-size: contain;
+    display: inline-block;
+    vertical-align: middle;
+    position: fixed;
     border-radius: 10em;
     border: 1px solid gainsboro;
     box-shadow: 0 1px 2px rgba(0,0,0,.15);
@@ -965,7 +976,7 @@ table.ranking {
     text-decoration: none;
 }
 
-.profileimage:hover .useropt {
+.containerimage:hover .useropt {
     opacity: 1;
 }
 
