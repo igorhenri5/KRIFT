@@ -33,17 +33,20 @@ public class Login {
 
             if (nomeUsuario == null || nomeUsuario.equals("") || senha == null || senha.equals("")) {
                 jsp = "/login.jsp";
+                
+                    System.out.println("1");
             } else if (manter.logar(nomeUsuario, senha)) {
                 user = manter.buscar(nomeUsuario);
-                request.setAttribute("receitasRecomendadas", manter2.listarReceitasRecomendadas(nomeUsuario));
+               // request.setAttribute("receitasRecomendadas", manter2.listarReceitasRecomendadas(nomeUsuario));
 
                 if (user == null) {
                     System.out.println("USER NULO");
                 }
                 jsp = "/index.jsp";
                 request.getSession().setAttribute("logado", user);
+                System.out.println("2");
             }
-
+            System.out.println("3");
         } catch (Exception e) {
             e.printStackTrace();
             jsp = "/login.jsp";

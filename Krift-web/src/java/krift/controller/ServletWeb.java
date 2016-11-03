@@ -18,10 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-@MultipartConfig(location = "F:/LP",
-        fileSizeThreshold = 1024 * 1024,
-        maxFileSize = 1024 * 1024 * 5,
-        maxRequestSize = 1024 * 1024 * 5 * 5)
+
 public class ServletWeb extends HttpServlet {
 
     private String jsp = "";
@@ -50,13 +47,6 @@ public class ServletWeb extends HttpServlet {
                 jsp = VisualizarUsuario.execute(request);
                 break;
             case "EditarPerfil":
-
-                Part filePart = request.getPart("fileupload");
-                String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-                InputStream fileContent = filePart.getInputStream();
-                System.out.println(filePart.getName());
-                System.out.println(filePart.getSize());
-                System.out.println(filePart.getContentType());
                 jsp = EditarPerfil.execute(request);
                 break;
             case "CriarReceita":

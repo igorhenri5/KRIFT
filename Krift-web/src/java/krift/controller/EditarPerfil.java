@@ -20,22 +20,27 @@ public class EditarPerfil {
 
         String jsp = "index.jsp";
         
-
-       
         try {
             
             Usuario user = new Usuario();            
             
             String nomePerfil = request.getParameter("nome");
             String tendencia = request.getParameter("tendencia");
-            String imagem = request.getParameter("imagem");
+            String imagem = request.getParameter("img64");
             String sobre = request.getParameter("sobre");    
                     
+            
+            System.out.println(nomePerfil);
+            System.out.println(sobre);
+            System.out.println(tendencia);
+            System.out.println(imagem);
+            
             IManterUsuario manter = new stubManterUsuario();
             
             if(tendencia.equals("")||tendencia==null||nomePerfil.equals("")||nomePerfil==null){
                 jsp = "/editarPerfil.jsp";
             }else{
+                user = manter.buscar(((Usuario) request.getSession().getAttribute("logado")).getNom_login());
                 user.setNom_perfil_usuario(nomePerfil);
                 user.setIdt_tendencia(tendencia);
                 user.setDes_usuario(sobre);

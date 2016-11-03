@@ -71,3 +71,29 @@ function addPasso() {
     
     
 }
+
+function startRead() {  
+  // obtain input element through DOM 
+  
+  var file = document.getElementById('fileupload').files[0];
+  if(file){
+    readAsDataURL(file);
+  }
+}
+
+function readAsDataURL(readFile) {
+        
+  var reader = new FileReader();
+  
+  reader.readAsDataURL(readFile);
+  
+  // Handle progress, success, and errors
+  reader.onload = loaded;
+}
+
+function loaded(evt){
+    document.getElementById('fileaux').value=evt.target.result;
+    
+	div = document.getElementById('form');
+	div.style.backgroundImage = 'url('+evt.target.result+')';
+}

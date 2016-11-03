@@ -43,7 +43,7 @@ public class VisualizarUsuario {
                 request.setAttribute("perfilRank", user.getPos_ranking());
                 request.setAttribute("perfilPontos", user.getNro_pontos());                
                 request.setAttribute("perfilSobre", user.getDes_usuario());
-                request.setAttribute("perfilReceitas", manterR.listarReceitasPorUsuario(nomeUsuario));
+               // request.setAttribute("perfilReceitas", manterR.listarReceitasPorUsuario(nomeUsuario));
                 
                 String td = user.getIdt_tendencia();
                 

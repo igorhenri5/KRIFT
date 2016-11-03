@@ -110,7 +110,7 @@
                 </div>
                         
                 <div>
-                    <form id="form" method="post" action="/Krift/servletweb?acao=EditarPerfil" enctype="multipart/form-data">
+                    <form id="form" method="POST" action="/Krift/servletweb?acao=EditarPerfil">
                         <div class="navblock" style="padding-bottom: 20px;"> 
                             <h2 class="title whitetitle">EDIÇÃO DE PERFIL</h2>
 
@@ -126,43 +126,43 @@
                                     <div>
                                         <select name="tendencia" id="selectTendencia">
                                             <% if(((Usuario)session.getAttribute("logado")).getIdt_tendencia().equals("SEM")){ %>  
-                                            <option value="onivorismo">Onivorismo - Contém carne, vegetais e/ou derivados de animais simultaneamente</option>
-                                            <option value="vegetarianismo">Vegetarianismo - Contém vegetais e derivados de animais</option>
-                                            <option value="veganismo">Veganismo - Contém apenas vegetais</option>
-                                            <option value="carnivorismo">Carnivorismo - Contém apenas carne</option>	
-                                            <option selected value="sem tendencia">Sem tendência - Não classificado</option>
+                                            <option value="ONV">Onivorismo - Contém carne, vegetais e/ou derivados de animais simultaneamente</option>
+                                            <option value="VGT">Vegetarianismo - Contém vegetais e derivados de animais</option>
+                                            <option value="VGN">Veganismo - Contém apenas vegetais</option>
+                                            <option value="CRN">Carnivorismo - Contém apenas carne</option>	
+                                            <option selected value="SEM">Sem tendência - Não classificado</option>
                                             <% } %>  
                                             
                                             <% if(((Usuario)session.getAttribute("logado")).getIdt_tendencia().equals("ONV")){ %>  
-                                            <option selected value="onivorismo">Onivorismo - Contém carne, vegetais e/ou derivados de animais simultaneamente</option>
-                                            <option value="vegetarianismo">Vegetarianismo - Contém vegetais e derivados de animais</option>
-                                            <option value="veganismo">Veganismo - Contém apenas vegetais</option>
-                                            <option value="carnivorismo">Carnivorismo - Contém apenas carne</option>	
-                                            <option selected value="sem tendencia">Sem tendência - Não classificado</option>
+                                            <option selected value="ONV">Onivorismo - Contém carne, vegetais e/ou derivados de animais simultaneamente</option>
+                                            <option value="VGT">Vegetarianismo - Contém vegetais e derivados de animais</option>
+                                            <option value="VGN">Veganismo - Contém apenas vegetais</option>
+                                            <option value="CRN">Carnivorismo - Contém apenas carne</option>	
+                                            <option value="SEM">Sem tendência - Não classificado</option>
                                             <% } %> 
                                             
                                             <% if(((Usuario)session.getAttribute("logado")).getIdt_tendencia().equals("VGN")){ %>  
-                                            <option value="onivorismo">Onivorismo - Contém carne, vegetais e/ou derivados de animais simultaneamente</option>
-                                            <option value="vegetarianismo">Vegetarianismo - Contém vegetais e derivados de animais</option>
-                                            <option selected value="veganismo">Veganismo - Contém apenas vegetais</option>
-                                            <option value="carnivorismo">Carnivorismo - Contém apenas carne</option>	
-                                            <option selected value="sem tendencia">Sem tendência - Não classificado</option>
+                                            <option value="ONV">Onivorismo - Contém carne, vegetais e/ou derivados de animais simultaneamente</option>
+                                            <option value="VGT">Vegetarianismo - Contém vegetais e derivados de animais</option>
+                                            <option selected value="VGN">Veganismo - Contém apenas vegetais</option>
+                                            <option value="CRN">Carnivorismo - Contém apenas carne</option>	
+                                            <option value="SEM">Sem tendência - Não classificado</option>
                                             <% } %> 
                                             
                                             <% if(((Usuario)session.getAttribute("logado")).getIdt_tendencia().equals("VGT")){ %>  
-                                            <option value="onivorismo">Onivorismo - Contém carne, vegetais e/ou derivados de animais simultaneamente</option>
-                                            <option selected value="vegetarianismo">Vegetarianismo - Contém vegetais e derivados de animais</option>
-                                            <option value="veganismo">Veganismo - Contém apenas vegetais</option>
-                                            <option value="carnivorismo">Carnivorismo - Contém apenas carne</option>	
-                                            <option value="sem tendencia">Sem tendência - Não classificado</option>
+                                            <option value="ONV">Onivorismo - Contém carne, vegetais e/ou derivados de animais simultaneamente</option>
+                                            <option selected value="VGT">Vegetarianismo - Contém vegetais e derivados de animais</option>
+                                            <option value="VGN">Veganismo - Contém apenas vegetais</option>
+                                            <option value="CRN">Carnivorismo - Contém apenas carne</option>	
+                                            <option value="SEM">Sem tendência - Não classificado</option>
                                             <% } %> 
                                             
                                             <% if(((Usuario)session.getAttribute("logado")).getIdt_tendencia().equals("CRN")){ %>  
-                                            <option value="onivorismo">Onivorismo - Contém carne, vegetais e/ou derivados de animais simultaneamente</option>
-                                            <option value="vegetarianismo">Vegetarianismo - Contém vegetais e derivados de animais</option>
-                                            <option value="veganismo">Veganismo - Contém apenas vegetais</option>
-                                            <option selected value="carnivorismo">Carnivorismo - Contém apenas carne</option>	
-                                            <option value="sem tendencia">Sem tendência - Não classificado</option>
+                                            <option value="ONV">Onivorismo - Contém carne, vegetais e/ou derivados de animais simultaneamente</option>
+                                            <option value="VGT">Vegetarianismo - Contém vegetais e derivados de animais</option>
+                                            <option value="VGN">Veganismo - Contém apenas vegetais</option>
+                                            <option selected value="CRN">Carnivorismo - Contém apenas carne</option>	
+                                            <option value="SEM">Sem tendência - Não classificado</option>
                                             <% } %> 
                                         </select>
                                         <span>NECESSÁRIO</span>
@@ -173,7 +173,8 @@
                                     <h4>Imagem</h4>
 
                                     <div>
-                                        <input name="imagem" style="height: 36px;padding-top: 8px;" id="fileupload" value="fileupload" name="fileupload" type="file">
+                                        <input name="imagem" style="height: 36px;padding-top: 8px;" id="fileupload" value="fileupload" name="fileupload" type="file"  onchange='startRead()'> 
+                                        <input type="hidden" name="img64" id="fileaux"> 
                                         <span style="color: #a2a2a2;">OPCIONAL</span>
                                     </div>
 

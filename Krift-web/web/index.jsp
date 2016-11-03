@@ -55,8 +55,9 @@
                 </div>
                 <% 
                     if(session.getAttribute("logado")!=null){ 
+                    System.out.println(((Usuario)session.getAttribute("logado")).getImagem());
                 %>
-                <div class="profileimage">
+                <div class="profileimage" id="pimg" style="background-image:url('data:image/png;base64,<%= ((Usuario)session.getAttribute("logado")).getImagem()  %>')">
                     <div class="useropt">
                         <a href="/Krift/servletweb?acao=Logout">SAIR</a>
                     </div>

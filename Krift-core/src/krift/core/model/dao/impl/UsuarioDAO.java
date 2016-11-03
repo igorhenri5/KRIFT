@@ -82,12 +82,15 @@ public class UsuarioDAO implements IUsuarioDAO{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
             String sql ="BEGIN;";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.executeQuery();
+            //statement.executeQuery();
              sql ="UPDATE imagem SET arq_imagem = decode(?,'base64') returning seq_imagem;";
 
             statement = connection.prepareStatement(sql);
-
+            
             statement.setString(1, usuario.getImagem());
+            System.out.println(usuario.getImagem());
+            
+            System.out.println(statement.toString());
             
             ResultSet resultSet = statement.executeQuery();
             
@@ -102,8 +105,9 @@ public class UsuarioDAO implements IUsuarioDAO{
             
             sql = "UPDATE usuario SET " +
                         "            nom_login = ?, seq_imagem = ?, nom_perfil_usuario = ?, " +
-                        "            email = ?, senha = ?, des_usuario = ?, idt_tendencia = ?," +
+                        "            email = ?, senha = ?, des_usuario = ?, idt_tendencia = ? " +
                         "WHERE nom_login = ? returning nom_login;";
+            
             statement = connection.prepareStatement(sql);
             statement.setString(1, usuario.getNom_login());
             statement.setLong(2, usuario.getSeq_imagem());
@@ -113,13 +117,16 @@ public class UsuarioDAO implements IUsuarioDAO{
             statement.setString(6, usuario.getDes_usuario());
             statement.setString(7, usuario.getIdt_tendencia());
             statement.setString(8, usuario.getNom_login());
+            
+            System.out.println(statement.toString());
+            
             resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
                 sucesso = true;
                 sql ="COMMIT;";
                 statement = connection.prepareStatement(sql);
-                statement.executeQuery();
+                //statement.executeQuery();
             }else{
                 sql ="ROLLBACK;";
                 statement = connection.prepareStatement(sql);

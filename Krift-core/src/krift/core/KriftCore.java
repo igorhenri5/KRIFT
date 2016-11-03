@@ -25,16 +25,19 @@ import krift.core.model.service.impl.ManterUsuario;
  * @author aluno
  */
 public class KriftCore {
-
+    
+    
+    
     public static void main(String args[]) throws IOException {
-        if (System.getSecurityManager() == null)
+        if (System.getSecurityManager() == null){            
             System.setSecurityManager(new SecurityManager());
+        }
         
         IAvaliarReceita avaliarReceita = new AvaliarReceita ();
         IManterComentario manterComentario = new ManterComentario();
         IManterFavoritos manterFavoritos = new ManterFavoritos ();
         IManterReceita manterReceita = new ManterReceita();
-        IManterUsuario manterUsuario = new ManterUsuario ();
+        IManterUsuario manterUsuario = new ManterUsuario();
         
         IAvaliarReceita avaliarStub = (IAvaliarReceita)UnicastRemoteObject.exportObject(avaliarReceita, 0);
         IManterComentario comentarioStub=(IManterComentario)UnicastRemoteObject.exportObject(manterComentario, 0);
