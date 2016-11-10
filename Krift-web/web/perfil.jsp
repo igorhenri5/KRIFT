@@ -54,7 +54,8 @@
                 </div>
                 <%
                     if (session.getAttribute("logado") != null) { %>
-                <div class="profileimage">
+                <div class="containerimage">
+                    <img class="profileimage" id="pimg" src="data:image/png;base64,<%=((Usuario)session.getAttribute("logado")).getImagem()%>" style='margin:0px'>
                     <div class="useropt">
                         <a href="/Krift/servletweb?acao=Logout">SAIR</a>
                     </div>
@@ -116,7 +117,7 @@
                                 %>
                                 <a class="edit" href="editarPerfil.jsp">EDITAR</a>
                                 <% }} %>
-                                <img class="imgperfil" src="http://i.imgur.com/VVZYJel.png">
+                                <img class="imgperfil" src="data:image/png;base64,<%=request.getAttribute("perfilImage")%>">
                                 <div class="nomerank">
                                     <h2><%= request.getAttribute("perfilNome") %></h2>
                                     RANK <%= request.getAttribute("perfilRank") %>

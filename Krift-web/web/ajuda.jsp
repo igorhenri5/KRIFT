@@ -1,7 +1,8 @@
 <%@page import="krift.common.model.domain.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html><head>
-        <meta charset="utf-8"> 
+        <meta charset="UTF-8"> 
+        <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
         <title>Krift</title>
         <meta name="viewport" content="width=device-width,initial-scale=1, user-scalable=no"> 
         <link rel="stylesheet" href="css/css.css">   
@@ -52,7 +53,8 @@
                 </div>
                 <% 
                     if(session.getAttribute("logado")!=null){ %>
-                <div class="profileimage">
+                <div class="containerimage">
+                    <img class="profileimage" id="pimg" src="data:image/png;base64,<%=((Usuario)session.getAttribute("logado")).getImagem()%>" style='margin:0px'>
                     <div class="useropt">
                         <a href="/Krift/servletweb?acao=Logout">SAIR</a>
                     </div>
@@ -122,17 +124,17 @@
                             <ul class="passos" style="min-width: inherit;">
                                 <li>
                                     <h4>BUSCA</h4>
-                                    <p style="font-size: smaller;padding: 5px 0px;">Para efetivar a busca, utilize a barra de pesquisa no canto direito do cabeÃ§alho. Digitando o nome da receita que deseja buscar e pressionando, em seguida, a tecla ENTER do seu teclado, vocÃª será levado Ã  tela com os resultados de sua pesquisa.</p>
+                                    <p style="font-size: smaller;padding: 5px 0px;">Para efetivar a busca, utilize a barra de pesquisa no canto direito do cabeçalho. Digitando o nome da receita que deseja buscar e pressionando, em seguida, a tecla ENTER do seu teclado, você será levado à tela com os resultados de sua pesquisa.</p>
                                 </li>
 
                                 <li>
                                     <h4>TENDÊNCIAS</h4>
-                                    <p style="font-size: smaller;">O menu de tendências é uma ferramenta para você selecionar sua preferÃªncia, filtrando os alimentos encontrados na busca. Selecionando a opÃ§Ã£o "SEM TENDÊNCIA", vocÃª estará ativando a busca sem filtros de tendÃªncia e encontrará todo tipo de receita.</p>
+                                    <p style="font-size: smaller;">O menu de tendências é uma ferramenta para você selecionar sua preferência, filtrando os alimentos encontrados na busca. Selecionando a opção "SEM TENDÊNCIA", você estará ativando a busca sem filtros de tendência e encontrará todo tipo de receita.</p>
                                 </li>
 
                                 <li>
                                     <h4>NAVEGAÇÃO</h4>
-                                    <p style="font-size: smaller;">Para navegar pelo KRIFT, utilize o menu que está sempre na parte da esquerda ou use as funcionalidades  do cabeÃ§alho, as quais estÃ£o inseridas nos Ã­cones da parte esquerda, no logo do KRIFT e em sua foto de perfil.</p>
+                                    <p style="font-size: smaller;">Para navegar pelo KRIFT, utilize o menu que está sempre na parte da esquerda ou use as funcionalidades  do cabeçalho, as quais estão inseridas nos íones da parte esquerda, no logo do KRIFT e em sua foto de perfil.</p>
                                 </li>
                             </ul>
                         </div>

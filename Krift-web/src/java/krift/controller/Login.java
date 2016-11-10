@@ -38,7 +38,7 @@ public class Login {
             } else if (manter.logar(nomeUsuario, senha)) {
                 user = manter.buscar(nomeUsuario);
                // request.setAttribute("receitasRecomendadas", manter2.listarReceitasRecomendadas(nomeUsuario));
-
+               
                 if (user == null) {
                     System.out.println("USER NULO");
                 }

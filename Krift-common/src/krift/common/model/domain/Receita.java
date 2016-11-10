@@ -22,7 +22,7 @@ public class Receita implements Serializable{
     private String idt_tendencia;
     private int qtd_tempo;
     private int qtd_rendimento;
-    private byte[] imagem;
+    private String imagem;
     private long seq_imagem;
     private float nota;
     private Usuario autor;
@@ -34,7 +34,7 @@ public class Receita implements Serializable{
         procedimentos = new ArrayList<>();
     }
 
-    public Receita(long nro_seq_receita, String num_login, String nom_receita, String des_receita, Date dat_publicacao, String idt_tendencia, int qtd_tempo, int qtd_rendimento, byte[] imagem, long seq_imagem, Usuario autor, ArrayList<Ingrediente> ingredientes, ArrayList<Procedimento> procedimentos, ArrayList<Denuncia> denuncias, Avaliacao avaliacoes, ArrayList<Comentario> comentarios, float nota) {
+    public Receita(long nro_seq_receita, String num_login, String nom_receita, String des_receita, Date dat_publicacao, String idt_tendencia, int qtd_tempo, int qtd_rendimento, String imagem, long seq_imagem, Usuario autor, ArrayList<Ingrediente> ingredientes, ArrayList<Procedimento> procedimentos, ArrayList<Denuncia> denuncias, Avaliacao avaliacoes, ArrayList<Comentario> comentarios, float nota) {
         this.nro_seq_receita = nro_seq_receita;
         this.num_login = num_login;
         this.nom_receita = nom_receita;
@@ -115,11 +115,11 @@ public class Receita implements Serializable{
         this.qtd_rendimento = qtd_rendimento;
     }
 
-    public byte[] getImagem() {
+    public String getImagem() {
         return imagem;
     }
 
-    public void setImagem(byte[] imagem) {
+    public void setImagem(String imagem) {
         this.imagem = imagem;
     }
 

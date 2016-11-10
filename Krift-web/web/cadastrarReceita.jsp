@@ -1,3 +1,4 @@
+<%@page import="krift.common.model.domain.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html><head>
         <meta charset="utf-8"> 
@@ -51,7 +52,8 @@
                 </div>
                 <%
                     if (session.getAttribute("logado") != null) { %>
-                <div class="profileimage">
+                <div class="containerimage">
+                    <img class="profileimage" id="pimg" src="data:image/png;base64,<%=((Usuario)session.getAttribute("logado")).getImagem()%>" style='margin:0px'>
                     <div class="useropt">
                         <a href="/Krift/servletweb?acao=Logout">SAIR</a>
                     </div>
@@ -126,7 +128,7 @@
                                 <div class="formsection">
                                     <h4>Descrição</h4>
                                     <div>
-                                        <textarea nome="descricao" placeholder="Digite aqui a descrição da receita" rows="4" cols="50" maxlength="255" style="margin: 0px; height: 66px; width: 579px;"></textarea>
+                                        <textarea name="descricao" placeholder="Digite aqui a descrição da receita" rows="4" cols="50" maxlength="255" style="margin: 0px; height: 66px; width: 579px;"></textarea>
                                         <span style="color: #a2a2a2;">OPCIONAL</span>
                                     </div>
 
@@ -152,11 +154,11 @@
                                     <h4>Tendência</h4>
                                     <div>
                                         <select name="tendencia" id="selectTendencia">
-                                            <option value="onivorismo">Onivorismo - Contém carne, vegetais e/ou derivados de animais simultaneamente</option>
-                                            <option value="vegetarianismo">Vegetarianismo - Contém vegetais e derivados de animais</option>
-                                            <option value="veganismo">Veganismo - Contém apenas vegetais</option>
-                                            <option value="carnivorismo">Carnivorismo - Contém apenas carne</option>	
-                                            <option value="semtendencia">Sem tendência - Não classificado</option>
+                                            <option value="ONV">Onivorismo - Contém carne, vegetais e/ou derivados de animais simultaneamente</option>
+                                            <option value="VGT">Vegetarianismo - Contém vegetais e derivados de animais</option>
+                                            <option value="VGN">Veganismo - Contém apenas vegetais</option>
+                                            <option value="CRN">Carnivorismo - Contém apenas carne</option>	
+                                            <option value="SEM">Sem tendência - Não classificado</option>
                                         </select>
                                         <span>NECESSÁRIO</span>
                                     </div>
@@ -166,7 +168,8 @@
                                 <div class="formsection">
                                     <h4>Imagem</h4>
                                     <div>
-                                        <input name="imagem" style="height: 36px;padding-top: 8px;" id="fileupload" value="fileupload" name="fileupload" type="file">
+                                        <input name="imagem" style="height: 36px;padding-top: 8px;" id="fileupload" value="fileupload" name="fileupload" type="file"  accept="image/png" onchange='startRead()'> 
+                                        <input type="hidden" name="img64" id="fileaux"> 
                                         <span style="color: #a2a2a2;">OPCIONAL</span>
                                     </div>
                                 </div>

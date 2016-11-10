@@ -54,8 +54,7 @@
                     <a class="sbutton" href="/Krift/servletweb?acao=Busca"></a>
                 </div>
                 <% 
-                    if(session.getAttribute("logado")!=null){ 
-                    System.out.println(((Usuario)session.getAttribute("logado")).getImagem());
+                    if(session.getAttribute("logado")!=null){
                 %>
                 <div class="containerimage">
                     <img class="profileimage" id="pimg" src="data:image/png;base64,<%=((Usuario)session.getAttribute("logado")).getImagem()%>" style='margin:0px'>

@@ -53,7 +53,8 @@
                 </div>
                 <% 
                     if(session.getAttribute("logado")!=null){ %>
-                <div class="profileimage">
+                <div class="containerimage">
+                    <img class="profileimage" id="pimg" src="data:image/png;base64,<%=((Usuario)session.getAttribute("logado")).getImagem()%>" style='margin:0px'>
                     <div class="useropt">
                         <a href="/Krift/servletweb?acao=Logout">SAIR</a>
                     </div>
@@ -173,7 +174,7 @@
                                     <h4>Imagem</h4>
 
                                     <div>
-                                        <input name="imagem" style="height: 36px;padding-top: 8px;" id="fileupload" value="fileupload" name="fileupload" type="file"  onchange='startRead()'> 
+                                        <input name="imagem" style="height: 36px;padding-top: 8px;" id="fileupload" value="fileupload" name="fileupload" type="file"  accept="image/png" onchange='startRead()'> 
                                         <input type="hidden" name="img64" id="fileaux"> 
                                         <span style="color: #a2a2a2;">OPCIONAL</span>
                                     </div>

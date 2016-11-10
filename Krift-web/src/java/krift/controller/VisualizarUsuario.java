@@ -43,6 +43,7 @@ public class VisualizarUsuario {
                 request.setAttribute("perfilRank", user.getPos_ranking());
                 request.setAttribute("perfilPontos", user.getNro_pontos());                
                 request.setAttribute("perfilSobre", user.getDes_usuario());
+                request.setAttribute("perfilImage", user.getImagem());
                // request.setAttribute("perfilReceitas", manterR.listarReceitasPorUsuario(nomeUsuario));
                 
                 String td = user.getIdt_tendencia();
@@ -70,7 +71,6 @@ public class VisualizarUsuario {
                 request.setAttribute("perfilTendencia", td);
                 
                 if(user!=null){    
-                    System.out.println("B");
                     jsp = "/perfil.jsp";                     
                 }                
             }

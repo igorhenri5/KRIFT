@@ -33,16 +33,14 @@ public class ReceitaDAO implements IReceitaDAO{
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
             IProcedimentoDAO procedimentoDAO = new ProcedimentoDAO();
-            IIngredienteDAO ingredienteDAO = new IngredienteDAO();
-            String sql ="BEGIN;";
+            IIngredienteDAO ingredienteDAO = new IngredienteDAO();;
+            String sql ="INSERT INTO imagem(arq_imagem)" +
+                  "    VALUES (decode(?,'base64'))  returning seq_imagem;";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.executeQuery();
-             sql ="INSERT INTO imagem(arq_imagem)" +
-                  "    VALUES (?)  returning seq_imagem;";
-
+            
             statement = connection.prepareStatement(sql);
 
-            statement.setBytes(1, receita.getImagem());
+            statement.setString(1, receita.getImagem());
             
             ResultSet resultSet = statement.executeQuery();
             
@@ -57,17 +55,16 @@ public class ReceitaDAO implements IReceitaDAO{
             
             sql = "INSERT INTO receita(" +
                 "            nom_login, nom_receita, des_receita, " +
-                "            dat_publicacao, idt_tendencia, qtd_tempo, qtd_rendimento)" +
+                "            idt_tendencia, qtd_tempo, qtd_rendimento)" +
                 "    VALUES (?, ?, ?, " +
-                "            ?, ?, ?, ?) returning nro_seq_receita;";
+                "             ?, ?, ?) returning nro_seq_receita;";
             statement = connection.prepareStatement(sql);
             statement.setString(1, receita.getAutor().getNom_login());
             statement.setString(2, receita.getNom_receita());
             statement.setString(3, receita.getDes_receita());
-            statement.setDate(4, receita.getDat_publicacao());
-            statement.setString(5, receita.getIdt_tendencia());
-            statement.setInt(6, receita.getQtd_tempo());
-            statement.setInt(7, receita.getQtd_rendimento());
+            statement.setString(4, receita.getIdt_tendencia());
+            statement.setInt(5, receita.getQtd_tempo());
+            statement.setInt(6, receita.getQtd_rendimento());
 
             resultSet = statement.executeQuery();
 
@@ -115,11 +112,11 @@ public class ReceitaDAO implements IReceitaDAO{
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.executeQuery();
              sql ="INSERT INTO imagem(arq_imagem)" +
-                  "    VALUES (?)  returning seq_imagem;";
+                  "    VALUES (decode(?,'base64'))  returning seq_imagem;";
 
             statement = connection.prepareStatement(sql);
 
-            statement.setBytes(1, receita.getImagem());
+            statement.setString(1, receita.getImagem());
             
             ResultSet resultSet = statement.executeQuery();
             
@@ -152,11 +149,16 @@ public class ReceitaDAO implements IReceitaDAO{
                 throw new PersistenciaException("Não foi possivel alterar a receita");
             }   
             
+            for(Ingrediente ingrediente : receita.getIngredientes()){
+                ingrediente.setNro_seq_receita(resultSet.getLong("nro_seq_receita"));
+            }
             ingredienteDAO.excluir(receita.getIngredientes().get(0));
             for(Ingrediente ingrediente : receita.getIngredientes()){
                 ingredienteDAO.inserir(ingrediente);
             }
-            
+            for(Procedimento procedimento : receita.getProcedimentos()){
+                procedimento.setNro_seq_receita(resultSet.getLong("nro_seq_receita"));
+            }
             procedimentoDAO.excluir(receita.getProcedimentos().get(0));
             for(Procedimento procedimento : receita.getProcedimentos()){
                 procedimentoDAO.inserir(procedimento);
@@ -201,7 +203,7 @@ public class ReceitaDAO implements IReceitaDAO{
             IProcedimentoDAO procedimentoDAO = new ProcedimentoDAO();
             IIngredienteDAO ingredienteDAO = new IngredienteDAO();
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql ="SELECT nro_seq_receita, nom_login, seq_imagem, arq_imagem, nom_receita, " +
+            String sql ="SELECT nro_seq_receita, nom_login, seq_imagem, encode(arq_imagem,'base64') AS arq_imagem, nom_receita, " +
                         "       des_receita, dat_publicacao, idt_tendencia, qtd_tempo, " +
                         "       qtd_rendimento, vlr" +
                         "  FROM receita" +
@@ -236,7 +238,7 @@ public class ReceitaDAO implements IReceitaDAO{
                 receita.setIdt_tendencia(resultSet.getString("idt_tendencia"));
                 receita.setQtd_tempo(resultSet.getInt("qtd_tempo"));
                 receita.setQtd_rendimento(resultSet.getInt("qtd_rendimento"));
-                receita.setImagem(resultSet.getBytes("arq_imagem"));
+                receita.setImagem(resultSet.getString("arq_imagem"));
                 receita.setNro_seq_receita(resultSet.getLong("nro_seq_receita"));
                 receita.setNota(resultSet.getFloat("vlr"));
                 receita.setIngredientes(ingredienteDAO.listarPorReceita(id));
@@ -258,7 +260,7 @@ public class ReceitaDAO implements IReceitaDAO{
         ArrayList<Receita> receitas = new ArrayList<>();
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql ="SELECT nro_seq_receita, nom_login, seq_imagem, arq_imagem, nom_receita, " +
+            String sql ="SELECT nro_seq_receita, nom_login, seq_imagem, encode(arq_imagem,'base64') AS arq_imagem, nom_receita, " +
                         "       des_receita, dat_publicacao, idt_tendencia, qtd_tempo, " +
                         "       qtd_rendimento, vlr" +
                         "  FROM receita" +
@@ -291,7 +293,7 @@ public class ReceitaDAO implements IReceitaDAO{
                 receita.setIdt_tendencia(resultSet.getString("idt_tendencia"));
                 receita.setQtd_tempo(resultSet.getInt("qtd_tempo"));
                 receita.setQtd_rendimento(resultSet.getInt("qtd_rendimento"));
-                receita.setImagem(resultSet.getBytes("arq_imagem"));
+                receita.setImagem(resultSet.getString("arq_imagem"));
                 receita.setNota(resultSet.getFloat("vlr"));
                 receita.setIngredientes(ingredienteDAO.listarPorReceita(receita.getNro_seq_receita()));
                 receita.setProcedimentos(procedimentoDAO.listarPorReceita(receita.getNro_seq_receita()));
@@ -318,7 +320,7 @@ public class ReceitaDAO implements IReceitaDAO{
             for(int i = 1; i < listaParametros.length; i++){
                 parametros += "UNION SELECT'%?%'";
             }
-            String sql ="SELECT a.*, c.arq_imagem, b.qtd" +
+            String sql ="SELECT a.*, encode(c.arq_imagem, 'base64') AS arq_imagem, b.qtd" +
                         "FROM receita AS a" +
                         "NATURAL JOIN (" +
                         "	SELECT a.nro_seq_receita, a.qtd+b.qtd+c.qtd+d.qtd as qtd" +
@@ -398,7 +400,7 @@ public class ReceitaDAO implements IReceitaDAO{
                 receita.setIdt_tendencia(resultSet.getString("idt_tendencia"));
                 receita.setQtd_tempo(resultSet.getInt("qtd_tempo"));
                 receita.setQtd_rendimento(resultSet.getInt("qtd_rendimento"));
-                receita.setImagem(resultSet.getBytes("arq_imagem"));
+                receita.setImagem(resultSet.getString("arq_imagem"));
                 receita.setNota(resultSet.getFloat("vlr"));
                 receita.setIngredientes(ingredienteDAO.listarPorReceita(receita.getNro_seq_receita()));
                 receita.setProcedimentos(procedimentoDAO.listarPorReceita(receita.getNro_seq_receita()));
@@ -420,7 +422,7 @@ public class ReceitaDAO implements IReceitaDAO{
         ArrayList<Receita> receitas = new ArrayList<>();
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql ="SELECT nro_seq_receita, nom_login, seq_imagem, arq_imagem, nom_receita, " +
+            String sql ="SELECT nro_seq_receita, nom_login, seq_imagem, encode(arq_imagem,'base64') AS 'arq_imagem', nom_receita, " +
                         "       des_receita, dat_publicacao, a.idt_tendencia, qtd_tempo, " +
                         "       qtd_rendimento, vlr" +
                         "  FROM receita AS a" +
@@ -457,7 +459,7 @@ public class ReceitaDAO implements IReceitaDAO{
                 receita.setIdt_tendencia(resultSet.getString("idt_tendencia"));
                 receita.setQtd_tempo(resultSet.getInt("qtd_tempo"));
                 receita.setQtd_rendimento(resultSet.getInt("qtd_rendimento"));
-                receita.setImagem(resultSet.getBytes("arq_imagem"));
+                receita.setImagem(resultSet.getString("arq_imagem"));
                 receita.setNota(resultSet.getFloat("vlr"));
                 receita.setIngredientes(ingredienteDAO.listarPorReceita(receita.getNro_seq_receita()));
                 receita.setProcedimentos(procedimentoDAO.listarPorReceita(receita.getNro_seq_receita()));
@@ -479,7 +481,7 @@ public class ReceitaDAO implements IReceitaDAO{
         ArrayList<Receita> receitas = new ArrayList<>();
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql ="SELECT nro_seq_receita, nom_login, arq_imagem, nom_receita, " +
+            String sql ="SELECT nro_seq_receita, nom_login, encode(arq_imagem,'base64') as 'arq_imagem', nom_receita, " +
                         "       des_receita, dat_publicacao, idt_tendencia, qtd_tempo, " +
                         "       qtd_rendimento, vlr" +
                         "  FROM receita AS a" +
@@ -515,7 +517,7 @@ public class ReceitaDAO implements IReceitaDAO{
                 receita.setIdt_tendencia(resultSet.getString("idt_tendencia"));
                 receita.setQtd_tempo(resultSet.getInt("qtd_tempo"));
                 receita.setQtd_rendimento(resultSet.getInt("qtd_rendimento"));
-                receita.setImagem(resultSet.getBytes("arq_imagem"));
+                receita.setImagem(resultSet.getString("arq_imagem"));
                 receita.setNota(resultSet.getFloat("vlr"));
                 receita.setIngredientes(ingredienteDAO.listarPorReceita(receita.getNro_seq_receita()));
                 receita.setProcedimentos(procedimentoDAO.listarPorReceita(receita.getNro_seq_receita()));

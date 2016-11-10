@@ -45,7 +45,8 @@ public class EditarPerfil {
                 user.setIdt_tendencia(tendencia);
                 user.setDes_usuario(sobre);
                 user.setImagem(imagem.substring(22));
-                manter.alterar(user);                
+                if(manter.alterar(user))
+                    request.getSession().setAttribute("logado", user);
             }
             
         } catch (Exception e) {
