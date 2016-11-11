@@ -46,11 +46,12 @@ public class CriarReceita {
                 atual.setNom_ingrediente(request.getParameterValues("ingrediente")[i]);
                 atual.setDes_quantidade(request.getParameterValues("quantidade")[i]);
                 ingredientes.add(atual);
+                System.out.println("IG -> "+atual.getNom_ingrediente());
             }
             for(int i = 0; i < request.getParameterValues("passo").length; i++){
                 Procedimento atual = new Procedimento();
                 atual.setDes_procedimento(request.getParameterValues("passo")[i]);
-                procedimentos.add(atual);;
+                procedimentos.add(atual);
             }
             
             IManterReceita manter = new stubManterReceita();

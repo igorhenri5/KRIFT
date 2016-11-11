@@ -58,6 +58,7 @@ public class ReceitaDAO implements IReceitaDAO{
                 "            idt_tendencia, qtd_tempo, qtd_rendimento)" +
                 "    VALUES (?, ?, ?, " +
                 "             ?, ?, ?) returning nro_seq_receita;";
+            
             statement = connection.prepareStatement(sql);
             statement.setString(1, receita.getAutor().getNom_login());
             statement.setString(2, receita.getNom_receita());
@@ -71,7 +72,6 @@ public class ReceitaDAO implements IReceitaDAO{
             if (resultSet.next()) {
                 sucesso = true;
                 receita.setNro_seq_receita(resultSet.getLong("nro_seq_receita"));
-                statement.executeQuery();
             }else{
                 sql ="ROLLBACK;";
                 statement = connection.prepareStatement(sql);
@@ -79,16 +79,18 @@ public class ReceitaDAO implements IReceitaDAO{
             }
             
             for(Ingrediente ingrediente : receita.getIngredientes()){
-                ingredienteDAO.inserir(ingrediente);
+                ingrediente.setNro_seq_receita(receita.getNro_seq_receita());
+                ingredienteDAO.inserir(ingrediente);                
             }
             
             for(Procedimento procedimento : receita.getProcedimentos()){
+                procedimento.setNro_seq_receita(receita.getNro_seq_receita());
                 procedimentoDAO.inserir(procedimento);
             }
             
             sql ="COMMIT;";
             statement = connection.prepareStatement(sql);
-            statement.executeQuery();
+           // statement.executeQuery();
             
             connection.close();
         }catch (Exception e){
