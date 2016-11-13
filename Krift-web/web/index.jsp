@@ -77,7 +77,7 @@
                         <%
                             if(session.getAttribute("logado")!=null){;                                
                         %>
-                        <a href="#">
+                        <a href="/Krift/servletweb?acao=ManterReceita&nome=<%= ((Usuario)session.getAttribute("logado")).getNom_login() %>">
                             <li> 
                                 <span>MINHAS RECEITAS</span>
                                 <img class="navicon" src="menuicons.png">  
@@ -117,15 +117,14 @@
                     <div class="navblock"> 
                         <h2 class="title">RECEITAS RECOMENDADAS</h2>
                         <ul class="resultados">  
-                            <% /* for(varrervetordereceitas){ */
+                            <% 
+                                /* for(varrervetordereceitas){ */
                             %>
                             <li>
                                 <div class="img" style="background-image:url(picanha.jpg);">
                                     <div class="desc"><span id="rcp">Nome da receita</span>
                                         <span class="autor">por Autor</span><span class="tendencia">tendência</span>
-
                                         <span class="nota">5.0</span>
-
                                     </div>
                                 </div>
                             </li>

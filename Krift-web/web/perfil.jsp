@@ -1,3 +1,5 @@
+<%@page import="krift.common.model.domain.Receita"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="krift.common.model.domain.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -145,18 +147,30 @@
 
 
                             <ul class="resultados ulx3">  
-                                
+                                 <% 
+                                    ArrayList<Receita> receitas = (ArrayList)request.getAttribute("perfilReceitas");
+                                    if(receitas!=null){
+                                    for(Receita receita : receitas){
+                                %>
                                 <li>
-                                    <div class="img" style="background-image:url(picanha.jpg);">
-                                        <div class="desc"><span id="rcp">Nome da receita</span>
-                                            <span class="autor">por Autor</span><span class="tendencia">tendência</span>
-
-                                            <span class="nota">5.0</span>
-
+                                    <div class="img" >
+                                        <img src="data:image/png;base64,<%= receita.getImagem() %>" />
+                                        <div class="desc">
+                                            <span id="rcp"><%= receita.getNom_receita() %></span>
+                                            <span class="autor">por <%= receita.getAutor().getNom_perfil_usuario() %></span>
+                                            <span class="tendencia"><%= receita.getIdt_tendencia() %></span>
+                                            <span class="nota"><%= receita.getNota() %></span>
                                         </div>
                                     </div>
                                 </li>
-                                
+                                <%
+                                    }
+                                }else{
+                                %>
+                                <h3>Este usuário não possui receitas cadastradas.</h3>
+                                <%
+                                   } 
+                                %>                                
                             </ul>
 
                         </div>

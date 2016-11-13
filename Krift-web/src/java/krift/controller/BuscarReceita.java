@@ -24,8 +24,15 @@ public class BuscarReceita {
         try {
             ArrayList<Receita> receitas = null;     
             
-            String tendencia = (String)request.getSession().getAttribute("SessaoTendencia");    
-            String busca = request.getParameter("busca"); 
+            String tendencia;
+            
+            if(request.getSession().getAttribute("SessaoTendencia")!=null && request.getSession().getAttribute("SessaoTendencia")!=""){
+                tendencia = (String)request.getSession().getAttribute("SessaoTendencia");   
+            }else{
+                tendencia = "SEM";
+            }            
+             
+            String busca = request.getParameter("busca");                                     
             
             IManterReceita manter = new stubManterReceita();     
             
@@ -33,7 +40,7 @@ public class BuscarReceita {
             
             if(receitas!=null){
                 request.setAttribute("receitas", receitas);
-                jsp = "/resultados.jsp";
+                //jsp = "/resultados.jsp";
             }else{
                 jsp = "/index.jsp";
             }    

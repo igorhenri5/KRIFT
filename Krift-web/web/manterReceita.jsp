@@ -1,3 +1,5 @@
+<%@page import="krift.common.model.domain.Receita"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="krift.common.model.domain.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html><head>
@@ -12,9 +14,25 @@
     <body> 
         <div class="header">
             <div class="left">
-
+                 <% 
+                    if(session.getAttribute("logado")!=null){ 
+                %>
+                <div id="add">
+                    <button onclick="window.location='cadastrarReceita.jsp'">
+                        <div class="addicon">                            
+                        </div>
+                    </button>                        
+                </div> 
+                <% } %>
                 <div id="options">
-
+                    <% 
+                    if(session.getAttribute("logado")!=null){ 
+                %>
+                    <button onclick="alert('MSG')">
+                        <div class="iconMessage">
+                        </div>
+                    </button>
+                    <% } %>
                     <button onclick="window.location = '/Krift/servletweb?acao=ListarUsuarios'">
                         <div class="iconRanking">
                         </div>
@@ -24,7 +42,7 @@
                         </div>
                     </button>
                 </div> 
-            </div>  
+            </div> 
 
             <div class="middle">
                 <a href="index.jsp"><img src="klogo.png" class="klogo"></a>
@@ -36,7 +54,8 @@
                 </div>
 
                 <%
-                    if (session.getAttribute("logado") != null) { %>
+                    if (session.getAttribute("logado") != null) {
+                %>
                 <div class="containerimage">
                     <img class="profileimage" id="pimg" src="data:image/png;base64,<%=((Usuario)session.getAttribute("logado")).getImagem()%>" style='margin:0px'>
                     <div class="useropt">
@@ -56,7 +75,30 @@
                     <h2 class="title">MENU</h2>
                     <img class="navicon" src="menuicons.png">
                     <ul class="sidenav"> 
-
+                        <%
+                            if(session.getAttribute("logado")!=null){;                                
+                        %>
+                        <a href="/Krift/servletweb?acao=ManterReceita&nome=<%= ((Usuario)session.getAttribute("logado")).getNom_login() %>">
+                            <li> 
+                                <span>MINHAS RECEITAS</span>
+                                <img class="navicon" src="menuicons.png">  
+                            </li>
+                        </a>
+                        <a href="/Krift/servletweb?acao=VisualizarUsuario&nome=<%= ((Usuario)session.getAttribute("logado")).getNom_login() %>"> 
+                            <li>  
+                                <span>MEU PERFIL</span>  
+                                <img class="navicon" src="menuicons.png">
+                            </li>
+                        </a>
+                        <a href="#"> 
+                            <li>  
+                                <span>FAVORITOS</span>
+                                <img class="navicon" src="menuicons.png">
+                            </li>
+                        </a>  
+                        <%
+ }
+                        %>
                         <a href="ajuda.jsp">
                             <li>
                                 <span>SOBRE</span> 
@@ -75,22 +117,35 @@
                 <div>
                     <div class="navblock"> 
                         <h2 class="title">SUAS RECEITAS</h2>
-                        <ul class="manterReceita"><li>
-                                <div id="img">
-                                </div>
+                        <ul class="manterReceita">
+                            <% 
+                                ArrayList<Receita> receitas = (ArrayList)request.getAttribute("receitas");
+                                if(receitas!=null){
+                                for(Receita receita : receitas){
+                            %>
+                            <li>
+                                <img src="data:image/png;base64,<%= receita.getImagem() %>" id="img"/>
                                 <div class="title">
                                     <div>
-                                        <span>NOME DA RECEITA</span>
+                                        <span><%= receita.getNom_receita() %></span>
                                         <div class="actions">
-                                            <a href="#">EDITAR</a>
-                                            <a href="#">EXCLUIR</a>
+                                            <a href="/Krift/servletweb?acao=EditarReceita&idReceita=<%= receita.getNro_seq_receita()%>">EDITAR</a>
+                                            <a href="/Krift/servletweb?acao=ExcluirReceita&idReceita=<%= receita.getNro_seq_receita()%>">EXCLUIR</a>
                                         </div>
                                     </div>
                                     <div>
-                                        <p>TEXTO DESCRITIVO SOBRE A RECEITA </p>
+                                        <p><%= receita.getDes_receita() %></p>
                                     </div>
                                 </div>
                             </li>
+                            <%
+                                }
+                            }else{
+                            %>
+                            <h3>Você não possui receitas cadastradas.</h3>
+                            <%
+                               } 
+                            %>
                         </ul>
 
                     </div>

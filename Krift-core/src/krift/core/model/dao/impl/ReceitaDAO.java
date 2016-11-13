@@ -33,9 +33,11 @@ public class ReceitaDAO implements IReceitaDAO{
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
             IProcedimentoDAO procedimentoDAO = new ProcedimentoDAO();
-            IIngredienteDAO ingredienteDAO = new IngredienteDAO();;
-            String sql ="INSERT INTO imagem(arq_imagem)" +
+            IIngredienteDAO ingredienteDAO = new IngredienteDAO();
+            
+            String sql ="INSERT INTO imagem (arq_imagem)" +
                   "    VALUES (decode(?,'base64'))  returning seq_imagem;";
+            
             PreparedStatement statement = connection.prepareStatement(sql);
             
             statement = connection.prepareStatement(sql);
@@ -46,7 +48,7 @@ public class ReceitaDAO implements IReceitaDAO{
             
             if (resultSet.next()) {
                 id_image = resultSet.getLong("seq_imagem");
-                receita.setSeq_imagem(id_image);
+                receita.setSeq_imagem(id_image);                
             }else{
                 sql ="ROLLBACK;";
                 statement = connection.prepareStatement(sql);
@@ -54,10 +56,10 @@ public class ReceitaDAO implements IReceitaDAO{
             }
             
             sql = "INSERT INTO receita(" +
-                "            nom_login, nom_receita, des_receita, " +
-                "            idt_tendencia, qtd_tempo, qtd_rendimento)" +
+                "           nom_login, nom_receita, des_receita, " +
+                "            idt_tendencia, qtd_tempo, qtd_rendimento, seq_imagem)" +
                 "    VALUES (?, ?, ?, " +
-                "             ?, ?, ?) returning nro_seq_receita;";
+                "             ?, ?, ?,?) returning nro_seq_receita;";
             
             statement = connection.prepareStatement(sql);
             statement.setString(1, receita.getAutor().getNom_login());
@@ -66,6 +68,7 @@ public class ReceitaDAO implements IReceitaDAO{
             statement.setString(4, receita.getIdt_tendencia());
             statement.setInt(5, receita.getQtd_tempo());
             statement.setInt(6, receita.getQtd_rendimento());
+            statement.setLong(7,receita.getSeq_imagem());
 
             resultSet = statement.executeQuery();
 
@@ -183,13 +186,13 @@ public class ReceitaDAO implements IReceitaDAO{
         boolean sucesso = false;
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql ="DELETE FROM imagem WHERE seq_imagem = ("
-                     + "SELECT seq_imagem FROM receita WHERE"
-                     + "nro_seq_receita = ?)";
+            String sql = " DELETE FROM imagem WHERE seq_imagem = ("
+                     + " SELECT seq_imagem FROM receita WHERE "
+                     + " nro_seq_receita = ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
 
             statement.setLong(1, id);
-            statement.executeQuery();
+            statement.execute();
             sucesso = true;
         }catch(Exception e){
             e.printStackTrace();
@@ -483,15 +486,15 @@ public class ReceitaDAO implements IReceitaDAO{
         ArrayList<Receita> receitas = new ArrayList<>();
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql ="SELECT nro_seq_receita, nom_login, encode(arq_imagem,'base64') as 'arq_imagem', nom_receita, " +
+            String sql ="SELECT nro_seq_receita, nom_login, encode(arq_imagem,'base64') as arq_imagem, nom_receita, " +
                         "       des_receita, dat_publicacao, idt_tendencia, qtd_tempo, " +
-                        "       qtd_rendimento, vlr" +
+                        "       qtd_rendimento, vlr " +
                         "  FROM receita AS a" +
-                        "  NATURAL JOIN imagem b" +
+                        "  NATURAL JOIN imagem b " +
                         "  NATURAL JOIN (" +
-                        "	SELECT nro_seq_receita, soma::real/qtd::real as vlr" +
+                        "	SELECT nro_seq_receita, soma::real/qtd::real as vlr " +
                         "	FROM (" +
-                        "		SELECT nro_seq_receita, tab.qtd, SUM(vlr_avaliacao) as soma" +
+                        "		SELECT nro_seq_receita, tab.qtd, SUM(vlr_avaliacao) as soma " +
                         "		FROM avaliacao " +
                         "		NATURAL JOIN (" +
                         "			SELECT nro_seq_receita, COUNT(*) as qtd " +
@@ -502,7 +505,14 @@ public class ReceitaDAO implements IReceitaDAO{
                         "	) as a" +
                         "  ) AS c" +
                         "  NATURAL JOIN usuario AS d" +
-                        "WHERE nom_login = ?;";
+                        " WHERE nom_login = ?;";
+            
+            sql= "SELECT A.nro_seq_receita, nom_login, encode(arq_imagem,'base64') as arq_imagem, nom_receita, des_receita, dat_publicacao, idt_tendencia, qtd_tempo, qtd_rendimento,vlr \n" +
+"	FROM receita AS a NATURAL JOIN imagem b LEFT JOIN (SELECT nro_seq_receita, soma::real/qtd::real as vlr\n" +
+"			FROM ( SELECT nro_seq_receita, tab.qtd, SUM(vlr_avaliacao) as soma \n" +
+"				FROM avaliacao NATURAL JOIN ( SELECT nro_seq_receita, COUNT(*) as qtd \n" +
+"					FROM avaliacao GROUP BY 1 ) as tab GROUP BY 1, 2) as a) AS c ON A.nro_seq_receita=C.nro_seq_receita WHERE nom_login = ?;";
+            
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, nom_login);
             ResultSet resultSet = statement.executeQuery();
@@ -511,7 +521,7 @@ public class ReceitaDAO implements IReceitaDAO{
                 Receita receita = new Receita();
                 IUsuarioDAO usuarioDAO = new UsuarioDAO();
                 receita.setAutor(usuarioDAO.consultarPorNome(resultSet.getString("nom_login")));
-                receita.setSeq_imagem(resultSet.getLong("seq_imagem"));
+                //receita.setSeq_imagem(resultSet.getLong("seq_imagem"));
                 receita.setNro_seq_receita(resultSet.getLong("nro_seq_receita"));
                 receita.setNom_receita(resultSet.getString("nom_receita"));
                 receita.setDes_receita(resultSet.getString("des_receita"));

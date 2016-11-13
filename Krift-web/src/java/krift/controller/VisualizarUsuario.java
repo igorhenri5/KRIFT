@@ -44,7 +44,7 @@ public class VisualizarUsuario {
                 request.setAttribute("perfilPontos", user.getNro_pontos());                
                 request.setAttribute("perfilSobre", user.getDes_usuario());
                 request.setAttribute("perfilImage", user.getImagem());
-               // request.setAttribute("perfilReceitas", manterR.listarReceitasPorUsuario(nomeUsuario));
+                request.setAttribute("perfilReceitas", manterR.listarReceitasPorUsuario(nomeUsuario));
                 
                 String td = user.getIdt_tendencia();
                 

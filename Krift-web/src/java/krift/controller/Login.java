@@ -20,9 +20,6 @@ public class Login {
     public static String execute(HttpServletRequest request) {
         String jsp = "login.jsp";
         
-
-       
-
         try {
             Usuario user = null;
             String nomeUsuario = request.getParameter("usuario");
@@ -37,8 +34,7 @@ public class Login {
                     System.out.println("1");
             } else if (manter.logar(nomeUsuario, senha)) {
                 user = manter.buscar(nomeUsuario);
-               // request.setAttribute("receitasRecomendadas", manter2.listarReceitasRecomendadas(nomeUsuario));
-               
+                //request.setAttribute("receitasRecomendadas", manter2.listarReceitasRecomendadas(nomeUsuario));
                 if (user == null) {
                     System.out.println("USER NULO");
                 }

@@ -22,24 +22,12 @@ public class ExcluirReceita {
         String jsp = "index.jsp";
         
         
-       
-        
-        try {
-            ArrayList<Receita> receitas = null;     
-            
-            String tendencia = request.getParameter("tendencia");            
-            String busca = request.getParameter("busca"); 
+        try {          
+            Long id = Long.parseLong(request.getParameter("idReceita")); 
             
             IManterReceita manter = new stubManterReceita();     
             
-            receitas = manter.buscar(busca, tendencia);
-            
-            if(receitas!=null){
-                request.setAttribute("receitas", receitas);
-                jsp = "/resultados.jsp";
-            }else{
-                jsp = "/index.jsp";
-            }    
+            boolean ok = manter.excluir(id);
             
         } catch (Exception e) {
             e.printStackTrace();

@@ -68,7 +68,7 @@ public class IngredienteDAO implements IIngredienteDAO{
     
     @Override
     public ArrayList<Ingrediente> listarPorReceita(long nro_seq_receita) throws PersistenciaException {
-        ArrayList<Ingrediente> ingredientes = null;
+        ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
             String sql = "SELECT nro_seq_receita, des_quantidade, nom_ingrediente FROM ingrediente WHERE " +

@@ -58,6 +58,15 @@ public class ServletWeb extends HttpServlet {
             case "ListarUsuarios":
                 jsp = ListarUsuarios.execute(request);
                 break;
+            case "ManterReceita":
+                jsp = ManterReceita.execute(request);
+                break;
+            case "EditarReceita":
+                jsp = EditarReceita.execute(request);
+                break;
+            case "ExcluirReceita":
+                jsp = ExcluirReceita.execute(request);
+                break;
         }
 
         RequestDispatcher rd = request.getRequestDispatcher(jsp);

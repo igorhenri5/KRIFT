@@ -1071,3 +1071,10 @@ ul.manterReceita {
     font-size: 12px;
     margin: 10px;
 }
+
+.img img {
+    height: 160px;
+    width: 240px;
+    float: left;
+    object-fit: cover;
+}

@@ -66,7 +66,7 @@ public class ProcedimentoDAO implements IProcedimentoDAO{
     }
     
     public ArrayList<Procedimento> listarPorReceita(long nro_seq_receita) throws PersistenciaException {
-        ArrayList<Procedimento> procedimentos = null;
+        ArrayList<Procedimento> procedimentos = new ArrayList<Procedimento>();
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
             String sql = "SELECT nro_seq_procedimento, des_procedimento FROM procedimento WHERE " +
