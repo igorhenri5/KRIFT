@@ -40,10 +40,13 @@ public class ServletWeb extends HttpServlet {
                 break;
             case "VisualizarUsuario":
                 jsp = VisualizarUsuario.execute(request);
-                break;
+                break;                
             case "EditarPerfil":
                 jsp = EditarPerfil.execute(request);
                 break;
+            case "VisualizarReceita":
+                jsp = VisualizarReceita.execute(request);
+                break;    
             case "CriarReceita":
                 jsp = CriarReceita.execute(request);
                 break;

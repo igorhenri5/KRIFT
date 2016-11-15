@@ -16,38 +16,32 @@ import krift.proxy.*;
  * @author Igor
  */
 public class VisualizarReceita {
-    
+
     public static String execute(HttpServletRequest request) {
-        
+
         String jsp = "index.jsp";
-        
-        
-       
-        
+
         try {
-            
-            Receita receita = null;   
-            
+
+            Receita receita = null;
+
             Long idReceita = Long.parseLong(request.getParameter("idReceita"));
-                      
-            IManterReceita manterR = new stubManterReceita();    
+
+            IManterReceita manterR = new stubManterReceita();
+            System.out.println(idReceita);
             
-            if(idReceita == null){
-                jsp = "/index.jsp";
-            }else{           
-                receita = manterR.visualizar(idReceita);
-                if(receita!=null){                         
-                    jsp = "/receita.jsp";     
-                    request.setAttribute("receita",receita);
-                }                                       
+            receita = manterR.visualizar(idReceita);
+            
+            if (receita != null) {
+                jsp = "/receita.jsp";
+                request.setAttribute("receita", receita);
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             jsp = "/index.jsp";
         }
-        
-        return jsp;        
-    }
-}    
 
+        return jsp;
+    }
+}

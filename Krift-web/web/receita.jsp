@@ -1,3 +1,8 @@
+<%@page import="krift.common.model.domain.Ingrediente"%>
+<%@page import="krift.common.model.domain.Procedimento"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="krift.common.model.domain.Comentario"%>
+<%@page import="krift.common.model.domain.Receita"%>
 <%@page import="krift.common.model.domain.Usuario"%>
 <%@page  contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -14,20 +19,20 @@
     <body>  
         <div class="header">
             <div class="left">
-                <% 
-                    if(session.getAttribute("logado")!=null){ 
+                <%
+                    if (session.getAttribute("logado") != null) {
                 %>
                 <div id="add">
-                    <button onclick="window.location='cadastrarReceita.jsp'">
+                    <button onclick="window.location = 'cadastrarReceita.jsp'">
                         <div class="addicon">                            
                         </div>
                     </button>                        
                 </div> 
                 <% } %> 
                 <div id="options">
-                    <% 
-                    if(session.getAttribute("logado")!=null){ 
-                %>
+                    <%
+                        if (session.getAttribute("logado") != null) {
+                    %>
                     <button onclick="alert('MSG')">
                         <div class="iconMessage">
                         </div>
@@ -37,7 +42,7 @@
                         <div class="iconRanking">
                         </div>
                     </button>
-                    <button onclick="window.location='index.jsp'">
+                    <button onclick="window.location = 'index.jsp'">
                         <div class="iconHome">
                         </div>
                     </button>
@@ -52,16 +57,16 @@
                     <input class="searchbar" placeholder="Buscar" type="text">	
                     <div class="sbutton"></div>
                 </div>
-                <% 
-                    if(session.getAttribute("logado")!=null){ 
+                <%
+                    if (session.getAttribute("logado") != null) {
                 %>
                 <div class="containerimage">
-                    <img class="profileimage" id="pimg" src="data:image/png;base64,<%=((Usuario)session.getAttribute("logado")).getImagem()%>" style='margin:0px'>
+                    <img class="profileimage" id="pimg" src="data:image/png;base64,<%=((Usuario) session.getAttribute("logado")).getImagem()%>" style='margin:0px'>
                     <div class="useropt">
                         <a href="/Krift/servletweb?acao=Logout">SAIR</a>
                     </div>
                 </div>
-                <% }else{ %>
+                <% } else { %>
                 <a href="login.jsp" class="toLogin">LOGIN</a>    
                 <% } %>
             </div> 
@@ -74,7 +79,7 @@
                     <img class="navicon" src="menuicons.png">
                     <ul class="sidenav"> 
                         <%
-                            if(session.getAttribute("logado")!=null){
+                            if (session.getAttribute("logado") != null) {
                         %>
                         <a href="#">
                             <li> 
@@ -82,7 +87,7 @@
                                 <img class="navicon" src="menuicons.png">  
                             </li>
                         </a>
-                        <a href="/Krift/servletweb?acao=VisualizarUsuario&nome=<%= ((Usuario)session.getAttribute("logado")).getNom_login() %>">
+                        <a href="/Krift/servletweb?acao=VisualizarUsuario&nome=<%= ((Usuario) session.getAttribute("logado")).getNom_login()%>">
                             <li>  
                                 <span>MEU PERFIL</span>  
                                 <img class="navicon" src="menuicons.png">
@@ -95,7 +100,7 @@
                             </li>
                         </a>  
                         <%
- }
+                            }
                         %>
                         <a href="ajuda.jsp">
                             <li>
@@ -112,6 +117,12 @@
                     </ul>  
                 </div>
 
+
+                <%
+                    Receita receita = (Receita) request.getAttribute("receita");
+                    if (receita != null) {
+                %>        
+
                 <div>
                     <div class="navblock"> 
                         <h2 class="title whitetitle" style="text-align: center;">
@@ -122,28 +133,29 @@
 
                             <header>
                                 <div style="display: inline-block;">
-                                    <h2>Nome</h2>
+                                    <h2><%= receita.getNom_receita()%></h2>
 
                                     <div style="display: inline-block;">
-                                        <h5 class="onivoro">ONÍVORO</h5>
+                                        <h5 class="onivoro"><%= receita.getIdt_tendencia()%></h5>
                                     </div>
                                 </div>
                                 <div class="receitaAutor">
                                     <div class="idt">enviado por
-                                        <a href="#">Bruce Vayne</a>
+                                        <a href="#"><%= receita.getAutor().getNom_perfil_usuario()%></a>
                                     </div>
-                                    <img src="http://i.imgur.com/VVZYJel.png">
+                                    <img src="data:image/png;base64,<%= receita.getAutor().getImagem()%>">
                                 </div>
                             </header>
 
                             <div style="margin-top: 20px;box-sizing: border-box;">  
-                                <div class="receitaImg" style="background-image:url(http://lucioamorim.com.br/wp-content/uploads/2015/06/sushi.jpg);">
+                                <div class="receitaImg">
+                                    <img src="data:image/png;base64,<%= receita.getImagem()%>" />
                                 </div>
                                 <div class="receitaDesc">
                                     <h4>DESCRIÇÃO</h4>
-                                    <span>Descrição</span>
+                                    <span><%= receita.getDes_receita()%></span>
                                     <div class="nota">
-                                        <h3>5.0</h3>
+                                        <h3><%= receita.getNota()%></h3>
                                     </div>
                                 </div>
                             </div>
@@ -154,21 +166,30 @@
                         <div class="ingredientes"> 
                             <h2 class="title">INGREDIENTES</h2>
                             <ul class="passos" style="width: 100%;">
+                                <%
+                                    ArrayList<Ingrediente> ingredientes = (ArrayList) receita.getIngredientes();
+                                    if (ingredientes != null) {
+                                        for (Ingrediente ingrediente : ingredientes) {
+                                %>
                                 <li>
-                                    <h4>INGREDIENTE</h4>
+                                    <h4><%= ingrediente.getNom_ingrediente() %> - <%= ingrediente.getDes_quantidade() %></h4>
                                 </li>
+                                <%
+                                        }
+                                    }
+                                %>
                             </ul>   
 
                         </div>
                         <div style="display: inline-block; margin-left: 15px;">
                             <div class="small"> 
                                 <h2 class="title">RENDIMENTO</h2>
-                                <span>QUANTIDADE</span>
+                                <span><%= receita.getQtd_rendimento()%></span>
                             </div>
 
                             <div style="margin-bottom:0px" class="small"> 
                                 <h2 class="title" style="font-size: 18px;">TEMPO ESTIMADO</h2>
-                                <span>TEMPO</span>
+                                <span><%= receita.getQtd_tempo()%> MIN.</span>
                             </div>
                         </div>
                     </div>
@@ -179,10 +200,19 @@
                         <h2 class="title whitetitle">MODO DE PREPARO</h2>
                         <div style="padding: 15px;"> 
                             <ul class="passos" style="width: 100%;">
+                                <%
+                                    ArrayList<Procedimento> passos = (ArrayList) receita.getProcedimentos();
+                                    if (passos != null) {
+                                        for (int i = 0; i<passos.size(); i++) {
+                                %>
                                 <li>
-                                    <h4>PASSO</h4>
-                                    <p>Descrição do passo</p>
+                                    <h4>PASSO <%= (i+1) %> </h4>
+                                    <p><%= passos.get(i).getDes_procedimento() %></p>
                                 </li>
+                                <%
+                                        }
+                                    }
+                                %>
                             </ul>    
                         </div> 
                     </div>
@@ -210,18 +240,18 @@
                                     <button>ENVIAR</button>
                                 </div> 
 
-                                <% 
-                                    /* for(varrercomentarios) */
+                                <%                                    /* for(varrercomentarios) */
                                 %>
 
                                 <ul class="passos" style="width: 100%;">
+
                                     <li>
                                         <h4>USUARIO</h4>
                                         <p>COMENTARIO</p>
                                     </li>
                                 </ul>
 
-                                <% 
+                                <%
                                 %>
 
                             </div>
@@ -229,6 +259,9 @@
                     </form>    
 
                 </div>
+                <%                    }
+                %>                
+
 
                 <div class="sidebox">
                     <h2 class="title" style="font-size: 20px;">TENDÊNCIAS NA BUSCA</h2>

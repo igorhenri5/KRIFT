@@ -221,8 +221,7 @@ public class ReceitaDAO implements IReceitaDAO{
             
             ResultSet resultSet = statement.executeQuery();
             
-            if (resultSet.next()) {
-                
+            if (resultSet.next()) {                
                 IUsuarioDAO usuarioDAO = new UsuarioDAO();
                 receita.setAutor(usuarioDAO.consultarPorNome(resultSet.getString("nom_login")));
                 receita.setSeq_imagem(resultSet.getLong("seq_imagem"));
@@ -271,6 +270,7 @@ public class ReceitaDAO implements IReceitaDAO{
                         "		GROUP BY 1, 2" +
                         "	) as A" +
                         "  ) AS b;";
+            
             PreparedStatement statement = connection.prepareStatement(sql);
             
             ResultSet resultSet = statement.executeQuery();
@@ -485,7 +485,7 @@ public class ReceitaDAO implements IReceitaDAO{
                         "	FROM (" +
                         "		SELECT nro_seq_receita, tab.qtd, SUM(vlr_avaliacao) as soma " +
                         "		FROM avaliacao " +
-                        "		NATURAL JOIN (" +
+                        "		NATURAL JOIN (" + 
                         "			SELECT nro_seq_receita, COUNT(*) as qtd " +
                         "			FROM avaliacao " +
                         "			GROUP BY 1" +
@@ -495,6 +495,8 @@ public class ReceitaDAO implements IReceitaDAO{
                         "  ) AS c" +
                         "  NATURAL JOIN usuario AS d" +
                         " WHERE nom_login = ?;";
+            
+            
             
             sql= "SELECT A.nro_seq_receita, nom_login, encode(arq_imagem,'base64') as arq_imagem, nom_receita, des_receita, dat_publicacao, idt_tendencia, qtd_tempo, qtd_rendimento,vlr \n" +
 "	FROM receita AS a NATURAL JOIN imagem b LEFT JOIN (SELECT nro_seq_receita, soma::real/qtd::real as vlr\n" +
