@@ -200,7 +200,7 @@
                                     <div>
                                         <input name="imagem" style="height: 36px;padding-top: 8px;" id="fileupload" value="fileupload" name="fileupload" type="file"  accept="image/png" onchange='startRead()'> 
                                         <br><br><img class="receitaImg" style="margin: auto;display: block;" src="data:image/png;base64,<%=((Receita)request.getAttribute("receita")).getImagem()%>">
-                                        <input type="hidden" name="img64" id="fileaux" value="<%=((Receita)request.getAttribute("receita")).getImagem()%>"> 
+                                        <input type="hidden" name="img64" id="fileaux" value="data:image/png;base64,<%=((Receita)request.getAttribute("receita")).getImagem()%>"> 
                                         <span style="color: #a2a2a2;">OPCIONAL</span>
                                     </div>
                                 </div>
@@ -212,14 +212,25 @@
                             <h2 class="title whitetitle">EDIÇÃO DE RECEITA - INGREDIENTES</h2>
                             <div class="formulario">
                                 <div class="formsection" id="igq">
-                                    <% for (int i = 0; i < ((Receita)request.getAttribute("receita")).getIngredientes().size(); i++) {%>
-                                    <h4>Ingrediente <%=i+1%></h4>
+                                    <% int i = 0;
+                                    for (i = 0; i < ((Receita)request.getAttribute("receita")).getIngredientes().size(); i++) {%>
                                     <div>
-                                        <input name="ingrediente" onkeyup="addIngrediente()" maxlength="30" placeholder="Digite aqui o nome do ingrediente" type="text" style="width: 280px; margin-right: 10px;" value="<%=((Receita)request.getAttribute("receita")).getIngredientes().get(i).getNom_ingrediente()%>">
-                                        <input name="quantidade" onkeyup="addIngrediente()" maxlength="40" placeholder="Digite aqui a quantidade" type="text" style="width: 290px;" value="<%=((Receita)request.getAttribute("receita")).getIngredientes().get(i).getDes_quantidade()%>">
-                                        <span>NECESSÁRIO</span>
+                                        <h4 style="margin-top:10px">Ingrediente <%=i+1%></h4>
+                                        <div>
+                                            <input name="ingrediente" onkeyup="addIngrediente()" maxlength="30" placeholder="Digite aqui o nome do ingrediente" type="text" style="width: 280px; margin-right: 10px;" value="<%=((Receita)request.getAttribute("receita")).getIngredientes().get(i).getNom_ingrediente()%>">
+                                            <input name="quantidade" onkeyup="addIngrediente()" maxlength="40" placeholder="Digite aqui a quantidade" type="text" style="width: 290px;" value="<%=((Receita)request.getAttribute("receita")).getIngredientes().get(i).getDes_quantidade()%>">
+                                            <span>NECESSÁRIO</span>
+                                        </div>
                                     </div>
                                     <%}%>
+                                    <div>
+                                        <h4 style="margin-top:10px">Ingrediente <%=i+1%></h4>
+                                        <div>
+                                            <input name="ingrediente" onkeyup="addIngrediente()" maxlength="30" placeholder="Digite aqui o nome do ingrediente" type="text" style="width: 280px; margin-right: 10px;" value="">
+                                            <input name="quantidade" onkeyup="addIngrediente()" maxlength="40" placeholder="Digite aqui a quantidade" type="text" style="width: 290px;" value="">
+                                            <span>NECESSÁRIO</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -228,13 +239,22 @@
                             <h2 class="title whitetitle">EDIÇÃO DE RECEITA - MODO DE PREPARO</h2>
                             <div class="formulario" >
                                 <div class="formsection" id="pss">
-                                    <% for(int i = 0; i < ((Receita)request.getAttribute("receita")).getProcedimentos().size(); i++) {%>
-                                    <h4>Passo <%=i+1%></h4>
+                                    <% for(i = 0; i < ((Receita)request.getAttribute("receita")).getProcedimentos().size(); i++) {%>
                                     <div>
-                                        <input onkeyup="addPasso()" name="passo" maxlength="255" placeholder="Digite aqui o passo" type="text" value="<%=((Receita)request.getAttribute("receita")).getProcedimentos().get(i).getDes_procedimento() %>"/>
-                                        <span>NECESSÁRIO</span>
+                                        <h4 style="margin-top:10px">Passo <%=i+1%></h4>
+                                        <div>
+                                            <input onkeyup="addPasso()" name="passo" maxlength="255" placeholder="Digite aqui o passo" type="text" value="<%=((Receita)request.getAttribute("receita")).getProcedimentos().get(i).getDes_procedimento() %>"/>
+                                            <span>NECESSÁRIO</span>
+                                        </div>
                                     </div>
                                     <%}%>
+                                    <div>
+                                        <h4 style="margin-top:10px">Passo <%=i+1%></h4>
+                                        <div>
+                                            <input onkeyup="addPasso()" name="passo" maxlength="255" placeholder="Digite aqui o passo" type="text" value=""/>
+                                            <span>NECESSÁRIO</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

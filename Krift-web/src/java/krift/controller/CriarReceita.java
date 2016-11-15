@@ -35,17 +35,21 @@ public class CriarReceita {
             ArrayList<Ingrediente> ingredientes = new ArrayList<>();
             ArrayList<Procedimento> procedimentos = new ArrayList<>();
             
-            for(int i = 0; i < request.getParameterValues("ingrediente").length &&
+            for(int i = 0; request.getParameterValues("ingrediente") != null && request.getParameterValues("quantidade") != null && i < request.getParameterValues("ingrediente").length &&
                     i < request.getParameterValues("quantidade").length; i++){
-                Ingrediente atual = new Ingrediente();
-                atual.setNom_ingrediente(request.getParameterValues("ingrediente")[i]);
-                atual.setDes_quantidade(request.getParameterValues("quantidade")[i]);
-                ingredientes.add(atual);
+                if(!request.getParameterValues("ingrediente")[i].isEmpty() && !request.getParameterValues("quantidade")[i].isEmpty()){
+                    Ingrediente atual = new Ingrediente();
+                    atual.setNom_ingrediente(request.getParameterValues("ingrediente")[i]);
+                    atual.setDes_quantidade(request.getParameterValues("quantidade")[i]);
+                    ingredientes.add(atual);
+                }
             }
-            for(int i = 0; i < request.getParameterValues("passo").length; i++){
-                Procedimento atual = new Procedimento();
-                atual.setDes_procedimento(request.getParameterValues("passo")[i]);
-                procedimentos.add(atual);
+            for(int i = 0; request.getParameterValues("passo") != null && i < request.getParameterValues("passo").length; i++){
+                if(!request.getParameterValues("passo")[i].isEmpty()){
+                    Procedimento atual = new Procedimento();
+                    atual.setDes_procedimento(request.getParameterValues("passo")[i]);
+                    procedimentos.add(atual);
+                }
             }
             
             IManterReceita manter = new stubManterReceita();

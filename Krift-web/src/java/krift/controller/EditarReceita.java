@@ -35,15 +35,19 @@ public class EditarReceita {
             
             for(int i = 0; request.getParameterValues("ingrediente") != null && request.getParameterValues("quantidade") != null && i < request.getParameterValues("ingrediente").length &&
                     i < request.getParameterValues("quantidade").length; i++){
-                Ingrediente atual = new Ingrediente();
-                atual.setNom_ingrediente(request.getParameterValues("ingrediente")[i]);
-                atual.setDes_quantidade(request.getParameterValues("quantidade")[i]);
-                ingredientes.add(atual);
+                if(!request.getParameterValues("ingrediente")[i].isEmpty() && !request.getParameterValues("quantidade")[i].isEmpty()){
+                    Ingrediente atual = new Ingrediente();
+                    atual.setNom_ingrediente(request.getParameterValues("ingrediente")[i]);
+                    atual.setDes_quantidade(request.getParameterValues("quantidade")[i]);
+                    ingredientes.add(atual);
+                }
             }
             for(int i = 0; request.getParameterValues("passo") != null && i < request.getParameterValues("passo").length; i++){
-                Procedimento atual = new Procedimento();
-                atual.setDes_procedimento(request.getParameterValues("passo")[i]);
-                procedimentos.add(atual);
+                if(!request.getParameterValues("passo")[i].isEmpty()){
+                    Procedimento atual = new Procedimento();
+                    atual.setDes_procedimento(request.getParameterValues("passo")[i]);
+                    procedimentos.add(atual);
+                }
             }
             
             if(nome == null || nome.isEmpty() || rendimento == null 
@@ -54,7 +58,6 @@ public class EditarReceita {
                 request.setAttribute("receita", receita);
             }else{
                 receita.setNom_receita(nome);
-                receita.setAutor((Usuario)request.getSession().getAttribute("logado"));
                 receita.setDes_receita(descricao);
                 receita.setIdt_tendencia(tendencia);
                 receita.setImagem(imagem.substring(22));
@@ -62,7 +65,6 @@ public class EditarReceita {
                 receita.setQtd_rendimento(rendimento);
                 receita.setProcedimentos(procedimentos);
                 receita.setQtd_tempo(Integer.parseInt(tempo));
-                receita.setNum_login(((Usuario)request.getSession().getAttribute("logado")).getNom_login());
                 
                 if(manter.alterar(receita)){      
                     jsp = "/index.jsp";
