@@ -34,11 +34,6 @@ public class CriarReceita {
             String imagem = request.getParameter("img64");
             ArrayList<Ingrediente> ingredientes = new ArrayList<>();
             ArrayList<Procedimento> procedimentos = new ArrayList<>();
-                        
-            Enumeration enume = request.getParameterNames();
-            while(enume.hasMoreElements()){
-                System.out.println(enume.nextElement());
-            }
             
             for(int i = 0; i < request.getParameterValues("ingrediente").length &&
                     i < request.getParameterValues("quantidade").length; i++){
@@ -46,7 +41,6 @@ public class CriarReceita {
                 atual.setNom_ingrediente(request.getParameterValues("ingrediente")[i]);
                 atual.setDes_quantidade(request.getParameterValues("quantidade")[i]);
                 ingredientes.add(atual);
-                System.out.println("IG -> "+atual.getNom_ingrediente());
             }
             for(int i = 0; i < request.getParameterValues("passo").length; i++){
                 Procedimento atual = new Procedimento();
@@ -56,7 +50,6 @@ public class CriarReceita {
             
             IManterReceita manter = new stubManterReceita();
             
-            System.out.println(tendencia);
             if (nome == null || ingredientes.size() ==0 || procedimentos.size() == 0 ||
                 descricao == null || rendimento == null || 
                 request.getSession().getAttribute("logado") == null){
@@ -69,9 +62,8 @@ public class CriarReceita {
                 receita.setIdt_tendencia(tendencia);
                 receita.setImagem(imagem.substring(22));
                 receita.setIngredientes(ingredientes);
-                receita.setQtd_rendimento(Integer.parseInt(rendimento));
+                receita.setQtd_rendimento(rendimento);
                 receita.setProcedimentos(procedimentos);
-                receita.setQtd_rendimento(Integer.parseInt(rendimento));
                 receita.setQtd_tempo(Integer.parseInt(tempo));
                 receita.setNum_login(((Usuario)request.getSession().getAttribute("logado")).getNom_login());
                         

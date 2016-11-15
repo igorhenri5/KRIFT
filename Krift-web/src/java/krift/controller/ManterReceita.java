@@ -8,7 +8,6 @@ package krift.controller;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import krift.common.model.domain.Receita;
-import krift.common.model.domain.Usuario;
 import krift.common.model.services.IManterReceita;
 import krift.proxy.stubManterReceita;
 
@@ -28,7 +27,6 @@ public class ManterReceita {
             IManterReceita manter = new stubManterReceita();
             String nome = request.getParameter("nome");
             receitas = manter.listarReceitasPorUsuario(nome);
-            System.out.println(receitas.size());
             request.setAttribute("receitas", receitas);
             
         } catch (Exception e) {

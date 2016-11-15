@@ -21,7 +21,7 @@ public class Receita implements Serializable{
     private Date dat_publicacao;
     private String idt_tendencia;
     private int qtd_tempo;
-    private int qtd_rendimento;
+    private String qtd_rendimento;
     private String imagem;
     private long seq_imagem;
     private float nota;
@@ -34,7 +34,7 @@ public class Receita implements Serializable{
         procedimentos = new ArrayList<>();
     }
 
-    public Receita(long nro_seq_receita, String num_login, String nom_receita, String des_receita, Date dat_publicacao, String idt_tendencia, int qtd_tempo, int qtd_rendimento, String imagem, long seq_imagem, Usuario autor, ArrayList<Ingrediente> ingredientes, ArrayList<Procedimento> procedimentos, ArrayList<Denuncia> denuncias, Avaliacao avaliacoes, ArrayList<Comentario> comentarios, float nota) {
+    public Receita(long nro_seq_receita, String num_login, String nom_receita, String des_receita, Date dat_publicacao, String idt_tendencia, int qtd_tempo, String qtd_rendimento, String imagem, long seq_imagem, Usuario autor, ArrayList<Ingrediente> ingredientes, ArrayList<Procedimento> procedimentos, ArrayList<Denuncia> denuncias, Avaliacao avaliacoes, ArrayList<Comentario> comentarios, float nota) {
         this.nro_seq_receita = nro_seq_receita;
         this.num_login = num_login;
         this.nom_receita = nom_receita;
@@ -107,11 +107,11 @@ public class Receita implements Serializable{
         this.qtd_tempo = qtd_tempo;
     }
 
-    public int getQtd_rendimento() {
+    public String getQtd_rendimento() {
         return qtd_rendimento;
     }
 
-    public void setQtd_rendimento(int qtd_rendimento) {
+    public void setQtd_rendimento(String qtd_rendimento) {
         this.qtd_rendimento = qtd_rendimento;
     }
 

@@ -5,6 +5,7 @@
  */
 package krift.controller;
 
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import krift.common.model.domain.*;
 import krift.common.model.services.*;
@@ -20,25 +21,49 @@ public class EditarReceita {
 
         String jsp = "index.jsp";
         
-
-       
         try {
-            
-            Receita receita = (Receita) request.getAttribute("receita");    
-            
+            IManterReceita manter = new stubManterReceita();
+            Receita receita = manter.visualizar(Long.parseLong(request.getParameter("idReceita")));
             String nome = request.getParameter("nome");
             String descricao = request.getParameter("descricao");
             String rendimento = request.getParameter("rendimento");
             String tempo = request.getParameter("tempo");
             String tendencia = request.getParameter("tendencia");
-            String imagem = request.getParameter("imagem");
+            String imagem = request.getParameter("img64");
+            ArrayList<Ingrediente> ingredientes = new ArrayList<>();
+            ArrayList<Procedimento> procedimentos = new ArrayList<>();
             
-            IManterReceita manter = new stubManterReceita();
+            for(int i = 0; request.getParameterValues("ingrediente") != null && request.getParameterValues("quantidade") != null && i < request.getParameterValues("ingrediente").length &&
+                    i < request.getParameterValues("quantidade").length; i++){
+                Ingrediente atual = new Ingrediente();
+                atual.setNom_ingrediente(request.getParameterValues("ingrediente")[i]);
+                atual.setDes_quantidade(request.getParameterValues("quantidade")[i]);
+                ingredientes.add(atual);
+            }
+            for(int i = 0; request.getParameterValues("passo") != null && i < request.getParameterValues("passo").length; i++){
+                Procedimento atual = new Procedimento();
+                atual.setDes_procedimento(request.getParameterValues("passo")[i]);
+                procedimentos.add(atual);
+            }
             
-            if(false){ // trocar pra validação de campos
+            if(nome == null || nome.isEmpty() || rendimento == null 
+                    || rendimento.isEmpty() || ingredientes.size() ==0 || 
+                    procedimentos.size() == 0 || tendencia == null || 
+                    tendencia.length() !=3){
                 jsp = "/editarReceita.jsp";
-            }else{                          
-                        
+                request.setAttribute("receita", receita);
+            }else{
+                receita.setNom_receita(nome);
+                receita.setAutor((Usuario)request.getSession().getAttribute("logado"));
+                receita.setDes_receita(descricao);
+                receita.setIdt_tendencia(tendencia);
+                receita.setImagem(imagem.substring(22));
+                receita.setIngredientes(ingredientes);
+                receita.setQtd_rendimento(rendimento);
+                receita.setProcedimentos(procedimentos);
+                receita.setQtd_tempo(Integer.parseInt(tempo));
+                receita.setNum_login(((Usuario)request.getSession().getAttribute("logado")).getNom_login());
+                
                 if(manter.alterar(receita)){      
                     jsp = "/index.jsp";
                 }
@@ -46,7 +71,7 @@ public class EditarReceita {
             
         } catch (Exception e) {
             e.printStackTrace();
-            jsp = "/editarPerfil.jsp";
+            jsp = "/editarReceita.jsp";
         }
 
         return jsp;

@@ -50,8 +50,6 @@ public class ReceitaDAO implements IReceitaDAO{
                 id_image = resultSet.getLong("seq_imagem");
                 receita.setSeq_imagem(id_image);                
             }else{
-                sql ="ROLLBACK;";
-                statement = connection.prepareStatement(sql);
                 throw new PersistenciaException("Não foi possivel enviar a imagem");
             }
             
@@ -67,7 +65,7 @@ public class ReceitaDAO implements IReceitaDAO{
             statement.setString(3, receita.getDes_receita());
             statement.setString(4, receita.getIdt_tendencia());
             statement.setInt(5, receita.getQtd_tempo());
-            statement.setInt(6, receita.getQtd_rendimento());
+            statement.setString(6, receita.getQtd_rendimento());
             statement.setLong(7,receita.getSeq_imagem());
 
             resultSet = statement.executeQuery();
@@ -113,24 +111,17 @@ public class ReceitaDAO implements IReceitaDAO{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
             IIngredienteDAO ingredienteDAO = new IngredienteDAO();
             IProcedimentoDAO procedimentoDAO = new ProcedimentoDAO();
-            String sql ="BEGIN;";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.executeQuery();
-             sql ="INSERT INTO imagem(arq_imagem)" +
-                  "    VALUES (decode(?,'base64'))  returning seq_imagem;";
+            String sql ="UPDATE imagem SET arq_imagem = (decode(?,'base64')) "
+                    + "WHERE seq_imagem = ? returning seq_imagem;";
 
-            statement = connection.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareStatement(sql);
 
             statement.setString(1, receita.getImagem());
+            statement.setLong(2, receita.getSeq_imagem());
             
             ResultSet resultSet = statement.executeQuery();
             
-            if (resultSet.next()) {
-                id_image = resultSet.getLong("SEQ_IMAGEM");
-                receita.setSeq_imagem(id_image);
-            }else{
-                sql ="ROLLBACK;";
-                statement = connection.prepareStatement(sql);
+            if (!resultSet.next()) {
                 throw new PersistenciaException("Não foi possivel enviar a imagem");
             }
             
@@ -144,7 +135,7 @@ public class ReceitaDAO implements IReceitaDAO{
             statement.setDate(3, receita.getDat_publicacao());
             statement.setString(4, receita.getIdt_tendencia());
             statement.setInt(5, receita.getQtd_tempo());
-            statement.setInt(6, receita.getQtd_rendimento());
+            statement.setString(6, receita.getQtd_rendimento());
             statement.setLong(7, receita.getNro_seq_receita());
             resultSet = statement.executeQuery();
 
@@ -168,10 +159,6 @@ public class ReceitaDAO implements IReceitaDAO{
             for(Procedimento procedimento : receita.getProcedimentos()){
                 procedimentoDAO.inserir(procedimento);
             }
-            
-            sql ="COMMIT;";
-            statement = connection.prepareStatement(sql);
-            statement.executeQuery();
             sucesso = true;
             connection.close();
         }catch (Exception e){
@@ -203,30 +190,32 @@ public class ReceitaDAO implements IReceitaDAO{
 
     @Override
     public Receita consultarPorId(long id) throws PersistenciaException {
-        Receita receita = null;
+        Receita receita = new Receita();
         try{
             IProcedimentoDAO procedimentoDAO = new ProcedimentoDAO();
             IIngredienteDAO ingredienteDAO = new IngredienteDAO();
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            String sql ="SELECT nro_seq_receita, nom_login, seq_imagem, encode(arq_imagem,'base64') AS arq_imagem, nom_receita, " +
-                        "       des_receita, dat_publicacao, idt_tendencia, qtd_tempo, " +
-                        "       qtd_rendimento, vlr" +
-                        "  FROM receita" +
-                        "  NATURAL JOIN imagem" +
-                        "  NATURAL JOIN (" +
-                        "	SELECT nro_seq_receita, soma::real/qtd::real as vlr" +
-                        "	FROM (" +
-                        "		SELECT nro_seq_receita, tab.qtd, SUM(vlr_avaliacao) as soma" +
-                        "		FROM avaliacao " +
-                        "		NATURAL JOIN (" +
-                        "			SELECT nro_seq_receita, COUNT(*) as qtd " +
-                        "			FROM avaliacao " +
-                        "			GROUP BY 1" +
-                        "		) as tab" +
-                        "		GROUP BY 1, 2" +
-                        "	) as A" +
-                        "  ) AS b" +
-                        "  WHERE nro_seq_receita = ?";
+            String sql ="SELECT A.nro_seq_receita, nom_login, seq_imagem, encode(arq_imagem,'base64') AS arq_imagem, nom_receita,  " +
+                "       des_receita, dat_publicacao, idt_tendencia, qtd_tempo,  " +
+                "       qtd_rendimento, COALESCE(vlr, 0) as vlr " +
+                "  FROM receita AS A " +
+                "  NATURAL JOIN imagem AS B " +
+                "  LEFT JOIN ( " +
+                "	SELECT nro_seq_receita, soma::real/qtd::real as vlr " +
+                "	FROM ( " +
+                "		SELECT A.nro_seq_receita, COALESCE(B.qtd,0) AS qtd, SUM(COALESCE(vlr_avaliacao,0)) as soma " +
+                "		FROM avaliacao AS A " +
+                "		LEFT JOIN ( " +
+                "			SELECT nro_seq_receita, COUNT(*) as qtd  " +
+                "			FROM avaliacao  " +
+                "			GROUP BY 1 " +
+                "		) as B " +
+                "		ON A.nro_seq_receita = B.nro_seq_receita " +
+                "		GROUP BY 1, 2 " +
+                "	) as A " +
+                "  ) AS C " +
+                "ON A.nro_seq_receita = C.nro_seq_receita " +
+                "WHERE A.nro_seq_receita = ? ";
             PreparedStatement statement = connection.prepareStatement(sql);
              statement.setLong(1, id);
             
@@ -242,7 +231,7 @@ public class ReceitaDAO implements IReceitaDAO{
                 receita.setDat_publicacao(resultSet.getDate("dat_publicacao"));
                 receita.setIdt_tendencia(resultSet.getString("idt_tendencia"));
                 receita.setQtd_tempo(resultSet.getInt("qtd_tempo"));
-                receita.setQtd_rendimento(resultSet.getInt("qtd_rendimento"));
+                receita.setQtd_rendimento(resultSet.getString("qtd_rendimento"));
                 receita.setImagem(resultSet.getString("arq_imagem"));
                 receita.setNro_seq_receita(resultSet.getLong("nro_seq_receita"));
                 receita.setNota(resultSet.getFloat("vlr"));
@@ -297,7 +286,7 @@ public class ReceitaDAO implements IReceitaDAO{
                 receita.setDat_publicacao(resultSet.getDate("dat_publicacao"));
                 receita.setIdt_tendencia(resultSet.getString("idt_tendencia"));
                 receita.setQtd_tempo(resultSet.getInt("qtd_tempo"));
-                receita.setQtd_rendimento(resultSet.getInt("qtd_rendimento"));
+                receita.setQtd_rendimento(resultSet.getString("qtd_rendimento"));
                 receita.setImagem(resultSet.getString("arq_imagem"));
                 receita.setNota(resultSet.getFloat("vlr"));
                 receita.setIngredientes(ingredienteDAO.listarPorReceita(receita.getNro_seq_receita()));
@@ -404,7 +393,7 @@ public class ReceitaDAO implements IReceitaDAO{
                 receita.setDat_publicacao(resultSet.getDate("dat_publiacao"));
                 receita.setIdt_tendencia(resultSet.getString("idt_tendencia"));
                 receita.setQtd_tempo(resultSet.getInt("qtd_tempo"));
-                receita.setQtd_rendimento(resultSet.getInt("qtd_rendimento"));
+                receita.setQtd_rendimento(resultSet.getString("qtd_rendimento"));
                 receita.setImagem(resultSet.getString("arq_imagem"));
                 receita.setNota(resultSet.getFloat("vlr"));
                 receita.setIngredientes(ingredienteDAO.listarPorReceita(receita.getNro_seq_receita()));
@@ -463,7 +452,7 @@ public class ReceitaDAO implements IReceitaDAO{
                 receita.setDat_publicacao(resultSet.getDate("dat_publicacao"));
                 receita.setIdt_tendencia(resultSet.getString("idt_tendencia"));
                 receita.setQtd_tempo(resultSet.getInt("qtd_tempo"));
-                receita.setQtd_rendimento(resultSet.getInt("qtd_rendimento"));
+                receita.setQtd_rendimento(resultSet.getString("qtd_rendimento"));
                 receita.setImagem(resultSet.getString("arq_imagem"));
                 receita.setNota(resultSet.getFloat("vlr"));
                 receita.setIngredientes(ingredienteDAO.listarPorReceita(receita.getNro_seq_receita()));
@@ -528,7 +517,7 @@ public class ReceitaDAO implements IReceitaDAO{
                 receita.setDat_publicacao(resultSet.getDate("dat_publicacao"));
                 receita.setIdt_tendencia(resultSet.getString("idt_tendencia"));
                 receita.setQtd_tempo(resultSet.getInt("qtd_tempo"));
-                receita.setQtd_rendimento(resultSet.getInt("qtd_rendimento"));
+                receita.setQtd_rendimento(resultSet.getString("qtd_rendimento"));
                 receita.setImagem(resultSet.getString("arq_imagem"));
                 receita.setNota(resultSet.getFloat("vlr"));
                 receita.setIngredientes(ingredienteDAO.listarPorReceita(receita.getNro_seq_receita()));

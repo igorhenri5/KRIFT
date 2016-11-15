@@ -28,12 +28,6 @@ public class EditarPerfil {
             String tendencia = request.getParameter("tendencia");
             String imagem = request.getParameter("img64");
             String sobre = request.getParameter("sobre");    
-                    
-            
-            System.out.println(nomePerfil);
-            System.out.println(sobre);
-            System.out.println(tendencia);
-            System.out.println(imagem);
             
             IManterUsuario manter = new stubManterUsuario();
             

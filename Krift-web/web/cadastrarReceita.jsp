@@ -184,8 +184,8 @@
                                     <div>
                                         <h4>Ingrediente 1</h4>
                                         <div>
-                                            <input name="ingrediente" onblur="addIngrediente()" maxlength="30" placeholder="Digite aqui o nome do ingrediente" type="text" style="width: 280px; margin-right: 10px;"/>
-                                            <input name="quantidade" onblur="addIngrediente()" maxlength="40" placeholder="Digite aqui a quantidade" type="text" style="width: 290px;"/>
+                                            <input name="ingrediente" onkeyup="addIngrediente()" maxlength="30" placeholder="Digite aqui o nome do ingrediente" type="text" style="width: 280px; margin-right: 10px;"/>
+                                            <input name="quantidade" onkeyup="addIngrediente()" maxlength="40" placeholder="Digite aqui a quantidade" type="text" style="width: 290px;"/>
                                             <span>NECESSÁRIO</span>
                                         </div>
                                     </div>
@@ -200,7 +200,7 @@
                                     <div>
                                         <h4>Passo 1</h4>
                                         <div>
-                                            <input onblur="addPasso()" name="passo" maxlength="255" placeholder="Digite aqui o passo" type="text"/>
+                                            <input onkeyup="addPasso()" name="passo" maxlength="255" placeholder="Digite aqui o passo" type="text"/>
                                             <span>NECESSÁRIO</span>
                                         </div>
                                     </div>

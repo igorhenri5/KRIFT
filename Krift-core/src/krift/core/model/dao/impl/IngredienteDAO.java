@@ -55,11 +55,10 @@ public class IngredienteDAO implements IIngredienteDAO{
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
             String sql = "DELETE FROM ingrediente WHERE " +
-                "            nro_seq_receita = ? AND nro_seq_ingrediente = ?;";
+                "            nro_seq_receita = ?;";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, ingrediente.getNro_seq_receita());
-            statement.setLong(2, ingrediente.getNro_seq_ingrediente());
-            statement.executeQuery();
+            statement.execute();
         }catch(Exception e){
             e.printStackTrace();
             throw new PersistenciaException(e.getMessage(), e);

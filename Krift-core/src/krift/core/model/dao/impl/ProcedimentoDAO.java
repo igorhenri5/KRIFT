@@ -54,11 +54,10 @@ public class ProcedimentoDAO implements IProcedimentoDAO{
         try{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
             String sql = "DELETE FROM procedimento WHERE " +
-                "            nro_seq_receita = ? AND nro_seq_procedimento = ?;";
+                "            nro_seq_receita = ?;";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, procedimento.getNro_seq_receita());
-            statement.setLong(2, procedimento.getNro_seq_procedimento());
-            statement.executeQuery();
+            statement.execute();
         }catch(Exception e){
             e.printStackTrace();
             throw new PersistenciaException(e.getMessage(), e);

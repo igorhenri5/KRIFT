@@ -18,19 +18,18 @@ function addIngrediente() {
             j = ig.length;
             for(k=i;k<j-1;k++){
                 box.removeChild(box.lastChild);
-                //alert("K = "+k+"  IGLENGTH = "+ig.length);
             }
             remove=false;
         }        
     }
     
     
-    if(lastIg!=""){
+    if(lastIg!="" && lastQt!=""){
         //alert("GOD");
         lastIg.onblur="";
         lastQt.onblur="";
         var cmp = document.createElement("DIV");
-             cmp.innerHTML = "<h4 style='margin-top:10px'> Ingrediente "+(ig.length+1)+" </h4>                        <div>                        <input name = 'ingrediente' onblur = 'addIngrediente()' maxlength = '30' placeholder = 'Digite aqui o nome do ingrediente' type = 'text' style = 'width: 280px; margin-right: 10px;' />                        <input onblur = 'addIngrediente()' name = 'quantidade' maxlength = '40' placeholder = 'Digite aqui a quantidade' type = 'text' style = 'width: 290px;' />                        <span> NECESSÁRIO </span>                        </div>";
+             cmp.innerHTML = "<h4 style='margin-top:10px'> Ingrediente "+(ig.length+1)+" </h4>                        <div>                        <input name = 'ingrediente' onkeyup = 'addIngrediente()' maxlength = '30' placeholder = 'Digite aqui o nome do ingrediente' type = 'text' style = 'width: 280px; margin-right: 10px;' />                        <input onkeyup = 'addIngrediente()' name = 'quantidade' maxlength = '40' placeholder = 'Digite aqui a quantidade' type = 'text' style = 'width: 290px;' />                        <span> NECESSÁRIO </span>                        </div>";
         box.appendChild(cmp);
     }
     
@@ -64,7 +63,7 @@ function addPasso() {
     if(lastIg!=""){
         lastIg.onblur="";
         var cmp = document.createElement("DIV");
-             cmp.innerHTML = "<h4 style='margin-top:10px'> Passo "+(ig.length+1)+" </h4>                        <div>                        <input name = 'passo' onblur = 'addPasso()' maxlength = '255' placeholder = 'Digite aqui o passo' type = 'text' />                   <span> NECESSÁRIO </span>                       ";
+             cmp.innerHTML = "<h4 style='margin-top:10px'> Passo "+(ig.length+1)+" </h4>                        <div>                        <input name = 'passo' onkeyup = 'addPasso()' maxlength = '255' placeholder = 'Digite aqui o passo' type = 'text' />                   <span> NECESSÁRIO </span>                       ";
         box.appendChild(cmp);
     }
     
@@ -77,18 +76,10 @@ function startRead() {
   
   var file = document.getElementById('fileupload').files[0];
   if(file){
-    readAsDataURL(file);
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = loaded;
   }
-}
-
-function readAsDataURL(readFile) {
-        
-  var reader = new FileReader();
-  
-  reader.readAsDataURL(readFile);
-  
-  // Handle progress, success, and errors
-  reader.onload = loaded;
 }
 
 function loaded(evt){
