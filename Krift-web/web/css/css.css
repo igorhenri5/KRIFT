@@ -1078,3 +1078,10 @@ ul.manterReceita {
     float: left;
     object-fit: cover;
 }
+
+.receitaImg img {
+    height: 160px;
+    width: 240px;
+    float: left;
+    object-fit: cover;
+}

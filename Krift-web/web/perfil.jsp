@@ -152,9 +152,9 @@
                                     if(receitas!=null){
                                     for(Receita receita : receitas){
                                 %>
-                                <li>
-                                    <div class="img" >
-                                        <img src="data:image/png;base64,<%= receita.getImagem() %>" />
+                                <li onclick="window.location = '/Krift/servletweb?acao=VisualizarReceita&idReceita=<%=receita.getNro_seq_receita()%>'">
+                                    <div class="img">
+                                        <img src="data:image/png;base64,<%= receita.getImagem() %>"/>
                                         <div class="desc">
                                             <span id="rcp"><%= receita.getNom_receita() %></span>
                                             <span class="autor">por <%= receita.getAutor().getNom_perfil_usuario() %></span>
